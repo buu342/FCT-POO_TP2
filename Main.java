@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import ShowPedia.*;
 //import java.util.InputMismatchException;
-
+ 
 
 public class Main 
 {
