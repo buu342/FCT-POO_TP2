@@ -1,12 +1,13 @@
 import java.util.Scanner;
 import ShowPedia.*;
-//import java.util.InputMismatchException;
+import exceptions.*;
  
 
 public class Main 
 {
     // Command Constants
-    public static final String COMMAND_SHOW_ADD                 = "ADDSHOW";
+    public static final String COMMAND_SHOW_ADD              	= "ADDSHOW";   
+    public static final String COMMAND_SHOW_CURRENT             = "CURRENTSHOW";
     public static final String COMMAND_SHOW_CURR                = "CURRENTSHOW";
     public static final String COMMAND_SHOW_SWITCHTO            = "SWITCHTOSHOW";
     public static final String COMMAND_SEASON_ADD               = "ADDSEASON";
@@ -27,6 +28,10 @@ public class Main
      
      // Message Constants
     public static final String MESSAGE_UNKNOWN_CMD      = "Unknown command. Type help to see available commands.";
+    public static final String NO_SHOW_SELECTED     	= "No show is selected!";
+    public static final String NO_SEASON     			= "Unknown Season!";
+    public static final String EXISTING_SHOW    		= "Show already exists!";
+    public static final String NON_EXISTING_SHOW    	= "Unknown show!";
     public static final String MESSAGE_EXIT             = "Bye!";
     public static final String MESSAGE_HELP             = "currentShow - show the current show\r\n" + 
             "addShow - add a new show\r\n" + 
@@ -54,12 +59,26 @@ public class Main
          ShowPedia sPedia = new ShowPediaClass();
          String comm = getCommand(in);
       
-         while (!comm.equals(COMMAND_QUIT))
-         {
+         while (!comm.equals(COMMAND_QUIT)) {
              switch (comm) {
                  case COMMAND_HELP:
-                     showHelp(in, sPedia);
+                     showHelp(sPedia);
                      break;
+                 case COMMAND_SHOW_SWITCHTO:
+                     switchToShow(in,sPedia);
+                     break;
+                 case COMMAND_SHOW_ADD:
+                     addShow(in, sPedia);
+                     break;
+                 case COMMAND_EPISODE_ADD:
+                     addEpisode(in, sPedia);
+                     break;
+                 case COMMAND_SEASON_ADD:
+                     addSeason(in, sPedia);
+                     break;
+                 case COMMAND_SHOW_CURRENT:
+                	 currentShow(sPedia);
+                	 break;
                  default:
                      System.out.println(MESSAGE_UNKNOWN_CMD);
                      break;
@@ -72,14 +91,70 @@ public class Main
          in.close();
      }
     
-    private static String getCommand(Scanner in) {
+    private static void addEpisode(Scanner in, ShowPedia sPedia) {
+		int season = in.nextInt();
+		String episode = in.nextLine().trim();
+		
+		try {
+			sPedia.addEpisode(season, episode);
+			Show tmp = sPedia.getCurrent();
+			System.out.printf("%s S%d, Ep%d: %s.", season, tmp.getSeason(season).size(), episode);
+		}catch (NoShowSelectedException e) {
+			System.out.println(NO_SHOW_SELECTED);
+		}catch (NoSeasonException e) {
+			System.out.println(NO_SEASON);
+		}
+		
+	}
+
+	
+	private static void addSeason(Scanner in, ShowPedia sPedia) {
+    	try {
+			sPedia.addSeason();
+			currentShow(sPedia);
+		}catch (NoShowSelectedException e) {
+			System.out.println(NO_SHOW_SELECTED);
+		}
+	}
+
+	private static void switchToShow(Scanner in, ShowPedia sPedia) {
+    	String show = in.nextLine();
+    	try {
+			sPedia.switchToShow(show);
+			currentShow(sPedia);
+		}catch(NonExistingShowException e) {
+			System.out.println(NON_EXISTING_SHOW);
+		}
+	}
+
+	private static void addShow(Scanner in, ShowPedia sPedia) {
+		String show = in.nextLine();
+    	try {
+			sPedia.addShow(show);
+			System.out.printf("%s created.", show);
+		}catch(ExistingShowException e) {
+			System.out.println(EXISTING_SHOW);
+		}
+		
+	}
+
+	private static void currentShow(ShowPedia sPedia) {
+    	try {
+			Show tmp = sPedia.getCurrent();
+			System.out.printf("%s. Seasons: %d Episodes: %d", tmp.getName(), tmp.getNrSeasons(), tmp.getNrEpisodes());
+		}catch (NoShowSelectedException e) {
+			System.out.println(NO_SHOW_SELECTED);
+		}
+    	
+	}
+
+	private static String getCommand(Scanner in) {
         String input;
         input = in.nextLine().toUpperCase();
         return input;
     }
     
-    private static void showHelp(Scanner in, ShowPedia sPedia) {
-        in.nextLine();
+    private static void showHelp(ShowPedia sPedia) {
         System.out.println(MESSAGE_HELP);
     }
         
