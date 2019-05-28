@@ -67,6 +67,9 @@ public class Main
                  case COMMAND_SHOW_SWITCHTO:
                      switchToShow(in,sPedia);
                      break;
+                 case COMMAND_CHARACTER_ADD:
+                     addCharacter(in,sPedia);
+                     break;
                  case COMMAND_SHOW_ADD:
                      addShow(in, sPedia);
                      break;
@@ -91,7 +94,27 @@ public class Main
          in.close();
      }
     
-    private static void addEpisode(Scanner in, ShowPedia sPedia) {
+    private static void addCharacter(Scanner in, ShowPedia sPedia) {
+    	String type = in.nextLine();
+    	String characterName = in.nextLine();
+    	String name = in.nextLine();
+    	int fee = in.nextInt();
+   	
+    	try {
+			sPedia.addCharacter(type, characterName, name, fee);
+			
+		System.out.print(s);		
+			
+			
+		}catch (NoShowSelectedException e) {
+			System.out.println(NO_SHOW_SELECTED);
+		}catch (NoSeasonException e) {
+			System.out.println(NO_SEASON);
+		}
+		
+	}
+
+	private static void addEpisode(Scanner in, ShowPedia sPedia) {
 		int season = in.nextInt();
 		String episode = in.nextLine().trim();
 		
