@@ -1,11 +1,14 @@
-/**
- * @author André Enes 51099
- * @author Lourenco Soares 54530
- * Actor object interface
- */
-
 package ShowPedia;
 
 public interface Actor {
 
+	String getName();
+
+	void setName(String name);
+
+	int getNrShows();
+
+	void addShow(Show current);
+
+	
 }

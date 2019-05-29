@@ -6,33 +6,39 @@
 
 package ShowPedia;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import exceptions.*;
 
 public class ShowPediaClass implements ShowPedia {
     
+	
+	
+	
 	Map <String, Show> shows;
 	Map <String, Character> characters;
-	List<Actor> actors;
-    String current;
+	Map<String, Actor> actors;
+    Show current;
     
     public ShowPediaClass() {
         this.shows = new HashMap<String, Show>();
-        this.actors = new ArrayList<Actor>();
-        this.current = "";
+        this.actors = new HashMap<String, Actor>();
+        this.characters = new HashMap<String, Character>();
+        this.current = null;
+   
+  		
         
     }
 
 	@Override
 	public Show getCurrent() throws NoShowSelectedException {
-		if(this.current == "") {
+		if(this.current == null) {
 			throw new NoShowSelectedException();
 		}else {
-			return this.shows.get(this.current);
+			return current;
 		}
 		
 	}
@@ -53,35 +59,35 @@ public class ShowPediaClass implements ShowPedia {
 		if(!hasShow(show)) {
 			throw new NonExistingShowException();
 		}else {
-		    this.current = show;
+		    this.current = shows.get(show);
 		}
 	}
 
 	@Override
 	public void addSeason() throws NoShowSelectedException {
-		if(this.current == "") {
+		if(this.current == null) {
 			throw new NoShowSelectedException();
 		}else {
-		    this.shows.get(this.current).addSeason();
+		    this.current.addSeason();
 		}
 		
 	}
 
 	@Override
 	public void addEpisode(int season, String episode) throws NoShowSelectedException, NoSeasonException {
-		if(this.current == "") {
+		if(this.current == null) {
 			throw new NoShowSelectedException();
 		}else if(!hasSeason(season)) {
 			throw new NoSeasonException();
 		}else {
-		    this.shows.get(this.current).addEpisode(season, episode);
+		    this.current.addEpisode(season, episode);
 		}
 			
 	}
 
 	@Override
-	public void addCharacter(String type, String characterName, String actorName, int fee) throws NoShowSelectedException, InvalidTypeException, ExistingCharacterException, InvalidFeeException {
-		if(this.current == "") {
+	public void addCharacter(String type, String characterName, String name, int fee) throws NoShowSelectedException, InvalidTypeException, ExistingCharacterException, InvalidFeeException {
+		if(this.current == null) {
 			throw new NoShowSelectedException();
 		}else if(!type.equalsIgnoreCase("virtual") && !type.equalsIgnoreCase("real")) {
 			throw new InvalidTypeException();
@@ -89,7 +95,17 @@ public class ShowPediaClass implements ShowPedia {
 			throw new ExistingCharacterException();
 		}else if(fee<0) {
 			throw new InvalidFeeException();
-		}
+		}else if (type.equalsIgnoreCase("real")) {
+            Character tmp = new CharacterRealClass(characterName, name, fee);
+            if(!actors.containsKey(name)) {
+                Actor tmp2 = new ActorClass(name);
+                tmp2.addShow(getCurrent());
+            }
+            characters.put(characterName, tmp);
+        }else if (type.equalsIgnoreCase("virtual")) {
+            Character tmp = new CharacterVirtualClass(characterName, name, fee);
+            characters.put(characterName, tmp);
+        }
 		
 	}
 	
@@ -100,12 +116,29 @@ public class ShowPediaClass implements ShowPedia {
 	
 	// Check whether a season has already been registered
 	private boolean hasSeason(int season) {
-	    return this.shows.get(this.current).getSeason(season).size()<season;
+	    return this.current.getSeason(season).size()<season;
 	}
 
 	// Check whether a character has already been registered
 	private boolean hasCharacter(String name) {
 		return this.characters.containsKey(name);
+	}
+
+	@Override
+	public Company kingOfCGI() {
+	     
+	     Iterator<Entry<String, Character>> tmp = characters.entrySet().iterator();
+	         while(tmp.hasNext()) {
+	        	 if(tmp.next() instanceof CharacterRealClass) {
+	        		 
+	        	 }
+	         }
+		return null;
+	}
+
+	@Override
+	public Actor getActor(String name) {
+		return actors.get(name);
 	}
 
 }

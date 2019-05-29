@@ -33,7 +33,10 @@ public class Main
      
     // Message Constants
     public static final String MESSAGE_UNKNOWN_COMMAND          = "Unknown command. Type help to see available commands.";
-    public static final String MESSAGE_NO_SHOW_SELECTED     	= "No show is selected!";
+    public static final String MESSAGE_EXISTING_CHARACTER       = "Duplicate character names are not allowed!";
+    public static final String MESSAGE_INVALID_TYPE       		= "Unknown actor category!";
+    public static final String MESSAGE_INVALID_FEE       		= "Slavery is long gone and this is outrageous!";
+    public static final String MESSAGE_NO_SHOW_SELECTED     		= "No show is selected!";
     public static final String MESSAGE_NO_SEASON     			= "Unknown Season!";
     public static final String MESSAGE_EXISTING_SHOW    		= "Show already exists!";
     public static final String MESSAGE_NON_EXISTING_SHOW    	= "Unknown show!";
@@ -76,6 +79,9 @@ public class Main
                  case COMMAND_SHOW_SWITCHTO:
                      switchToShow(in,sPedia);
                      break;
+                 case COMMAND_KINGCGI:
+                     kingOfCGI(sPedia);
+                     break;
                  case COMMAND_CHARACTER_ADD:
                      addCharacter(in,sPedia);
                      break;
@@ -108,7 +114,14 @@ public class Main
      }
     
      
-     // Standardize the input by forcing everything to upper case
+     private static void kingOfCGI(ShowPedia sPedia) {
+		try {
+			sPedia.kingOfCGI();
+		}
+	}
+
+
+	// Standardize the input by forcing everything to upper case
      private static String getCommand(Scanner in) {
          String input;
          input = in.nextLine().toUpperCase();
@@ -116,24 +129,24 @@ public class Main
      }
      
     private static void addCharacter(Scanner in, ShowPedia sPedia) {
-        
-        // TODO: Fix
-        
-        /*
         String type = in.nextLine();
     	String characterName = in.nextLine();
-    	String actorname = in.nextLine();
+    	String name = in.nextLine();
     	int fee = in.nextInt();
     	
     	try {
 			sPedia.addCharacter(type, characterName, name, fee);
-			//System.out.print(s);		
+			System.out.printf("%s is now part of %s. This is %s role %d.", characterName, sPedia.getCurrent().getName(), name, sPedia.getActor(name).getNrShows());	
 		}catch (NoShowSelectedException e) {
 			System.out.println(MESSAGE_NO_SHOW_SELECTED);
-		}catch (NoSeasonException e) {
-			System.out.println(MESSAGE_NO_SEASON);
+		}catch (InvalidTypeException e) {
+			System.out.println(MESSAGE_INVALID_TYPE);
+		}catch (ExistingCharacterException e) {
+			System.out.println(MESSAGE_EXISTING_CHARACTER);
+		}catch (InvalidFeeException e) {
+			System.out.println(MESSAGE_EXISTING_CHARACTER);
 		}
-    	*/
+    	
 	}
 
 	private static void addEpisode(Scanner in, ShowPedia sPedia) {

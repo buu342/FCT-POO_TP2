@@ -11,17 +11,20 @@ import java.util.Map;
 
 public class ShowClass implements Show {
 
-    private Map<Integer, Map<Integer, Episode>> seasons;
+	private Map<Integer, Map<Integer, Episode>> seasons;
+	private Map<String, Character> characters;
 	private String name;
 	private int nrSeasons;
 	private int nrEpisodes;
+	
 
-    public ShowClass(String name) {
-        this.seasons = new HashMap<Integer, Map<Integer,Episode>>();
-        this.name=name;
-        this.nrSeasons = 0;
-        this.nrEpisodes = 0;
-    }
+	public ShowClass(String name) {
+		this.seasons = new HashMap<Integer, Map<Integer, Episode>>();
+		this.characters = new HashMap<String, Character>();
+		this.name = name;
+		this.nrSeasons = 0;
+		this.nrEpisodes = 0;
+	}
 
 	@Override
 	public String getName() {
@@ -40,7 +43,7 @@ public class ShowClass implements Show {
 
 	@Override
 	public void addSeason() {
-		int season = this.seasons.size()+1;
+		int season = this.seasons.size() + 1;
 		Map<Integer, Episode> episodes = new HashMap<Integer, Episode>();
 		this.seasons.put(season, episodes);
 		this.nrSeasons++;
@@ -53,10 +56,18 @@ public class ShowClass implements Show {
 
 	@Override
 	public void addEpisode(int season, String episode) {
-		int episodeNr = this.seasons.get(season).size()+1;
+		int episodeNr = this.seasons.get(season).size() + 1;
 		Episode tmp = new EpisodeClass(episode);
 		this.seasons.get(season).put(episodeNr, tmp);
-		this.nrEpisodes++;		
+		this.nrEpisodes++;
 	}
-    
+
+	/**
+	 * @return the characters
+	 */
+	@Override
+	public Map<String, Character> getCharacters() {
+		return characters;
+	}
+
 }
