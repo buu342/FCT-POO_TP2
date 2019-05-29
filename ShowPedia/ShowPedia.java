@@ -49,4 +49,17 @@ public interface ShowPedia {
      */
 	void addCharacter(String type, String characterName, String actorName, int fee) throws NoShowSelectedException, InvalidTypeException, ExistingCharacterException, InvalidFeeException;
 
+	   /**
+     * Returns a pointer to the company object that has spent the most on CGI.
+     * @param name          A <code>String</code> with the name of the actor.
+     * @return A <code>Company</code> object that has spent the most on CGI.
+     */
+	Company kingOfCGI();
+
+	/**
+     * Returns a pointer to the actor object with name <code>name</code>.
+     * @param name          A <code>String</code> with the name of the actor.
+     * @return The <code>Actor</code> object with name <code>name</code>.
+     */
+	Actor getActor(String name);
 }

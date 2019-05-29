@@ -11,16 +11,18 @@ import java.util.Map;
 
 public class ShowClass implements Show {
 
-    private Map<Integer, Map<Integer, Episode>> seasons;
-	private String name;
-	private int nrSeasons;
-	private int nrEpisodes;
+    private int nrEpisodes;
+    private int nrSeasons;
+    private Map <Integer, Map<Integer, Episode>> seasons;
+    private Map <String, Character> characters;
+    private String name;
 
     public ShowClass(String name) {
-        this.seasons = new HashMap<Integer, Map<Integer,Episode>>();
-        this.name=name;
-        this.nrSeasons = 0;
         this.nrEpisodes = 0;
+        this.nrSeasons = 0;
+        this.seasons = new HashMap<Integer, Map<Integer,Episode>>();
+        this.characters = new HashMap<String, Character>();
+        this.name = name;
     }
 
 	@Override

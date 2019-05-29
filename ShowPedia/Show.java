@@ -36,7 +36,7 @@ public interface Show {
     /**
      * Returns a list of all the episodes in the season <code>season</code> of this show.
      * @param season    An <code>int</code> with the number of the season to return.
-     * @return A <code>Map<Integer, Episode></code> that contains all the episodes in the season <code>season</code>.
+     * @return A <code>Map&ltInteger, Episode&gt;</code> that contains all the episodes in the season <code>season</code>.
      */
 	Map<Integer, Episode> getSeason(int season);
 

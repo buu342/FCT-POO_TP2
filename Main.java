@@ -11,21 +11,21 @@ import exceptions.*;
 public class Main 
 {
     // Command Constants
-    public static final String COMMAND_SHOW_ADD              	= "ADDSHOW";   
     public static final String COMMAND_SHOW_CURRENT             = "CURRENTSHOW";
-    public static final String COMMAND_SHOW_CURR                = "CURRENTSHOW";
+    public static final String COMMAND_SHOW_ADD                 = "ADDSHOW";   
     public static final String COMMAND_SHOW_SWITCHTO            = "SWITCHTOSHOW";
     public static final String COMMAND_SEASON_ADD               = "ADDSEASON";
-    public static final String COMMAND_SEASON_OUTLINE           = "SEASONSOUTLINE";
     public static final String COMMAND_EPISODE_ADD              = "ADDEPISODE";
     public static final String COMMAND_CHARACTER_ADD            = "ADDCHARACTER";
-    public static final String COMMAND_CHARACTER_RESUME         = "CHARACTERRESUME";
-    public static final String COMMAND_CHARACTER_COMPARE        = "HOWARETHESETWORELATED";
-    public static final String COMMAND_CHARACTER_FILMOGRAPHY    = "HOWARETHESETWORELATED";
     public static final String COMMAND_RELATIONSHIP_ADD         = "ADDRELATIONSHIP";
     public static final String COMMAND_ROMANCE_ADD              = "ADDROMANCE";
     public static final String COMMAND_EVENT_ADD                = "ADDEVENT";
+    public static final String COMMAND_QUOTE_ADD                = "ADDQUOTE";
+    public static final String COMMAND_SEASON_OUTLINE           = "SEASONSOUTLINE";
+    public static final String COMMAND_CHARACTER_RESUME         = "CHARACTERRESUME";
+    public static final String COMMAND_CHARACTER_COMPARE        = "HOWARETHESETWORELATED";
     public static final String COMMAND_QUOTE_QUOTER             = "FAMOUSQUOTES";
+    public static final String COMMAND_ACTOR_ALSOIN             = "ALSOAPPEARSON";
     public static final String COMMAND_ACTOR_ROMANCE            = "MOSTROMANTIC";
     public static final String COMMAND_KINGCGI                  = "KINGOFCGI";
     public static final String COMMAND_HELP                     = "HELP";
@@ -33,10 +33,13 @@ public class Main
      
     // Message Constants
     public static final String MESSAGE_UNKNOWN_COMMAND          = "Unknown command. Type help to see available commands.";
-    public static final String MESSAGE_NO_SHOW_SELECTED     	= "No show is selected!";
-    public static final String MESSAGE_NO_SEASON     			= "Unknown Season!";
-    public static final String MESSAGE_EXISTING_SHOW    		= "Show already exists!";
-    public static final String MESSAGE_NON_EXISTING_SHOW    	= "Unknown show!";
+    public static final String MESSAGE_NO_SHOW_SELECTED         = "No show is selected!";
+    public static final String MESSAGE_NO_SEASON                = "Unknown Season!";
+    public static final String MESSAGE_EXISTING_SHOW            = "Show already exists!";
+    public static final String MESSAGE_NON_EXISTING_SHOW        = "Unknown show!";
+    public static final String MESSAGE_EXISTING_CHARACTER       = "Duplicate character names are not allowed!";
+    public static final String MESSAGE_INVALID_TYPE             = "Unknown actor category!";
+    public static final String MESSAGE_INVALID_FEE              = "Slavery is long gone and this is outrageous!";
     public static final String MESSAGE_EXIT                     = "Bye!";
     public static final String MESSAGE_HELP                     = "currentShow - show the current show\r\n" + 
                                                                   "addShow - add a new show\r\n" + 
@@ -76,6 +79,9 @@ public class Main
                  case COMMAND_SHOW_SWITCHTO:
                      switchToShow(in,sPedia);
                      break;
+                 case COMMAND_KINGCGI:
+                     kingOfCGI(sPedia);
+                     break;
                  case COMMAND_CHARACTER_ADD:
                      addCharacter(in,sPedia);
                      break;
@@ -89,8 +95,8 @@ public class Main
                      addSeason(in, sPedia);
                      break;
                  case COMMAND_SHOW_CURRENT:
-                	 currentShow(sPedia);
-                	 break;
+                     currentShow(sPedia);
+                     break;
                  default:
                      System.out.println(MESSAGE_UNKNOWN_COMMAND);
                      break;
@@ -108,7 +114,14 @@ public class Main
      }
     
      
-     // Standardize the input by forcing everything to upper case
+     private static void kingOfCGI(ShowPedia sPedia) {
+        //try {
+            sPedia.kingOfCGI();
+        //}
+    }
+
+
+    // Standardize the input by forcing everything to upper case
      private static String getCommand(Scanner in) {
          String input;
          input = in.nextLine().toUpperCase();
@@ -116,77 +129,77 @@ public class Main
      }
      
     private static void addCharacter(Scanner in, ShowPedia sPedia) {
-        
-        // TODO: Fix
-        
-        /*
         String type = in.nextLine();
-    	String characterName = in.nextLine();
-    	String actorname = in.nextLine();
-    	int fee = in.nextInt();
-    	
-    	try {
-			sPedia.addCharacter(type, characterName, name, fee);
-			//System.out.print(s);		
-		}catch (NoShowSelectedException e) {
-			System.out.println(MESSAGE_NO_SHOW_SELECTED);
-		}catch (NoSeasonException e) {
-			System.out.println(MESSAGE_NO_SEASON);
-		}
-    	*/
-	}
+        String characterName = in.nextLine();
+        String name = in.nextLine();
+        int fee = in.nextInt();
+        
+        try {
+            sPedia.addCharacter(type, characterName, name, fee);
+            System.out.printf("%s is now part of %s. This is %s role %d.", characterName, sPedia.getCurrent().getName(), name, sPedia.getActor(name).getNrShows()); 
+        }catch (NoShowSelectedException e) {
+            System.out.println(MESSAGE_NO_SHOW_SELECTED);
+        }catch (InvalidTypeException e) {
+            System.out.println(MESSAGE_INVALID_TYPE);
+        }catch (ExistingCharacterException e) {
+            System.out.println(MESSAGE_EXISTING_CHARACTER);
+        }catch (InvalidFeeException e) {
+            System.out.println(MESSAGE_EXISTING_CHARACTER);
+        }
+        
+    }
 
-	private static void addEpisode(Scanner in, ShowPedia sPedia) {
-		int season = in.nextInt();
-		String episode = in.nextLine().trim();
-		
-		try {
-			sPedia.addEpisode(season, episode);
-			Show tmp = sPedia.getCurrent();
-			System.out.printf("%s S%d, Ep%d: %s.", season, tmp.getSeason(season).size(), episode);
-		}catch (NoShowSelectedException e) {
-			System.out.println(MESSAGE_NO_SHOW_SELECTED);
-		}catch (NoSeasonException e) {
-			System.out.println(MESSAGE_NO_SEASON);
-		}
-	}
+    private static void addEpisode(Scanner in, ShowPedia sPedia) {
+        int season = in.nextInt();
+        String episode = in.nextLine().trim();
+        
+        try {
+            sPedia.addEpisode(season, episode);
+            Show tmp = sPedia.getCurrent();
+            System.out.printf("%s S%d, Ep%d: %s.", season, tmp.getSeason(season).size(), episode);
+        }catch (NoShowSelectedException e) {
+            System.out.println(MESSAGE_NO_SHOW_SELECTED);
+        }catch (NoSeasonException e) {
+            System.out.println(MESSAGE_NO_SEASON);
+        }
+    }
 
-	private static void addSeason(Scanner in, ShowPedia sPedia) {
-    	try {
-			sPedia.addSeason();
-			currentShow(sPedia);
-		}catch (NoShowSelectedException e) {
-			System.out.println(MESSAGE_NO_SHOW_SELECTED);
-		}
-	}
+    private static void addSeason(Scanner in, ShowPedia sPedia) {
+        try {
+            sPedia.addSeason();
+            currentShow(sPedia);
+        }catch (NoShowSelectedException e) {
+            System.out.println(MESSAGE_NO_SHOW_SELECTED);
+        }
+    }
 
-	private static void switchToShow(Scanner in, ShowPedia sPedia) {
-    	String show = in.nextLine();
-    	try {
-			sPedia.switchToShow(show);
-			currentShow(sPedia);
-		}catch(NonExistingShowException e) {
-			System.out.println(MESSAGE_NON_EXISTING_SHOW);
-		}
-	}
+    private static void switchToShow(Scanner in, ShowPedia sPedia) {
+        String show = in.nextLine();
+        try {
+            sPedia.switchToShow(show);
+            currentShow(sPedia);
+        }catch(NonExistingShowException e) {
+            System.out.println(MESSAGE_NON_EXISTING_SHOW);
+        }
+    }
 
-	private static void addShow(Scanner in, ShowPedia sPedia) {
-		String show = in.nextLine();
-    	try {
-			sPedia.addShow(show);
-			System.out.printf("%s created.", show);
-		}catch(ExistingShowException e) {
-			System.out.println(MESSAGE_EXISTING_SHOW);
-		}
-	}
+    private static void addShow(Scanner in, ShowPedia sPedia) {
+        String show = in.nextLine();
+        try {
+            sPedia.addShow(show);
+            System.out.printf("%s created.", show);
+        }catch(ExistingShowException e) {
+            System.out.println(MESSAGE_EXISTING_SHOW);
+        }
+    }
 
-	private static void currentShow(ShowPedia sPedia) {
-    	try {
-			Show tmp = sPedia.getCurrent();
-			System.out.printf("%s. Seasons: %d Episodes: %d", tmp.getName(), tmp.getNrSeasons(), tmp.getNrEpisodes());
-		}catch (NoShowSelectedException e) {
-			System.out.println(MESSAGE_NO_SHOW_SELECTED);
-		}
-	}
+    private static void currentShow(ShowPedia sPedia) {
+        try {
+            Show tmp = sPedia.getCurrent();
+            System.out.printf("%s. Seasons: %d Episodes: %d", tmp.getName(), tmp.getNrSeasons(), tmp.getNrEpisodes());
+        }catch (NoShowSelectedException e) {
+            System.out.println(MESSAGE_NO_SHOW_SELECTED);
+        }
+    }
 
 }
