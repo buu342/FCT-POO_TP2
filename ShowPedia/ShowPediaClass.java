@@ -95,11 +95,15 @@ public class ShowPediaClass implements ShowPedia {
 			throw new ExistingCharacterException();
 		}else if(fee<0) {
 			throw new InvalidFeeException();
-		}else if (type.equalsIgnoreCase("real")) {
+		}
+		
+		else if (type.equalsIgnoreCase("real")) {
             Character tmp = new CharacterRealClass(characterName, name, fee);
             if(!actors.containsKey(name)) {
                 Actor tmp2 = new ActorClass(name);
                 tmp2.addShow(getCurrent());
+            }else {
+            	getActor(name).addShow(getCurrent());
             }
             characters.put(characterName, tmp);
         }else if (type.equalsIgnoreCase("virtual")) {
