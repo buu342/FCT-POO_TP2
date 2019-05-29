@@ -46,5 +46,7 @@ public interface Show {
      * @param episode   A <code>String</code> with the name of the episode.
      */
 	void addEpisode(int season, String episode);
+
+	Map<String, Character> getCharacters();
 	
 }

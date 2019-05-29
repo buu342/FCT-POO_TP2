@@ -15,6 +15,7 @@ public class CharacterRealClass extends CharacterClass{
 		super(characterName);
 		this.actor = actor;
 		this.fee = fee;
+		
 	}
 
     /**

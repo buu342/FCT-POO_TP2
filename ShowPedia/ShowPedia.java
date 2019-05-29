@@ -49,4 +49,8 @@ public interface ShowPedia {
      */
 	void addCharacter(String type, String characterName, String actorName, int fee) throws NoShowSelectedException, InvalidTypeException, ExistingCharacterException, InvalidFeeException;
 
+	Company kingOfCGI();
+
+	Actor getActor(String name);
+
 }
