@@ -1,18 +1,17 @@
+/**
+ * @author André Enes 51099
+ * @author Lourenco Soares 54530
+ * ShowPedia System implementation
+ */
+
 package ShowPedia;
-
-import java.util.List;
-import java.util.Map;
-
-import exceptions.ExistingCharacterException;
-import exceptions.ExistingShowException;
-import exceptions.InvalidFeeException;
-import exceptions.InvalidTypeException;
-import exceptions.NoSeasonException;
-import exceptions.NoShowSelectedException;
-import exceptions.NonExistingShowException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import exceptions.*;
 
 public class ShowPediaClass implements ShowPedia {
     
@@ -24,16 +23,16 @@ public class ShowPediaClass implements ShowPedia {
     public ShowPediaClass() {
         this.shows = new HashMap<String, Show>();
         this.actors = new ArrayList<Actor>();
-        current = null;
+        this.current = "";
         
     }
 
 	@Override
 	public Show getCurrent() throws NoShowSelectedException {
-		if(current == null) {
+		if(this.current == "") {
 			throw new NoShowSelectedException();
 		}else {
-			return shows.get(current);
+			return this.shows.get(this.current);
 		}
 		
 	}
@@ -44,13 +43,9 @@ public class ShowPediaClass implements ShowPedia {
 			throw new ExistingShowException();
 		}else {
 			Show tmp = new ShowClass(name);
-			shows.put(name, tmp);
+			this.shows.put(name, tmp);
 		}
 		
-	}
-
-	private boolean hasShow(String show) {
-		return shows.containsKey(show);
 	}
 
 	@Override
@@ -58,39 +53,35 @@ public class ShowPediaClass implements ShowPedia {
 		if(!hasShow(show)) {
 			throw new NonExistingShowException();
 		}else {
-			current = show;
+		    this.current = show;
 		}
 	}
 
 	@Override
 	public void addSeason() throws NoShowSelectedException {
-		if(current == null) {
+		if(this.current == "") {
 			throw new NoShowSelectedException();
 		}else {
-			shows.get(current).addSeason();
+		    this.shows.get(this.current).addSeason();
 		}
 		
 	}
 
 	@Override
 	public void addEpisode(int season, String episode) throws NoShowSelectedException, NoSeasonException {
-		if(current == null) {
+		if(this.current == "") {
 			throw new NoShowSelectedException();
 		}else if(!hasSeason(season)) {
 			throw new NoSeasonException();
 		}else {
-			shows.get(current).addEpisode(season, episode);
+		    this.shows.get(this.current).addEpisode(season, episode);
 		}
 			
 	}
 
-	private boolean hasSeason(int season) {
-		return shows.get(current).getSeason(season).size()<season;
-	}
-
 	@Override
-	public void addCharacter(String type, String characterName, String name, int fee) throws NoShowSelectedException, InvalidTypeException, ExistingCharacterException, InvalidFeeException {
-		if(current == null) {
+	public void addCharacter(String type, String characterName, String actorName, int fee) throws NoShowSelectedException, InvalidTypeException, ExistingCharacterException, InvalidFeeException {
+		if(this.current == "") {
 			throw new NoShowSelectedException();
 		}else if(!type.equalsIgnoreCase("virtual") && !type.equalsIgnoreCase("real")) {
 			throw new InvalidTypeException();
@@ -101,10 +92,20 @@ public class ShowPediaClass implements ShowPedia {
 		}
 		
 	}
-
-	private boolean hasCharacter(String name) {
-		return characters.containsKey(name);
-	}
 	
+	// Check whether a show has already been registered
+	private boolean hasShow(String show) {
+        return this.shows.containsKey(show);
+    }
+	
+	// Check whether a season has already been registered
+	private boolean hasSeason(int season) {
+	    return this.shows.get(this.current).getSeason(season).size()<season;
+	}
+
+	// Check whether a character has already been registered
+	private boolean hasCharacter(String name) {
+		return this.characters.containsKey(name);
+	}
 
 }

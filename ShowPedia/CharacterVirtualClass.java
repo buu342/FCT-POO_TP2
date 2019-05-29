@@ -1,3 +1,9 @@
+/**
+ * @author André Enes 51099
+ * @author Lourenco Soares 54530
+ * Virtual Character class implementation (extends CharacterClass)
+ */
+
 package ShowPedia;
 
 public class CharacterVirtualClass extends CharacterClass {
@@ -7,36 +13,24 @@ public class CharacterVirtualClass extends CharacterClass {
 
 	public CharacterVirtualClass(String characterName, String company, int costPerSeason) {
 		super(characterName);
-		setCompany(company);
-		setCostPerSeason(costPerSeason);
-	}
-
-	/**
-	 * @return the company
-	 */
-	public String getCompany() {
-		return company;
-	}
-
-	/**
-	 * @param company the company to set
-	 */
-	public void setCompany(String company) {
 		this.company = company;
-	}
-
-	/**
-	 * @return the costPerSeason
-	 */
-	public int getCostPerSeason() {
-		return costPerSeason;
-	}
-
-	/**
-	 * @param costPerSeason the costPerSeason to set
-	 */
-	public void setCostPerSeason(int costPerSeason) {
 		this.costPerSeason = costPerSeason;
+	}
+
+    /**
+     * Retrieves the name of the company that produces this character's VFX.
+     * @return A <code>String</code> with the name of the company that produces this character's VFX.
+     */
+	public String getCompany() {
+		return this.company;
+	}
+
+    /**
+     * Retrieves the cost of rendering this character per season.
+     * @return An <code>int</code> with the cost of rendering this character per season.
+     */
+	public int getCostPerSeason() {
+		return this.costPerSeason;
 	}
 
 }

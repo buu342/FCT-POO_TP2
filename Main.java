@@ -1,8 +1,13 @@
+/**
+ * @author André Enes 51099
+ * @author Lourenco Soares 54530
+ * Project 2 for POO
+ */
+
 import java.util.Scanner;
 import ShowPedia.*;
 import exceptions.*;
  
-
 public class Main 
 {
     // Command Constants
@@ -26,43 +31,47 @@ public class Main
     public static final String COMMAND_HELP                     = "HELP";
     public static final String COMMAND_QUIT                     = "EXIT";
      
-     // Message Constants
-    public static final String MESSAGE_UNKNOWN_CMD      = "Unknown command. Type help to see available commands.";
-    public static final String NO_SHOW_SELECTED     	= "No show is selected!";
-    public static final String NO_SEASON     			= "Unknown Season!";
-    public static final String EXISTING_SHOW    		= "Show already exists!";
-    public static final String NON_EXISTING_SHOW    	= "Unknown show!";
-    public static final String MESSAGE_EXIT             = "Bye!";
-    public static final String MESSAGE_HELP             = "currentShow - show the current show\r\n" + 
-            "addShow - add a new show\r\n" + 
-            "switchToShow - change the context to a particular show\r\n" + 
-            "addSeason - add a new season to the current show\r\n" + 
-            "addEpisode - add a new episode to a particular season of the current show\r\n" + 
-            "addCharacter - add a new character to a show\r\n" + 
-            "addRelationship - add a family relationship between characters\r\n" + 
-            "addRomance - add a romantic relationship between characters\r\n" + 
-            "addEvent - add a significant event involving at least one character\r\n" + 
-            "addQuote - add a new quote to a character\r\n" + 
-            "seasonsOutline - outline the contents of the selected seasons for the selected show\r\n" + 
-            "characterResume - outline the main information on a specific character\r\n" + 
-            "howAreTheseTwoRelated - find out if and how two characters may be related\r\n" + 
-            "famousQuotes - find out which character(s) said a particular quote\r\n" + 
-            "alsoAppearsOn - which other shows and roles is the same actor on?\r\n" + 
-            "mostRomantic - find out who is at least as romantic as X\r\n" + 
-            "kingOfCGI - find out which company has earned more revenue with their CGI virtual actors\r\n" + 
-            "help - shows the available commands\r\n" + 
-            "exit - terminates the execution of the program";
+    // Message Constants
+    public static final String MESSAGE_UNKNOWN_COMMAND          = "Unknown command. Type help to see available commands.";
+    public static final String MESSAGE_NO_SHOW_SELECTED     	= "No show is selected!";
+    public static final String MESSAGE_NO_SEASON     			= "Unknown Season!";
+    public static final String MESSAGE_EXISTING_SHOW    		= "Show already exists!";
+    public static final String MESSAGE_NON_EXISTING_SHOW    	= "Unknown show!";
+    public static final String MESSAGE_EXIT                     = "Bye!";
+    public static final String MESSAGE_HELP                     = "currentShow - show the current show\r\n" + 
+                                                                  "addShow - add a new show\r\n" + 
+                                                                  "switchToShow - change the context to a particular show\r\n" + 
+                                                                  "addSeason - add a new season to the current show\r\n" + 
+                                                                  "addEpisode - add a new episode to a particular season of the current show\r\n" + 
+                                                                  "addCharacter - add a new character to a show\r\n" + 
+                                                                  "addRelationship - add a family relationship between characters\r\n" + 
+                                                                  "addRomance - add a romantic relationship between characters\r\n" + 
+                                                                  "addEvent - add a significant event involving at least one character\r\n" + 
+                                                                  "addQuote - add a new quote to a character\r\n" + 
+                                                                  "seasonsOutline - outline the contents of the selected seasons for the selected show\r\n" + 
+                                                                  "characterResume - outline the main information on a specific character\r\n" + 
+                                                                  "howAreTheseTwoRelated - find out if and how two characters may be related\r\n" + 
+                                                                  "famousQuotes - find out which character(s) said a particular quote\r\n" + 
+                                                                  "alsoAppearsOn - which other shows and roles is the same actor on?\r\n" + 
+                                                                  "mostRomantic - find out who is at least as romantic as X\r\n" + 
+                                                                  "kingOfCGI - find out which company has earned more revenue with their CGI virtual actors\r\n" + 
+                                                                  "help - shows the available commands\r\n" + 
+                                                                  "exit - terminates the execution of the program";
 
      public static void main(String[] args) 
      {   
+         // Initialize the program
          Scanner in = new Scanner(System.in);
          ShowPedia sPedia = new ShowPediaClass();
          String comm = getCommand(in);
       
+         // Get commands until the user writes EXIT
          while (!comm.equals(COMMAND_QUIT)) {
+             
+             // Decide what to do depending on the command
              switch (comm) {
                  case COMMAND_HELP:
-                     showHelp(sPedia);
+                     System.out.println(MESSAGE_HELP);
                      break;
                  case COMMAND_SHOW_SWITCHTO:
                      switchToShow(in,sPedia);
@@ -83,35 +92,48 @@ public class Main
                 	 currentShow(sPedia);
                 	 break;
                  default:
-                     System.out.println(MESSAGE_UNKNOWN_CMD);
+                     System.out.println(MESSAGE_UNKNOWN_COMMAND);
                      break;
              }
+             
+             // Get another command
              System.out.println();
              comm = getCommand(in);
          }
+         
+         // Say goodbye and terminate the program  
          System.out.println(MESSAGE_EXIT);
          System.out.println();
          in.close();
      }
     
+     
+     // Standardize the input by forcing everything to upper case
+     private static String getCommand(Scanner in) {
+         String input;
+         input = in.nextLine().toUpperCase();
+         return input;
+     }
+     
     private static void addCharacter(Scanner in, ShowPedia sPedia) {
-    	String type = in.nextLine();
+        
+        // TODO: Fix
+        
+        /*
+        String type = in.nextLine();
     	String characterName = in.nextLine();
-    	String name = in.nextLine();
+    	String actorname = in.nextLine();
     	int fee = in.nextInt();
-   	
+    	
     	try {
 			sPedia.addCharacter(type, characterName, name, fee);
-			
-		System.out.print(s);		
-			
-			
+			//System.out.print(s);		
 		}catch (NoShowSelectedException e) {
-			System.out.println(NO_SHOW_SELECTED);
+			System.out.println(MESSAGE_NO_SHOW_SELECTED);
 		}catch (NoSeasonException e) {
-			System.out.println(NO_SEASON);
+			System.out.println(MESSAGE_NO_SEASON);
 		}
-		
+    	*/
 	}
 
 	private static void addEpisode(Scanner in, ShowPedia sPedia) {
@@ -123,20 +145,18 @@ public class Main
 			Show tmp = sPedia.getCurrent();
 			System.out.printf("%s S%d, Ep%d: %s.", season, tmp.getSeason(season).size(), episode);
 		}catch (NoShowSelectedException e) {
-			System.out.println(NO_SHOW_SELECTED);
+			System.out.println(MESSAGE_NO_SHOW_SELECTED);
 		}catch (NoSeasonException e) {
-			System.out.println(NO_SEASON);
+			System.out.println(MESSAGE_NO_SEASON);
 		}
-		
 	}
 
-	
 	private static void addSeason(Scanner in, ShowPedia sPedia) {
     	try {
 			sPedia.addSeason();
 			currentShow(sPedia);
 		}catch (NoShowSelectedException e) {
-			System.out.println(NO_SHOW_SELECTED);
+			System.out.println(MESSAGE_NO_SHOW_SELECTED);
 		}
 	}
 
@@ -146,7 +166,7 @@ public class Main
 			sPedia.switchToShow(show);
 			currentShow(sPedia);
 		}catch(NonExistingShowException e) {
-			System.out.println(NON_EXISTING_SHOW);
+			System.out.println(MESSAGE_NON_EXISTING_SHOW);
 		}
 	}
 
@@ -156,9 +176,8 @@ public class Main
 			sPedia.addShow(show);
 			System.out.printf("%s created.", show);
 		}catch(ExistingShowException e) {
-			System.out.println(EXISTING_SHOW);
+			System.out.println(MESSAGE_EXISTING_SHOW);
 		}
-		
 	}
 
 	private static void currentShow(ShowPedia sPedia) {
@@ -166,20 +185,8 @@ public class Main
 			Show tmp = sPedia.getCurrent();
 			System.out.printf("%s. Seasons: %d Episodes: %d", tmp.getName(), tmp.getNrSeasons(), tmp.getNrEpisodes());
 		}catch (NoShowSelectedException e) {
-			System.out.println(NO_SHOW_SELECTED);
+			System.out.println(MESSAGE_NO_SHOW_SELECTED);
 		}
-    	
 	}
 
-	private static String getCommand(Scanner in) {
-        String input;
-        input = in.nextLine().toUpperCase();
-        return input;
-    }
-    
-    private static void showHelp(ShowPedia sPedia) {
-        System.out.println(MESSAGE_HELP);
-    }
-        
-    
 }
