@@ -1,5 +1,5 @@
 /**
- * @author André Enes 51099
+ * @author AndrÃ© Enes 51099
  * @author Lourenco Soares 54530
  * Project 2 for POO
  */
@@ -11,21 +11,21 @@ import exceptions.*;
 public class Main 
 {
     // Command Constants
-    public static final String COMMAND_SHOW_ADD              	= "ADDSHOW";   
     public static final String COMMAND_SHOW_CURRENT             = "CURRENTSHOW";
-    public static final String COMMAND_SHOW_CURR                = "CURRENTSHOW";
+    public static final String COMMAND_SHOW_ADD              	= "ADDSHOW";   
     public static final String COMMAND_SHOW_SWITCHTO            = "SWITCHTOSHOW";
     public static final String COMMAND_SEASON_ADD               = "ADDSEASON";
-    public static final String COMMAND_SEASON_OUTLINE           = "SEASONSOUTLINE";
     public static final String COMMAND_EPISODE_ADD              = "ADDEPISODE";
     public static final String COMMAND_CHARACTER_ADD            = "ADDCHARACTER";
-    public static final String COMMAND_CHARACTER_RESUME         = "CHARACTERRESUME";
-    public static final String COMMAND_CHARACTER_COMPARE        = "HOWARETHESETWORELATED";
-    public static final String COMMAND_CHARACTER_FILMOGRAPHY    = "HOWARETHESETWORELATED";
     public static final String COMMAND_RELATIONSHIP_ADD         = "ADDRELATIONSHIP";
     public static final String COMMAND_ROMANCE_ADD              = "ADDROMANCE";
     public static final String COMMAND_EVENT_ADD                = "ADDEVENT";
+    public static final String COMMAND_QUOTE_ADD                = "ADDQUOTE";
+    public static final String COMMAND_SEASON_OUTLINE           = "SEASONSOUTLINE";
+    public static final String COMMAND_CHARACTER_RESUME         = "CHARACTERRESUME";
+    public static final String COMMAND_CHARACTER_COMPARE        = "HOWARETHESETWORELATED";
     public static final String COMMAND_QUOTE_QUOTER             = "FAMOUSQUOTES";
+    public static final String COMMAND_ACTOR_ALSOIN             = "ALSOAPPEARSON";
     public static final String COMMAND_ACTOR_ROMANCE            = "MOSTROMANTIC";
     public static final String COMMAND_KINGCGI                  = "KINGOFCGI";
     public static final String COMMAND_HELP                     = "HELP";
@@ -33,10 +33,7 @@ public class Main
      
     // Message Constants
     public static final String MESSAGE_UNKNOWN_COMMAND          = "Unknown command. Type help to see available commands.";
-    public static final String MESSAGE_EXISTING_CHARACTER       = "Duplicate character names are not allowed!";
-    public static final String MESSAGE_INVALID_TYPE       		= "Unknown actor category!";
-    public static final String MESSAGE_INVALID_FEE       		= "Slavery is long gone and this is outrageous!";
-    public static final String MESSAGE_NO_SHOW_SELECTED     		= "No show is selected!";
+    public static final String MESSAGE_NO_SHOW_SELECTED     	= "No show is selected!";
     public static final String MESSAGE_NO_SEASON     			= "Unknown Season!";
     public static final String MESSAGE_EXISTING_SHOW    		= "Show already exists!";
     public static final String MESSAGE_NON_EXISTING_SHOW    	= "Unknown show!";
