@@ -8,8 +8,8 @@ package ShowPedia;
 
 public class CompanyClass implements Company {
     
-	public CompanyClass(String name) {
-		// TODO: Implement this class
-	}
+    public CompanyClass(String name) {
+        // TODO: Implement this class
+    }
 
 }

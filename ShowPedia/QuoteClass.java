@@ -10,6 +10,6 @@ public class QuoteClass implements Quote {
     
     public QuoteClass(String name) {
         // TODO: Implement this class
-	}
+    }
 
 }

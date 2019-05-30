@@ -31,66 +31,66 @@ public class ShowPediaClass implements ShowPedia {
         this.current = null;
     }
 
-	@Override
-	public Show getCurrent() throws NoShowSelectedException {
-		if (this.current == null) 
-			throw new NoShowSelectedException();
+    @Override
+    public Show getCurrent() throws NoShowSelectedException {
+        if (this.current == null) 
+            throw new NoShowSelectedException();
 
-		return this.current;
-	}
+        return this.current;
+    }
 
-	@Override
-	public void addShow(String name) throws ExistingShowException {
-		if (hasShow(name)) 
-			throw new ExistingShowException();
+    @Override
+    public void addShow(String name) throws ExistingShowException {
+        if (hasShow(name)) 
+            throw new ExistingShowException();
 
-		Show tmp = new ShowClass(name);
-		this.shows.put(name, tmp);
-	}
+        Show tmp = new ShowClass(name);
+        this.shows.put(name, tmp);
+    }
 
-	@Override
-	public void switchToShow(String show) throws NonExistingShowException {
-		if (!hasShow(show)) 
-			throw new NonExistingShowException();
-	 
-		this.current = this.shows.get(show);
-	}
+    @Override
+    public void switchToShow(String show) throws NonExistingShowException {
+        if (!hasShow(show)) 
+            throw new NonExistingShowException();
+     
+        this.current = this.shows.get(show);
+    }
 
-	@Override
-	public void addSeason() throws NoShowSelectedException {
-		if (this.current == null)
-			throw new NoShowSelectedException();
+    @Override
+    public void addSeason() throws NoShowSelectedException {
+        if (this.current == null)
+            throw new NoShowSelectedException();
 
-		this.current.addSeason();
-	}
+        this.current.addSeason();
+    }
 
-	@Override
-	public void addEpisode(int season, String episode) throws NoShowSelectedException, NoSeasonException {
-		if (this.current == null)
-			throw new NoShowSelectedException();
-		
-		if (!hasSeason(season))
-			throw new NoSeasonException();
+    @Override
+    public void addEpisode(int season, String episode) throws NoShowSelectedException, NoSeasonException {
+        if (this.current == null)
+            throw new NoShowSelectedException();
+        
+        if (!hasSeason(season))
+            throw new NoSeasonException();
 
-		this.current.addEpisode(season, episode);
-	}
+        this.current.addEpisode(season, episode);
+    }
 
-	@Override
-	public void addCharacter(String type, String characterName, String actorName, int fee) throws NoShowSelectedException, InvalidTypeException, ExistingCharacterException, InvalidFeeException {
-		if (this.current == null)
-			throw new NoShowSelectedException();
-		
-		if (!type.equalsIgnoreCase("virtual") || !type.equalsIgnoreCase("real"))
-			throw new InvalidTypeException();
-		
-		if (hasCharacter(characterName))
-			throw new ExistingCharacterException();
-		
-		if(fee<0) 
-			throw new InvalidFeeException();
-	}
-	
-	@Override
+    @Override
+    public void addCharacter(String type, String characterName, String actorName, int fee) throws NoShowSelectedException, InvalidTypeException, ExistingCharacterException, InvalidFeeException {
+        if (this.current == null)
+            throw new NoShowSelectedException();
+        
+        if (!type.equalsIgnoreCase("virtual") || !type.equalsIgnoreCase("real"))
+            throw new InvalidTypeException();
+        
+        if (hasCharacter(characterName))
+            throw new ExistingCharacterException();
+        
+        if(fee<0) 
+            throw new InvalidFeeException();
+    }
+    
+    @Override
     public Company kingOfCGI() {
          Iterator<Entry<String, Character>> tmp = characters.entrySet().iterator();
              while(tmp.hasNext()) {
@@ -105,20 +105,20 @@ public class ShowPediaClass implements ShowPedia {
     public Actor getActor(String name) {
         return actors.get(name);
     }
-	
-	// Check whether a show has already been registered
-	private boolean hasShow(String show) {
+    
+    // Check whether a show has already been registered
+    private boolean hasShow(String show) {
         return this.shows.containsKey(show);
     }
-	
-	// Check whether a season exists for a show
-	private boolean hasSeason(int season) {
-	    return this.current.getSeason(season).size() < season;
-	}
+    
+    // Check whether a season exists for a show
+    private boolean hasSeason(int season) {
+        return this.current.getSeason(season).size() < season;
+    }
 
-	// Check whether a character has already been registered
-	private boolean hasCharacter(String name) {
-	    return false;
-	}
+    // Check whether a character has already been registered
+    private boolean hasCharacter(String name) {
+        return false;
+    }
 
 }

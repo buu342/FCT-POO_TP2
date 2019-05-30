@@ -14,16 +14,16 @@ public class EventClass implements Event {
     Episode episode;
     List<Character> characters;
     
-	public EventClass(String description, Episode episode, List<Character> characters) {
-	    this.description = description;
-	    this.episode = episode;
-	    this.characters = characters;
-	}
-	
-	public String getDescription() {
-	    return this.description;
-	}
-	
+    public EventClass(String description, Episode episode, List<Character> characters) {
+        this.description = description;
+        this.episode = episode;
+        this.characters = characters;
+    }
+    
+    public String getDescription() {
+        return this.description;
+    }
+    
     public Episode getEpisode() {
         return this.episode;
     }

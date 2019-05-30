@@ -14,8 +14,8 @@ public interface Character {
      * Retrieves the name of this character.
      * @return A <code>String</code> with the name of this base.
      */
-	String getCharacterName();
-	
+    String getCharacterName();
+    
     /**
      * Retrieves a list of all events involving to this character.
      * @return A <code>List&lt;Event&gt;</code> of all events involving to this character.
