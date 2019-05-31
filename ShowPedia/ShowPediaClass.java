@@ -103,6 +103,7 @@ public class ShowPediaClass implements ShowPedia {
             if(!this.companies.containsKey(name)) {
                 Company tmp2 = new CompanyClass(name);
                 tmp =new CharacterVirtualClass(this.current, characterName, tmp2, fee);
+                this.companies.put(name, tmp2);
             }else {
             	 tmp =new CharacterVirtualClass(this. current, characterName, this.companies.get(name), fee);
             } 
@@ -297,4 +298,52 @@ public class ShowPediaClass implements ShowPedia {
 		return characters.get(characterName);
 	}
 
+	public void addRelationship(String parent, String child) throws NoShowSelectedException, SingleRelationshipException, NoCharacterException, NoChildException, ExistingRelationshipException {
+	    
+	    if (this.current == null)
+            throw new NoShowSelectedException();
+	    
+	    if (parent.equals(child)) {
+	        System.out.print("");
+	        throw new SingleRelationshipException();
+	    }
+	    
+	    if (!hasCharacter(parent)) 
+            throw new NoCharacterException();
+	    
+	    if (!hasCharacter(child)) 
+            throw new NoChildException();
+
+	    Relationship relationship = new RelationshipFamilyClass(this.current.getCharacter(parent), this.current.getCharacter(child));
+	    
+	    if (this.current.hasRelationship(relationship))
+	        throw new ExistingRelationshipException();
+	    
+	    this.current.addRelationship(relationship);
+	}
+	
+	@Override
+    public void addLovers(String lover1, String lover2) throws NoShowSelectedException, SingleRelationshipException, NoCharacterException, NoChildException, ExistingRelationshipException {
+        
+        if (this.current == null)
+            throw new NoShowSelectedException();
+        
+        if (lover1.equals(lover2)) {
+            System.out.print("");
+            throw new SingleRelationshipException();
+        }
+        
+        if (!hasCharacter(lover1)) 
+            throw new NoCharacterException();
+        
+        if (!hasCharacter(lover2)) 
+            throw new NoChildException();
+
+        Relationship relationship = new RelationshipLoversClass(this.current.getCharacter(lover1), this.current.getCharacter(lover2));
+        
+        if (this.current.hasRelationship(relationship))
+            throw new ExistingRelationshipException();
+        
+        this.current.addRelationship(relationship);
+    }
 }

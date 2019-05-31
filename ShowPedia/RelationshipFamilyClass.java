@@ -14,12 +14,4 @@ public class RelationshipFamilyClass extends RelationshipClass {
         super(parent, child);
     }
     
-    public Character getParent() {
-        return this.getCharacter1();
-    }
-    
-    public Character getChild() {
-        return this.getCharacter2();
-    }
-    
 }

@@ -14,9 +14,6 @@ public abstract class RelationshipClass implements Relationship {
     private Character character2;
     
     public RelationshipClass(Character character1, Character character2) throws SingleRelationshipException {
-        if (this.character1 == this.character2)
-            throw new SingleRelationshipException();
-        
         this.character1 = character1;
         this.character2 = character2;
     }

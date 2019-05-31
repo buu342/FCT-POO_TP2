@@ -9,11 +9,11 @@ package ShowPedia;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
-
-import exceptions.UnexistingQuoteException;
 
 public class ShowClass implements Show {
 
@@ -21,8 +21,9 @@ public class ShowClass implements Show {
 	private Map<Integer, Map<Integer, Episode>> seasons;
 	private Map<String, Character> characters;
 	private String name;
-	SortedMap<Integer, SortedMap<Integer, List<Event>>> events;
+	private SortedMap<Integer, SortedMap<Integer, List<Event>>> events;
 	private Map<String, Quote> quotes;
+	private List<Relationship> relationships;
 
 	public ShowClass(String name) {
 		this.nrEpisodes = 0;
@@ -31,6 +32,7 @@ public class ShowClass implements Show {
 		this.events = new TreeMap<Integer, SortedMap<Integer, List<Event>>>();
 		this.quotes = new HashMap<String, Quote>();
 		this.name = name;
+		this.relationships = new LinkedList<Relationship>();
 		addSeason();
 	}
 
@@ -64,6 +66,11 @@ public class ShowClass implements Show {
 	public Map<Integer, Episode> getSeason(int season) {
 		return this.seasons.get(season);
 	}
+	
+	@Override
+    public Character getCharacter(String name) {
+        return this.characters.get(name);
+    }
 
 	@Override
 	public void addEpisode(int season, String episode) {
@@ -91,6 +98,20 @@ public class ShowClass implements Show {
 	public boolean hasQuote(String quote) {
 		return quotes.containsKey(quote);
 	}
+	
+	@Override
+    public boolean hasRelationship(Relationship relationship) {
+	    Iterator<Relationship> it = this.relationships.iterator();
+	    while (it.hasNext())
+	    {
+	        Relationship temp = it.next();
+	        if (relationship.getCharacter1() == temp.getCharacter1() && relationship.getCharacter2() == temp.getCharacter2())
+	            return true;
+	        if (relationship.getCharacter1() == temp.getCharacter2() && relationship.getCharacter2() == temp.getCharacter1())
+                return true;
+	    }
+	    return false;
+	}
 
 	@Override
 	public Quote getQuote(String quote)  {
@@ -106,9 +127,16 @@ public class ShowClass implements Show {
 		quotes.put(tmp.getQuote(), tmp);
 	}
 	
+	@Override
+	public void addCharacter(Character character) {
+	    this.characters.put(character.getCharacterName(), character);
+	}
+	
     @Override
-    public void addCharacter(Character character) {
-        this.characters.put(character.getCharacterName(), character);
+    public void addRelationship(Relationship relationship) {
+        this.relationships.add(relationship);
+        relationship.getCharacter1().addRelationship(relationship);
+        relationship.getCharacter2().addRelationship(relationship);
     }
 
 }

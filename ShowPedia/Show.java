@@ -62,5 +62,10 @@ public interface Show {
 	Quote getQuote(String quote);
 
 	void addQuote(Quote tmp);
+	
+	boolean hasRelationship(Relationship relationship);
     
+	void addRelationship(Relationship relationship);
+	
+	Character getCharacter(String name);
 }

@@ -41,6 +41,9 @@ public interface Character {
      */
     void addRelationship(Relationship relationship);
 
+    int getNumParents();
+    
+    int getNumChildren();
   
 }
 

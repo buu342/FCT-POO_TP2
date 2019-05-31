@@ -1,5 +1,5 @@
 /**
- * @author André Enes 51099
+ * @author AndrÃ© Enes 51099
  * @author Lourenco Soares 54530
  * ShowPedia System interface
  */
@@ -75,7 +75,7 @@ public interface ShowPedia {
 	boolean hasShow(String show);
 
 	boolean hasSeason(int season);
-
+	
 	String hasCharacters(List<String> characters);
 
 	Company getCompany(String name);
@@ -85,6 +85,10 @@ public interface ShowPedia {
 	void addQuote(int season, int episode, String character, String quote) throws NoShowSelectedException, NoSeasonException, NoEpisodeException, NoCharacterException;
 
 	void famousQuote(String quote) throws UnexistingQuoteException;
-
+  
 	void alsoAppearsOn(String character) throws NoShowSelectedException, NoCharacterException, VirtualActorException;
+	
+	void addRelationship(String parent, String child) throws NoShowSelectedException, SingleRelationshipException, NoCharacterException, NoChildException, ExistingRelationshipException;
+
+	void addLovers(String lover1, String lover2) throws NoShowSelectedException, SingleRelationshipException, NoCharacterException, NoChildException, ExistingRelationshipException;
 }
