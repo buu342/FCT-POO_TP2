@@ -14,13 +14,12 @@ public abstract class CharacterClass implements Character {
     private String characterName;
     private List<Event> events;
     private List<Relationship> relationships;
-    private List<Quote> quotes;
+
 
     public CharacterClass(String characterName) {
         this.characterName = characterName;
         this.events = new LinkedList<>();
         this.relationships = new LinkedList<>();
-        this.quotes = new LinkedList<>();
     }
 
     @Override
@@ -31,11 +30,6 @@ public abstract class CharacterClass implements Character {
     @Override
     public List<Event> getEvents() {
         return this.events;
-    }
-    
-    @Override
-    public List<Quote> getQuotes() {
-        return this.quotes;
     }
     
     @Override
@@ -53,8 +47,4 @@ public abstract class CharacterClass implements Character {
         this.relationships.add(relationship);
     }
     
-    @Override
-    public void addQuote(Quote quote) {
-        this.quotes.add(quote);
-    }
 }

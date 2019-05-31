@@ -6,10 +6,42 @@
 
 package ShowPedia;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class QuoteClass implements Quote {
     
-    public QuoteClass(String name) {
-        // TODO: Implement this class
-    }
+   
+	private Map<String, Character> characters;
+	private String quote;
+
+	public QuoteClass(String quote) {
+       setQuote(quote);
+       characters = new HashMap<String,Character>();
+   
+	}
+
+	@Override
+	public void addCharacter(Character character) {
+		if(!characters.containsKey(character.getCharacterName())) {
+			characters.put(character.getCharacterName(), character);
+		}
+	}
+
+	/**
+	 * @return the quote
+	 */
+	@Override
+	public String getQuote() {
+		return quote;
+	}
+
+	/**
+	 * @param quote the quote to set
+	 */
+	@Override
+	public void setQuote(String quote) {
+		this.quote = quote;
+	}
 
 }

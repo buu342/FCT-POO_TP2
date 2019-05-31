@@ -78,4 +78,6 @@ public interface ShowPedia {
 	String hasCharacters(List<String> characters);
 
 	Company getCompany(String name);
+
+	void addQuote(int season, int episode, String character, String quote) throws NoShowSelectedException, NoSeasonException, NoEpisodeException, NoCharacterException;
 }
