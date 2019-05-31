@@ -6,6 +6,7 @@
 
 package ShowPedia;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,7 +15,6 @@ public abstract class CharacterClass implements Character {
     private String characterName;
     private List<Event> events;
     private List<Relationship> relationships;
-
 
     public CharacterClass(String characterName) {
         this.characterName = characterName;
@@ -45,6 +45,32 @@ public abstract class CharacterClass implements Character {
     @Override
     public void addRelationship(Relationship relationship) {
         this.relationships.add(relationship);
+    }
+    
+    @Override
+    public int getNumParents() {
+        int num = 0;
+        Iterator<Relationship> it = this.relationships.iterator();
+        while (it.hasNext())
+        {
+            Relationship temp = it.next();
+            if (temp instanceof RelationshipFamilyClass && temp.getCharacter2() == this)
+                num++;
+        }
+        return num;
+    }    
+    
+    @Override
+    public int getNumChildren() {
+        int num = 0;
+        Iterator<Relationship> it = this.relationships.iterator();
+        while (it.hasNext())
+        {
+            Relationship temp = it.next();
+            if (temp instanceof RelationshipFamilyClass && temp.getCharacter1() == this)
+                num++;
+        }
+        return num;
     }
     
 }

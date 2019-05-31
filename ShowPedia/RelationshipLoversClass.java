@@ -11,15 +11,7 @@ import exceptions.*;
 public class RelationshipLoversClass extends RelationshipClass {
     
     public RelationshipLoversClass(Character lover1, Character lover2) throws SingleRelationshipException {
-        super(lover1, lover1);
+        super(lover1, lover2);
     }
-    
-    public Character getLover1() {
-        return this.getCharacter1();
-    }
-    
-    public Character getLover2() {
-        return this.getCharacter2();
-    }
-    
+
 }

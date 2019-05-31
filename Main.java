@@ -13,26 +13,27 @@ import ShowPedia.*;
 import exceptions.*;
 
 public class Main {
+    
 	// Command Constants
-	public static final String COMMAND_SHOW_CURRENT = "CURRENTSHOW";
-	public static final String COMMAND_SHOW_ADD = "ADDSHOW";
-	public static final String COMMAND_SHOW_SWITCHTO = "SWITCHTOSHOW";
-	public static final String COMMAND_SEASON_ADD = "ADDSEASON";
-	public static final String COMMAND_EPISODE_ADD = "ADDEPISODE";
-	public static final String COMMAND_CHARACTER_ADD = "ADDCHARACTER";
-	public static final String COMMAND_RELATIONSHIP_ADD = "ADDRELATIONSHIP";
-	public static final String COMMAND_ROMANCE_ADD = "ADDROMANCE";
-	public static final String COMMAND_EVENT_ADD = "ADDEVENT";
-	public static final String COMMAND_QUOTE_ADD = "ADDQUOTE";
-	public static final String COMMAND_SEASON_OUTLINE = "SEASONSOUTLINE";
-	public static final String COMMAND_CHARACTER_RESUME = "CHARACTERRESUME";
-	public static final String COMMAND_CHARACTER_COMPARE = "HOWARETHESETWORELATED";
-	public static final String COMMAND_QUOTE_QUOTER = "FAMOUSQUOTES";
-	public static final String COMMAND_ACTOR_ALSOIN = "ALSOAPPEARSON";
-	public static final String COMMAND_ACTOR_ROMANCE = "MOSTROMANTIC";
-	public static final String COMMAND_KINGCGI = "KINGOFCGI";
-	public static final String COMMAND_HELP = "HELP";
-	public static final String COMMAND_QUIT = "EXIT";
+	public static final String COMMAND_SHOW_CURRENT             = "CURRENTSHOW";
+	public static final String COMMAND_SHOW_ADD                 = "ADDSHOW";
+	public static final String COMMAND_SHOW_SWITCHTO            = "SWITCHTOSHOW";
+	public static final String COMMAND_SEASON_ADD               = "ADDSEASON";
+	public static final String COMMAND_EPISODE_ADD              = "ADDEPISODE";
+	public static final String COMMAND_CHARACTER_ADD            = "ADDCHARACTER";
+	public static final String COMMAND_RELATIONSHIP_ADD         = "ADDRELATIONSHIP";
+	public static final String COMMAND_ROMANCE_ADD              = "ADDROMANCE";
+	public static final String COMMAND_EVENT_ADD                = "ADDEVENT";
+	public static final String COMMAND_QUOTE_ADD                = "ADDQUOTE";
+	public static final String COMMAND_SEASON_OUTLINE           = "SEASONSOUTLINE";
+	public static final String COMMAND_CHARACTER_RESUME         = "CHARACTERRESUME";
+	public static final String COMMAND_CHARACTER_COMPARE        = "HOWARETHESETWORELATED";
+	public static final String COMMAND_QUOTE_QUOTER             = "FAMOUSQUOTES";
+	public static final String COMMAND_ACTOR_ALSOIN             = "ALSOAPPEARSON";
+	public static final String COMMAND_ACTOR_ROMANCE            = "MOSTROMANTIC";
+	public static final String COMMAND_KINGCGI                  = "KINGOFCGI";
+	public static final String COMMAND_HELP                     = "HELP";
+	public static final String COMMAND_QUIT                     = "EXIT";
 
 	// Message Constants
     public static final String MESSAGE_UNKNOWN_COMMAND          = "Unknown command. Type help to see available commands.";
@@ -42,6 +43,9 @@ public class Main {
     public static final String MESSAGE_NO_EPISODE               = "%s S%d does not have episode %d!\n";
     public static final String MESSAGE_NO_CHARACTER             = "Who is %s?\n";
     public static final String MESSAGE_DUPLICATE_CHARACTER      = "Duplicate character names are not allowed!";
+    public static final String MESSAGE_DUPLICATE_PARENT         = "%s cannot be parent and child at the same time!\n";
+    public static final String MESSAGE_DUPLICATE_ROMANCE        = "%s cannot be in a single person romantic relationship!\n";
+    public static final String MESSAGE_DUPLICATE_RELATIONSHIP   = "What else is new? We already know about those two...";
     public static final String MESSAGE_EVENT_ADDED              = "Event added.";
     public static final String MESSAGE_QUOTE_ADDED              = "Quote added.";
     public static final String MESSAGE_EXISTING_SHOW            = "Show already exists!";
@@ -118,6 +122,12 @@ public class Main {
 			case COMMAND_EVENT_ADD:
 				addEvent(in, sPedia);
 				break;
+			case COMMAND_RELATIONSHIP_ADD:
+			    addRelationship(in, sPedia);
+			    break;
+			case COMMAND_ROMANCE_ADD:
+			    addRomance(in, sPedia);
+			    break;
 			case COMMAND_SHOW_CURRENT:
 				currentShow(sPedia);
 				break;
@@ -339,7 +349,49 @@ public class Main {
 			System.out.println(MESSAGE_EXISTING_SHOW);
 		}
 	}
-
+    
+    private static void addRelationship(Scanner in, ShowPedia sPedia) {
+        String parent = in.nextLine();
+        String child = in.nextLine();
+        
+        try {
+            sPedia.addRelationship(parent, child);
+            System.out.printf("%s has now %d kids. %s has now %d parent(s).\n", parent, sPedia.getCurrent().getCharacter(parent).getNumChildren(), child, sPedia.getCurrent().getCharacter(child).getNumParents());
+        } catch (NoShowSelectedException e) {
+            System.out.println(MESSAGE_NO_SHOW_SELECTED);
+        } catch (SingleRelationshipException e) {
+            System.out.printf(MESSAGE_DUPLICATE_PARENT, parent);
+        } catch (ExistingRelationshipException e) {
+            System.out.println(MESSAGE_DUPLICATE_RELATIONSHIP);
+        } catch (NoCharacterException e) {
+            System.out.printf(MESSAGE_NO_CHARACTER, parent);
+        } catch (NoChildException e) {
+            System.out.printf(MESSAGE_NO_CHARACTER, child);
+        }
+    }
+    
+    private static void addRomance(Scanner in, ShowPedia sPedia) {
+        String lover1 = in.nextLine();
+        String lover2 = in.nextLine();
+        
+        try {
+            if (lover1.equals("Jay Pritchett") && lover2.equals("Gloria Pritchett"))
+                System.out.print("");
+            sPedia.addLovers(lover1, lover2);
+            System.out.printf("%s and %s are now a couple.\n", lover1, lover2);
+        } catch (NoShowSelectedException e) {
+            System.out.println(MESSAGE_NO_SHOW_SELECTED);
+        } catch (SingleRelationshipException e) {
+            System.out.printf(MESSAGE_DUPLICATE_ROMANCE, lover1);
+        } catch (ExistingRelationshipException e) {
+            System.out.println(MESSAGE_DUPLICATE_RELATIONSHIP);
+        } catch (NoCharacterException e) {
+            System.out.printf(MESSAGE_NO_CHARACTER, lover1);
+        } catch (NoChildException e) {
+            System.out.printf(MESSAGE_NO_CHARACTER, lover2);
+        }
+    }
+    
 	private static void currentShow(ShowPedia sPedia) {
 		try {
 			Show tmp = sPedia.getCurrent();
@@ -348,4 +400,5 @@ public class Main {
 			System.out.println(MESSAGE_NO_SHOW_SELECTED);
 		}
 	}
+
 }
