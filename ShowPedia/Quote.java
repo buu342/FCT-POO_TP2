@@ -6,6 +6,8 @@
 
 package ShowPedia;
 
+import java.util.Map;
+
 public interface Quote {
 
 	void addCharacter(Character character);
@@ -13,5 +15,7 @@ public interface Quote {
 	String getQuote();
 
 	void setQuote(String quote);
+
+	Map<String, Character> getCharacters();
 
 }

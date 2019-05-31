@@ -80,4 +80,6 @@ public interface ShowPedia {
 	Company getCompany(String name);
 
 	void addQuote(int season, int episode, String character, String quote) throws NoShowSelectedException, NoSeasonException, NoEpisodeException, NoCharacterException;
+
+	void famousQuote(String quote) throws UnexistingQuoteException;
 }

@@ -1,6 +1,6 @@
 
 /**
- * @author André Enes 51099
+ * @author AndrÃ© Enes 51099
  * @author Lourenco Soares 54530
  * Project 2 for POO
  */
@@ -35,50 +35,55 @@ public class Main {
 	public static final String COMMAND_QUIT = "EXIT";
 
 	// Message Constants
-	public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command. Type help to see available commands.";
-	public static final String MESSAGE_NO_SHOW_SELECTED = "No show is selected!";
-	public static final String MESSAGE_NO_SEASON = "Unknown Season!";
-	public static final String MESSAGE_NO_SEASON_DETAILED = "%s does not have season %d!\n";
-	public static final String MESSAGE_NO_EPISODE = "%s S%d does not have episode %d!\n";
-	public static final String MESSAGE_NO_CHARACTER = "Who is %s?\n";
-	public static final String MESSAGE_DUPLICATE_CHARACTER = "Duplicate character names are not allowed!";
-	public static final String MESSAGE_EVENT_ADDED = "Event added.";
-	public static final String MESSAGE_QUOTE_ADDED = "Quote added.";
-	public static final String MESSAGE_EXISTING_SHOW = "Show already exists!";
-	public static final String MESSAGE_NON_EXISTING_SHOW = "Unknown show!";
-	public static final String MESSAGE_EXISTING_CHARACTER = "Duplicate character names are not allowed!";
-	public static final String MESSAGE_INVALID_TYPE = "Unknown actor category!";
-	public static final String MESSAGE_INVALID_FEE = "Slavery is long gone and this is outrageous!";
-	public static final String MESSAGE_INVALID_INTERVAL = "Invalid seasons interval!";
-	public static final String MESSAGE_EXIT = "Bye!";
-	public static final String MESSAGE_HELP = "currentShow - show the current show\r\n" + "addShow - add a new show\r\n"
-			+ "switchToShow - change the context to a particular show\r\n"
-			+ "addSeason - add a new season to the current show\r\n"
-			+ "addEpisode - add a new episode to a particular season of the current show\r\n"
-			+ "addCharacter - add a new character to a show\r\n"
-			+ "addRelationship - add a family relationship between characters\r\n"
-			+ "addRomance - add a romantic relationship between characters\r\n"
-			+ "addEvent - add a significant event involving at least one character\r\n"
-			+ "addQuote - add a new quote to a character\r\n"
-			+ "seasonsOutline - outline the contents of the selected seasons for the selected show\r\n"
-			+ "characterResume - outline the main information on a specific character\r\n"
-			+ "howAreTheseTwoRelated - find out if and how two characters may be related\r\n"
-			+ "famousQuotes - find out which character(s) said a particular quote\r\n"
-			+ "alsoAppearsOn - which other shows and roles is the same actor on?\r\n"
-			+ "mostRomantic - find out who is at least as romantic as X\r\n"
-			+ "kingOfCGI - find out which company has earned more revenue with their CGI virtual actors\r\n"
-			+ "help - shows the available commands\r\n" + "exit - terminates the execution of the program";
+    public static final String MESSAGE_UNKNOWN_COMMAND          = "Unknown command. Type help to see available commands.";
+    public static final String MESSAGE_NO_SHOW_SELECTED         = "No show is selected!";
+    public static final String MESSAGE_NO_SEASON                = "Unknown Season!";
+    public static final String MESSAGE_NO_SEASON_DETAILED       = "%s does not have season %d!\n";
+    public static final String MESSAGE_NO_EPISODE               = "%s S%d does not have episode %d!\n";
+    public static final String MESSAGE_NO_CHARACTER             = "Who is %s?\n";
+    public static final String MESSAGE_DUPLICATE_CHARACTER      = "Duplicate character names are not allowed!";
+    public static final String MESSAGE_EVENT_ADDED              = "Event added.";
+    public static final String MESSAGE_QUOTE_ADDED              = "Quote added.";
+    public static final String MESSAGE_EXISTING_SHOW            = "Show already exists!";
+    public static final String MESSAGE_NON_EXISTING_SHOW        = "Unknown show!";
+    public static final String MESSAGE_INVALID_INTERVAL         = "Invalid seasons interval!";
+    public static final String MESSAGE_EXISTING_CHARACTER       = "Duplicate character names are not allowed!";
+    public static final String MESSAGE_UNEXISTING_QUOTE       	= "First time I hear that!";
+    public static final String MESSAGE_INVALID_TYPE             = "Unknown actor category!";
+    public static final String MESSAGE_INVALID_FEE              = "Slavery is long gone and this is outrageous!";
+    public static final String MESSAGE_EXIT                     = "Bye!";
+    public static final String MESSAGE_HELP                     = "currentShow - show the current show\r\n" + 
+                                                                  "addShow - add a new show\r\n" + 
+                                                                  "switchToShow - change the context to a particular show\r\n" + 
+                                                                  "addSeason - add a new season to the current show\r\n" + 
+                                                                  "addEpisode - add a new episode to a particular season of the current show\r\n" + 
+                                                                  "addCharacter - add a new character to a show\r\n" + 
+                                                                  "addRelationship - add a family relationship between characters\r\n" + 
+                                                                  "addRomance - add a romantic relationship between characters\r\n" + 
+                                                                  "addEvent - add a significant event involving at least one character\r\n" + 
+                                                                  "addQuote - add a new quote to a character\r\n" + 
+                                                                  "seasonsOutline - outline the contents of the selected seasons for the selected show\r\n" + 
+                                                                  "characterResume - outline the main information on a specific character\r\n" + 
+                                                                  "howAreTheseTwoRelated - find out if and how two characters may be related\r\n" + 
+                                                                  "famousQuotes - find out which character(s) said a particular quote\r\n" + 
+                                                                  "alsoAppearsOn - which other shows and roles is the same actor on?\r\n" + 
+                                                                  "mostRomantic - find out who is at least as romantic as X\r\n" + 
+                                                                  "kingOfCGI - find out which company has earned more revenue with their CGI virtual actors\r\n" + 
+                                                                  "help - shows the available commands\r\n" + 
+                                                                  "exit - terminates the execution of the program";
 
-	public static void main(String[] args) {
-		// Initialize the program
-		Scanner in = new Scanner(System.in);
-		ShowPedia sPedia = new ShowPediaClass();
-		String comm = getCommand(in);
-
-		// Get commands until the user writes EXIT
-		while (!comm.equals(COMMAND_QUIT)) {
-
-			// Decide what to do depending on the command
+     public static void main(String[] args) 
+     {   
+         // Initialize the program
+         System.out.print("> ");
+         Scanner in = new Scanner(System.in);
+         ShowPedia sPedia = new ShowPediaClass();
+         String comm = getCommand(in);
+      
+         // Get commands until the user writes EXIT
+         while (!comm.equals(COMMAND_QUIT)) {
+             
+             // Decide what to do depending on the command
 			switch (comm) {
 			case COMMAND_HELP:
 				System.out.println(MESSAGE_HELP);
@@ -86,11 +91,11 @@ public class Main {
 			case COMMAND_SHOW_SWITCHTO:
 				switchToShow(in, sPedia);
 				break;
-			case COMMAND_SHOW_SWITCHTO:
-				switchToShow(in, sPedia);
-				break;
 			case COMMAND_SEASON_OUTLINE:
 				seasonOutline(in, sPedia);
+				break;
+			case COMMAND_QUOTE_QUOTER:
+				famousQuote(in, sPedia);
 				break;
 			case COMMAND_KINGCGI:
 				kingOfCGI(sPedia);
@@ -121,15 +126,37 @@ public class Main {
 				break;
 			}
 
-			// Get another command
-			System.out.println();
-			comm = getCommand(in);
-		}
-
-		// Say goodbye and terminate the program
-		System.out.println(MESSAGE_EXIT);
-		System.out.println();
+     // Get another command
+     System.out.print("> ");
+     comm = getCommand(in);
+     }
+         
+     // Say goodbye and terminate the program  
+     System.out.println(MESSAGE_EXIT);
+     in.close();
 		in.close();
+	}
+
+	private static void famousQuote(Scanner in, ShowPedia sPedia){
+		String quote = in.nextLine();
+		try {
+			sPedia.famousQuote(quote);			
+			
+			Iterator<String> it =sPedia.getCurrent().getQuote(quote).getCharacters().keySet().iterator();
+			while(it.hasNext()) {
+			String name = it.next();
+			if(it.hasNext()) {
+				System.out.printf("%s,", name);
+			}else {
+				System.out.printf("%s\n", name);
+			}
+		}
+		
+		}catch (NoShowSelectedException e) {
+    	    System.out.println(MESSAGE_NO_SHOW_SELECTED);
+		}catch (UnexistingQuoteException e) {
+    	    System.out.println(MESSAGE_UNEXISTING_QUOTE);
+		}
 	}
 
 	private static void seasonOutline(Scanner in, ShowPedia sPedia) {
@@ -158,7 +185,6 @@ public class Main {
     	 }
 		}
 		
-     
 	
      }catch (NoShowSelectedException e) {
     	    System.out.println(MESSAGE_NO_SHOW_SELECTED);
@@ -239,8 +265,7 @@ public class Main {
 		String input;
 		input = in.nextLine().toUpperCase();
 		return input;
-	}
-
+  }
 	private static void addCharacter(Scanner in, ShowPedia sPedia) {
 		String type = in.nextLine();
 		String characterName = in.nextLine();
@@ -322,5 +347,4 @@ public class Main {
 			System.out.println(MESSAGE_NO_SHOW_SELECTED);
 		}
 	}
-
 }

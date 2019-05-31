@@ -1,5 +1,5 @@
 /**
- * @author André Enes 51099
+ * @author AndrÃ© Enes 51099
  * @author Lourenco Soares 54530
  * Show class implementation
  */
@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
+
+import exceptions.UnexistingQuoteException;
 
 public class ShowClass implements Show {
 
@@ -71,7 +73,7 @@ public class ShowClass implements Show {
 		this.nrEpisodes++;
 		List<Event> eventsInEpisode = new ArrayList<Event>();
 		events.get(season).put(episodeNr, eventsInEpisode);
-	}
+  }
 
 	@Override
 	public void addEvent(int season, int episode, Event event) {
@@ -91,7 +93,10 @@ public class ShowClass implements Show {
 	}
 
 	@Override
-	public Quote getQuote(String quote) {
+	public Quote getQuote(String quote)  {
+		if(!quotes.containsKey(quote)) {
+		//	throw new UnexistingQuoteException();
+		}
 		return quotes.get(quote);
 
 	}
@@ -100,5 +105,10 @@ public class ShowClass implements Show {
 	public void addQuote(Quote tmp) {
 		quotes.put(tmp.getQuote(), tmp);
 	}
+	
+    @Override
+    public void addCharacter(Character character) {
+        this.characters.put(character.getCharacterName(), character);
+    }
 
 }

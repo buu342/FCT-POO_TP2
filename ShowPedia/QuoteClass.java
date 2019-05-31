@@ -35,6 +35,11 @@ public class QuoteClass implements Quote {
 	public String getQuote() {
 		return quote;
 	}
+	
+	@Override
+	public Map<String, Character> getCharacters() {
+		return characters;
+	}
 
 	/**
 	 * @param quote the quote to set
