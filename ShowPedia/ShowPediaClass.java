@@ -220,4 +220,29 @@ public class ShowPediaClass implements ShowPedia {
 
 	}
 
+	@Override
+	public void addQuote(int season, int episode, String name, String quote) throws NoShowSelectedException, NoSeasonException, NoEpisodeException, NoCharacterException {
+		if (this.current == null)
+            throw new NoShowSelectedException();
+        
+		  if (!hasSeason(season))
+	            throw new NoSeasonException();
+		  
+		  if (!hasEpisode(season, episode))
+	            throw new NoEpisodeException();
+		  
+		  if (!hasCharacter(name)) 
+			  throw new NoCharacterException();
+		  
+		  Character character =characters.get(name);
+		  if(current.hasQuote(quote)) {
+			  current.getQuote(quote).addCharacter(character); 
+		  }else {
+			 Quote tmp = new QuoteClass(quote);
+			 tmp.addCharacter(character);
+			 current.addQuote(tmp);
+		  }
+		  
+	}
+
 }

@@ -28,11 +28,6 @@ public interface Character {
      */
     List<Relationship> getRelationships();
     
-    /**
-     * Retrieves a list of all quotes said by this character.
-     * @return A <code>List&lt;Quote&gt;</code> of all quotes said by this character.
-     */
-    List<Quote> getQuotes();
     
     /**
      * Adds the event <code>event</code> to the list of events involving to this character.
@@ -46,10 +41,6 @@ public interface Character {
      */
     void addRelationship(Relationship relationship);
 
-    /**
-     * Adds the quote <code>quote</code> to the list of quotes said by this character.
-     * @param relationship  A <code>Quote</code> object pointer that involves this character.
-     */
-    void addQuote(Quote quote);
+  
 }
 

@@ -53,5 +53,11 @@ public interface Show {
 	void addEvent(int season, int episode, Event event);
 
 	boolean hasCharacter(String name);
+
+	boolean hasQuote(String quote);
+
+	Quote getQuote(String quote);
+
+	void addQuote(Quote tmp);
     
 }
