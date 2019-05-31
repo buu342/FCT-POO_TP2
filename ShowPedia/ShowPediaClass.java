@@ -1,5 +1,5 @@
 /**
- * @author André Enes 51099
+ * @author AndrÃ© Enes 51099
  * @author Lourenco Soares 54530
  * ShowPedia System implementation
  */
@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Iterator;
+import java.util.List;
 
 import exceptions.*;
 
@@ -108,18 +109,86 @@ public class ShowPediaClass implements ShowPedia {
     }
     
     // Check whether a show has already been registered
-    private boolean hasShow(String show) {
+    @Override
+    public boolean hasShow(String show) {
         return this.shows.containsKey(show);
     }
     
     // Check whether a season exists for a show
-    private boolean hasSeason(int season) {
-        return (this.current.getSeason(season) != null);
+    @Override
+    public boolean hasSeason(int season) {
+        return this.current.getNrSeasons() < season;
     }
 
-    // Check whether a character has already been registered
-    private boolean hasCharacter(String name) {
-        return false;
+    // Check whether a season exists for a show
+    @Override
+    public boolean hasEpisode(int season, int episode) {
+        return this.current.getSeason(season).size()< episode;
     }
+    
+    // Check whether a character has already been registered
+    @Override
+    public boolean hasCharacter(String name) {
+        return current.hasCharacter(name);
+    }
+
+	@Override
+	public void addEvent(String description, int season, int episode, List<String> characters) throws NoShowSelectedException, NoSeasonException, NoEpisodeException, NoCharacterException, DuplicateCharacterException {
+		if (this.current == null)
+            throw new NoShowSelectedException();
+        
+		  if (!hasSeason(season))
+	            throw new NoSeasonException();
+		  
+		  if (!hasEpisode(season, episode))
+	            throw new NoEpisodeException();
+		
+		  if (hasCharacters(characters) != null) 
+			  throw new NoCharacterException();
+			 
+		  if (hasDuplicateCharacter(characters)) 
+			  throw new DuplicateCharacterException();
+		  
+		Map<String, Character> tmpCharacters = new HashMap<String, Character>();
+		Iterator<String> it = characters.iterator();
+		while(it.hasNext()) {
+			String name= it.next();
+			Character character = this.characters.get(name);
+			tmpCharacters.put(name, character);
+		}
+		Event tmp = new EventClass(description, tmpCharacters);
+		Iterator<Character> itCharacter = tmpCharacters.values().iterator();
+		while(itCharacter.hasNext()) {
+			itCharacter.next().addEvent(tmp);
+		}
+		current.addEvent(season, episode, tmp);
+	}
+
+	private boolean hasDuplicateCharacter(List<String> characters) {
+		boolean ret = false;
+		int i = 0;
+		while(i<characters.size() && ret == false) {
+			String name= characters.get(i);
+			for(int j = i+1;j<characters.size();j++ ) {
+				if(characters.get(j).equals(name)) {
+					ret = true;
+			}
+		}
+	}
+		return ret;
+	}
+
+	@Override
+	public String hasCharacters(List<String> characters) {
+		String ret = null;
+		Iterator<String> it = characters.iterator();
+		while(it.hasNext() && ret == null) {
+			String name= it.next();
+			if(!this.characters.containsKey(name)) {
+				ret = name;
+			}
+		}
+		return ret;
+	}
 
 }

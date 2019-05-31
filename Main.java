@@ -1,9 +1,11 @@
 /**
- * @author André Enes 51099
+ * @author AndrÃ© Enes 51099
  * @author Lourenco Soares 54530
  * Project 2 for POO
  */
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import ShowPedia.*;
 import exceptions.*;
@@ -35,6 +37,11 @@ public class Main
     public static final String MESSAGE_UNKNOWN_COMMAND          = "Unknown command. Type help to see available commands.";
     public static final String MESSAGE_NO_SHOW_SELECTED         = "No show is selected!";
     public static final String MESSAGE_NO_SEASON                = "Unknown season!";
+    public static final String MESSAGE_NO_SEASON_DETAILED       = "%s does not have season %d!\n";
+    public static final String MESSAGE_NO_EPISODE               = "%s S%d does not have episode %d!\n";
+    public static final String MESSAGE_NO_CHARACTER             = "Who is %s?\n";
+    public static final String MESSAGE_DUPLICATE_CHARACTER      = "Duplicate character names are not allowed!";
+    public static final String EVENT_ADDED                		= "Event added.";
     public static final String MESSAGE_EXISTING_SHOW            = "Show already exists!";
     public static final String MESSAGE_NON_EXISTING_SHOW        = "Unknown show!";
     public static final String MESSAGE_EXISTING_CHARACTER       = "Duplicate character names are not allowed!";
@@ -95,6 +102,9 @@ public class Main
                  case COMMAND_SEASON_ADD:
                      addSeason(in, sPedia);
                      break;
+                 case COMMAND_EVENT_ADD:
+                     addEvent(in, sPedia);
+                     break;
                  case COMMAND_SHOW_CURRENT:
                      currentShow(sPedia);
                      break;
@@ -114,7 +124,37 @@ public class Main
      }
     
      
-     private static void kingOfCGI(ShowPedia sPedia) {
+     private static void addEvent(Scanner in, ShowPedia sPedia){
+		String description = in.nextLine();
+		int season = in.nextInt();
+		int episode = in.nextInt();
+		int nrCharacters = in.nextInt();in.nextLine();
+		String showName = null;
+		List<String> characters = new ArrayList<String>();
+		for(int i = 0; i<nrCharacters; i++) {
+			characters.add(in.nextLine());
+		}
+		
+		try {
+			showName =sPedia.getCurrent().getName();
+			sPedia.addEvent(description, season, episode, characters);
+			System.out.println(EVENT_ADDED);
+		}catch (NoShowSelectedException e) {
+            System.out.println(MESSAGE_NO_SHOW_SELECTED);
+        }catch (NoSeasonException e) {
+            System.out.printf(MESSAGE_NO_SEASON_DETAILED, showName, season, episode);
+        }catch (NoEpisodeException e) {
+            System.out.println(MESSAGE_NO_EPISODE);
+        }catch (NoCharacterException e ) {
+            System.out.printf(MESSAGE_NO_CHARACTER, sPedia.hasCharacters(characters));
+        }catch (DuplicateCharacterException e ) {
+            System.out.println(MESSAGE_DUPLICATE_CHARACTER);
+        }
+		
+	}
+
+
+	private static void kingOfCGI(ShowPedia sPedia) {
         //try {
             sPedia.kingOfCGI();
         //}
