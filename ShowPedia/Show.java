@@ -1,12 +1,11 @@
 /**
- * @author André Enes 51099
+ * @author Andre Enes 51099
  * @author Lourenco Soares 54530
  * Show object interface
  */
 
 package ShowPedia;
 
-import java.util.List;
 import java.util.Map;
 
 public interface Show {
