@@ -38,4 +38,9 @@ public class ActorClass implements Actor {
         this.shows.put(show.getName(), show);
     }
     
+    @Override
+    public Map<String, Show> getShows() {
+        return shows;
+    }
+    
 }

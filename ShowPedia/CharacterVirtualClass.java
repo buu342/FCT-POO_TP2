@@ -11,9 +11,10 @@ public class CharacterVirtualClass extends CharacterClass {
     private Company company;
     private int costPerSeason;
     
+    
 
-    public CharacterVirtualClass(String characterName, Company company, int costPerSeason) {
-        super(characterName);
+    public CharacterVirtualClass(Show current, String characterName, Company company, int costPerSeason) {
+        super(current, characterName);
         this.company = company;
         this.costPerSeason = costPerSeason;
     }
@@ -34,4 +35,8 @@ public class CharacterVirtualClass extends CharacterClass {
         return this.costPerSeason;
     }
 
+    public int totalRevenue() {	
+    	return this.getShow().getNrSeasons()*this.getCostPerSeason();
+    }
+    
 }

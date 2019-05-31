@@ -1,5 +1,5 @@
 /**
- * @author André Enes 51099
+ * @author AndrÃ© Enes 51099
  * @author Lourenco Soares 54530
  * Character class implementation
  */
@@ -15,11 +15,13 @@ public abstract class CharacterClass implements Character {
     private String characterName;
     private List<Event> events;
     private List<Relationship> relationships;
-
-    public CharacterClass(String characterName) {
+	private Show show;
+  
+    public CharacterClass(Show current, String characterName) {
         this.characterName = characterName;
         this.events = new LinkedList<>();
         this.relationships = new LinkedList<>();
+        setShow(current);
     }
 
     @Override
@@ -46,6 +48,20 @@ public abstract class CharacterClass implements Character {
     public void addRelationship(Relationship relationship) {
         this.relationships.add(relationship);
     }
+
+	/**
+	 * @return the show
+	 */
+	public Show getShow() {
+		return show;
+	}
+
+	/**
+	 * @param show the show to set
+	 */
+	public void setShow(Show show) {
+		this.show = show;
+	}
     
     @Override
     public int getNumParents() {

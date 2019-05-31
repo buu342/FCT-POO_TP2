@@ -6,6 +6,8 @@
 
 package ShowPedia;
 
+import java.util.Map;
+
 public interface Actor {
 
     /**
@@ -25,5 +27,7 @@ public interface Actor {
      * @param show  A <code>Show</code> object to add to the list of shows this actor has played in.
      */
     void addShow(Show show);
+
+	Map<String, Show> getShows();
     
 }
