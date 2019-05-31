@@ -1,5 +1,5 @@
 /**
- * @author André Enes 51099
+ * @author Andrï¿½ Enes 51099
  * @author Lourenco Soares 54530
  * ShowPedia System implementation
  */
@@ -137,7 +137,7 @@ public class ShowPediaClass implements ShowPedia {
     // Check whether a season exists for a show
     @Override
     public boolean hasSeason(int season) {
-        return this.current.getNrSeasons() <= season;
+        return (this.current.getNrSeasons() >= season && season > 0);
     }
 
     // Check whether a season exists for a show
