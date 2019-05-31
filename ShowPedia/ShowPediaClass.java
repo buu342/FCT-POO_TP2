@@ -46,6 +46,7 @@ public class ShowPediaClass implements ShowPedia {
 
         Show tmp = new ShowClass(name);
         this.shows.put(name, tmp);
+        this.current = tmp;
     }
 
     @Override
@@ -113,7 +114,7 @@ public class ShowPediaClass implements ShowPedia {
     
     // Check whether a season exists for a show
     private boolean hasSeason(int season) {
-        return this.current.getSeason(season).size() < season;
+        return (this.current.getSeason(season) != null);
     }
 
     // Check whether a character has already been registered

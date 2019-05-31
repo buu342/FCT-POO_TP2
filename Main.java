@@ -34,7 +34,7 @@ public class Main
     // Message Constants
     public static final String MESSAGE_UNKNOWN_COMMAND          = "Unknown command. Type help to see available commands.";
     public static final String MESSAGE_NO_SHOW_SELECTED         = "No show is selected!";
-    public static final String MESSAGE_NO_SEASON                = "Unknown Season!";
+    public static final String MESSAGE_NO_SEASON                = "Unknown season!";
     public static final String MESSAGE_EXISTING_SHOW            = "Show already exists!";
     public static final String MESSAGE_NON_EXISTING_SHOW        = "Unknown show!";
     public static final String MESSAGE_EXISTING_CHARACTER       = "Duplicate character names are not allowed!";
@@ -64,6 +64,7 @@ public class Main
      public static void main(String[] args) 
      {   
          // Initialize the program
+         System.out.print("> ");
          Scanner in = new Scanner(System.in);
          ShowPedia sPedia = new ShowPediaClass();
          String comm = getCommand(in);
@@ -103,13 +104,12 @@ public class Main
              }
              
              // Get another command
-             System.out.println();
+             System.out.print("> ");
              comm = getCommand(in);
          }
          
          // Say goodbye and terminate the program  
          System.out.println(MESSAGE_EXIT);
-         System.out.println();
          in.close();
      }
     
@@ -136,7 +136,7 @@ public class Main
         
         try {
             sPedia.addCharacter(type, characterName, name, fee);
-            System.out.printf("%s is now part of %s. This is %s role %d.", characterName, sPedia.getCurrent().getName(), name, sPedia.getActor(name).getNrShows()); 
+            System.out.printf("%s is now part of %s. This is %s role %d.\n", characterName, sPedia.getCurrent().getName(), name, sPedia.getActor(name).getNrShows()); 
         }catch (NoShowSelectedException e) {
             System.out.println(MESSAGE_NO_SHOW_SELECTED);
         }catch (InvalidTypeException e) {
@@ -155,8 +155,8 @@ public class Main
         
         try {
             sPedia.addEpisode(season, episode);
-            Show tmp = sPedia.getCurrent();
-            System.out.printf("%s S%d, Ep%d: %s.", season, tmp.getSeason(season).size(), episode);
+            Show current = sPedia.getCurrent();
+            System.out.printf("%s S%d, Ep%d: %s.\n", current.getName(), season, current.getSeason(season).size(), episode);
         }catch (NoShowSelectedException e) {
             System.out.println(MESSAGE_NO_SHOW_SELECTED);
         }catch (NoSeasonException e) {
@@ -187,7 +187,7 @@ public class Main
         String show = in.nextLine();
         try {
             sPedia.addShow(show);
-            System.out.printf("%s created.", show);
+            System.out.printf("%s created.\n", show);
         }catch(ExistingShowException e) {
             System.out.println(MESSAGE_EXISTING_SHOW);
         }
@@ -196,7 +196,7 @@ public class Main
     private static void currentShow(ShowPedia sPedia) {
         try {
             Show tmp = sPedia.getCurrent();
-            System.out.printf("%s. Seasons: %d Episodes: %d", tmp.getName(), tmp.getNrSeasons(), tmp.getNrEpisodes());
+            System.out.printf("%s. Seasons: %d Episodes: %d\n", tmp.getName(), tmp.getNrSeasons(), tmp.getNrEpisodes());
         }catch (NoShowSelectedException e) {
             System.out.println(MESSAGE_NO_SHOW_SELECTED);
         }

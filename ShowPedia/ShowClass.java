@@ -23,6 +23,7 @@ public class ShowClass implements Show {
         this.seasons = new HashMap<Integer, Map<Integer,Episode>>();
         this.characters = new HashMap<String, Character>();
         this.name = name;
+        addSeason();
     }
 
     @Override
@@ -47,7 +48,7 @@ public class ShowClass implements Show {
         this.seasons.put(season, episodes);
         this.nrSeasons++;
     }
-
+    
     @Override
     public Map<Integer, Episode> getSeason(int season) {
         return this.seasons.get(season);
