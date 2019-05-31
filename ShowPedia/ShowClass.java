@@ -1,5 +1,5 @@
 /**
- * @author André Enes 51099
+ * @author AndrÃ© Enes 51099
  * @author Lourenco Soares 54530
  * Show class implementation
  */
@@ -71,7 +71,7 @@ public class ShowClass implements Show {
 		this.nrEpisodes++;
 		List<Event> eventsInEpisode = new ArrayList<Event>();
 		events.get(season).put(episodeNr, eventsInEpisode);
-	}
+  }
 
 	@Override
 	public void addEvent(int season, int episode, Event event) {
