@@ -82,7 +82,7 @@ public class ShowPediaClass implements ShowPedia {
         if (this.current == null)
             throw new NoShowSelectedException();
         
-        if (!type.equalsIgnoreCase("virtual") || !type.equalsIgnoreCase("real"))
+        if (!type.equalsIgnoreCase("virtual") && !type.equalsIgnoreCase("real"))
             throw new InvalidTypeException();
         
         if (hasCharacter(characterName))
@@ -117,7 +117,7 @@ public class ShowPediaClass implements ShowPedia {
     // Check whether a season exists for a show
     @Override
     public boolean hasSeason(int season) {
-        return this.current.getNrSeasons() < season;
+        return (this.current.getNrSeasons() >= season && season > 0);
     }
 
     // Check whether a season exists for a show

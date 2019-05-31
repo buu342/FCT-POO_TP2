@@ -64,7 +64,7 @@ public class ShowClass implements Show {
 
     @Override
     public void addEpisode(int season, String episode) {
-        int episodeNr = this.seasons.get(season).size()+1;
+        int episodeNr = this.seasons.get(season).size();
         Episode tmp = new EpisodeClass(episode);
         this.seasons.get(season).put(episodeNr, tmp);
         this.nrEpisodes++;  
