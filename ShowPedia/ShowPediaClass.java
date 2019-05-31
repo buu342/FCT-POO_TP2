@@ -1,5 +1,5 @@
 /**
- * @author André Enes 51099
+ * @author AndrÃ© Enes 51099
  * @author Lourenco Soares 54530
  * ShowPedia System implementation
  */
@@ -47,6 +47,7 @@ public class ShowPediaClass implements ShowPedia {
 
         Show tmp = new ShowClass(name);
         this.shows.put(name, tmp);
+        this.current = tmp;
     }
 
     @Override

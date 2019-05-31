@@ -28,6 +28,7 @@ public class ShowClass implements Show {
         this.characters = new HashMap<String, Character>();
         this.events = new TreeMap <Integer, SortedMap<Integer, List<Event>>>();
         this.name = name;
+        addSeason();
     }
 
     @Override
@@ -55,7 +56,7 @@ public class ShowClass implements Show {
         SortedMap<Integer, List<Event>> eventsSeason = new TreeMap <Integer, List<Event>>();
         events.put(season, eventsSeason);
     }
-
+    
     @Override
     public Map<Integer, Episode> getSeason(int season) {
         return this.seasons.get(season);
