@@ -1,5 +1,5 @@
 /**
- * @author Andre Enes 51099
+ * @author André Enes 51099
  * @author Lourenco Soares 54530
  * ShowPedia System interface
  */
@@ -76,4 +76,6 @@ public interface ShowPedia {
 	boolean hasSeason(int season);
 
 	String hasCharacters(List<String> characters);
+
+	Company getCompany(String name);
 }

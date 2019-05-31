@@ -1,5 +1,5 @@
 /**
- * @author Andre Enes 51099
+ * @author Andr� Enes 51099
  * @author Lourenco Soares 54530
  * ShowPedia System implementation
  */
@@ -47,7 +47,6 @@ public class ShowPediaClass implements ShowPedia {
 
         Show tmp = new ShowClass(name);
         this.shows.put(name, tmp);
-        this.current = tmp;
     }
 
     @Override
@@ -78,7 +77,7 @@ public class ShowPediaClass implements ShowPedia {
     }
 
     @Override
-    public void addCharacter(String type, String characterName, String actorName, int fee) throws NoShowSelectedException, InvalidTypeException, ExistingCharacterException, InvalidFeeException {
+    public void addCharacter(String type, String characterName, String name, int fee) throws NoShowSelectedException, InvalidTypeException, ExistingCharacterException, InvalidFeeException {
         if (this.current == null)
             throw new NoShowSelectedException();
         
@@ -90,6 +89,27 @@ public class ShowPediaClass implements ShowPedia {
         
         if(fee<0) 
             throw new InvalidFeeException();
+   
+        if (type.equalsIgnoreCase("real")) {
+            Character tmp; 
+            if(!actors.containsKey(name)) {
+                Actor tmp2 = new ActorClass(name);
+                tmp =new CharacterRealClass(characterName, tmp2, fee);
+            }else {
+            	 tmp =new CharacterRealClass(characterName, actors.get(name), fee);
+            }
+            characters.put(characterName, tmp);
+        }else if (type.equalsIgnoreCase("virtual")) {
+            Character tmp;
+           
+            if(!companies.containsKey(name)) {
+                Company tmp2 = new CompanyClass(name);
+                tmp =new CharacterVirtualClass(characterName, tmp2, fee);
+            }else {
+            	 tmp =new CharacterVirtualClass(characterName, companies.get(name), fee);
+            } 
+            characters.put(characterName, tmp);
+        }
     }
     
     @Override
@@ -189,6 +209,12 @@ public class ShowPediaClass implements ShowPedia {
 			}
 		}
 		return ret;
+	}
+
+	@Override
+	public Company getCompany(String name) {
+        return companies.get(name);
+
 	}
 
 }

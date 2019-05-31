@@ -1,5 +1,5 @@
 /**
- * @author Andre Enes 51099
+ * @author André Enes 51099
  * @author Lourenco Soares 54530
  * Show class implementation
  */
@@ -56,7 +56,7 @@ public class ShowClass implements Show {
         SortedMap<Integer, List<Event>> eventsSeason = new TreeMap <Integer, List<Event>>();
         events.put(season, eventsSeason);
     }
-    
+
     @Override
     public Map<Integer, Episode> getSeason(int season) {
         return this.seasons.get(season);

@@ -1,5 +1,5 @@
 /**
- * @author Andre Enes 51099
+ * @author André Enes 51099
  * @author Lourenco Soares 54530
  * Real Character class implementation (extends CharacterClass)
  */
@@ -8,10 +8,10 @@ package ShowPedia;
 
 public class CharacterRealClass extends CharacterClass{
 
-    private String actor;
+    private Actor actor;
     private int fee;
 
-    public CharacterRealClass(String characterName, String actor, int fee) {
+    public CharacterRealClass(String characterName, Actor actor, int fee) {
         super(characterName);
         this.actor = actor;
         this.fee = fee;
@@ -21,7 +21,7 @@ public class CharacterRealClass extends CharacterClass{
      * Retrieves the name of this actor who portrays this character.
      * @return A <code>String</code> with the name of actor who portrays this character.
      */
-    public String getActor() {
+    public Actor getActor() {
         return this.actor;
     }
     
