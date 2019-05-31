@@ -6,6 +6,7 @@
 
 package ShowPedia;
 
+import java.util.List;
 import java.util.Map;
 
 public interface Show {
@@ -46,5 +47,9 @@ public interface Show {
      * @param episode   A <code>String</code> with the name of the episode.
      */
     void addEpisode(int season, String episode);
+
+	void addEvent(int season, int episode, Event event);
+
+	boolean hasCharacter(String name);
     
 }

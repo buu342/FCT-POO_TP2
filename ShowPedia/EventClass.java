@@ -5,30 +5,23 @@
  */
 
 package ShowPedia;
-
-import java.util.List;
+import java.util.Map;
 
 public class EventClass implements Event {
 
     String description;
-    Episode episode;
-    List<Character> characters;
+    Map<String, Character> characters;
     
-    public EventClass(String description, Episode episode, List<Character> characters) {
+    public EventClass(String description, Map<String, Character> tmpCharacters) {
         this.description = description;
-        this.episode = episode;
-        this.characters = characters;
+        this.characters = tmpCharacters;
     }
     
     public String getDescription() {
         return this.description;
     }
-    
-    public Episode getEpisode() {
-        return this.episode;
-    }
    
-    public List<Character> getCharacters() {
+    public Map<String, Character> getCharacters() {
         return this.characters;
     }
 

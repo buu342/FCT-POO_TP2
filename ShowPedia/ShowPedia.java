@@ -6,6 +6,8 @@
 
 package ShowPedia;
 
+import java.util.List;
+
 import exceptions.*;
 
 public interface ShowPedia {
@@ -62,4 +64,16 @@ public interface ShowPedia {
      * @return The <code>Actor</code> object with name <code>name</code>.
      */
     Actor getActor(String name);
+
+	void addEvent(String description, int season, int episode, List<String> characters) throws NoShowSelectedException, NoSeasonException, NoEpisodeException, NoCharacterException, DuplicateCharacterException;
+
+	boolean hasCharacter(String name);
+
+	boolean hasEpisode(int season, int episode);
+
+	boolean hasShow(String show);
+
+	boolean hasSeason(int season);
+
+	String hasCharacters(List<String> characters);
 }
