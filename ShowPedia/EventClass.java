@@ -1,5 +1,5 @@
 /**
- * @author Andre Enes 51099
+ * @author André Enes 51099
  * @author Lourenco Soares 54530
  * Event class implementation
  */
