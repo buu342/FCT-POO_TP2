@@ -1,6 +1,6 @@
 
 /**
- * @author André Enes 51099
+ * @author Andre Enes 51099
  * @author Lourenco Soares 54530
  * Project 2 for POO
  */
@@ -8,8 +8,8 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
+import java.util.Arrays;
 import ShowPedia.*;
 import exceptions.*;
 
@@ -159,14 +159,19 @@ public class Main {
 			sPedia.alsoAppearsOn(character); 
 			CharacterRealClass tmp = (CharacterRealClass) sPedia.getCharacter(character);
 			Iterator<String> it = tmp.getActor().getShows().keySet().iterator();
-		while(it.hasNext()) {
-			System.out.println(it.next());
-		}
-			
+			String shows[] = new String[tmp.getActor().getShows().size()];
+			int i=0;
+    		while(it.hasNext()) {
+    		    shows[i] = it.next();
+    		    i++;
+    		}
+    		Arrays.sort(shows);
+    		for (int j=0; j<i; j++)
+    		    System.out.println(shows[j]);
 		}catch (NoShowSelectedException e) {
 			System.out.println(MESSAGE_NO_SHOW_SELECTED);
 		} catch (NoCharacterException e) {
-			System.out.printf(MESSAGE_NO_CHARACTER, sPedia.hasCharacter(character));
+			System.out.printf(MESSAGE_NO_CHARACTER, character);
 		}catch (VirtualActorException e) {
 			System.out.printf(MESSAGE_VIRTUAL_ACTOR, character);
 		}
@@ -319,7 +324,7 @@ public class Main {
 						sPedia.getCurrent().getName());
 			} else {
 				System.out.printf("%s is now part of %s. This is %s role %d.\n", characterName,
-						sPedia.getCurrent().getName(), name, sPedia.getActor(name).getNrShows());
+						sPedia.getCurrent().getName(), name, sPedia.getActor(name).getNrCharacters());
 			}
 
 		} catch (NoShowSelectedException e) {

@@ -1,5 +1,5 @@
 /**
- * @author André Enes 51099
+ * @author Andre Enes 51099
  * @author Lourenco Soares 54530
  * Actor object interface
  */
@@ -30,4 +30,7 @@ public interface Actor {
 
 	Map<String, Show> getShows();
     
+	void addCharacter(Character character);
+	
+	int getNrCharacters();
 }

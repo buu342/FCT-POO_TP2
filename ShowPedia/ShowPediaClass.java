@@ -1,5 +1,5 @@
 /**
- * @author Andr� Enes 51099
+ * @author Andre Enes 51099
  * @author Lourenco Soares 54530
  * ShowPedia System implementation
  */
@@ -99,6 +99,7 @@ public class ShowPediaClass implements ShowPedia {
             	 tmp =new CharacterRealClass(this.current, characterName, this.actors.get(name), fee);
             }
             this.actors.get(name).addShow(this.current);
+            this.actors.get(name).addCharacter(tmp);
         } else {
             if(!this.companies.containsKey(name)) {
                 Company tmp2 = new CompanyClass(name);

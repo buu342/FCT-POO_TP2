@@ -1,7 +1,7 @@
 /**
- * @author André Enes 51099
+ * @author Andre Enes 51099
  * @author Lourenco Soares 54530
- * Exception - Character has already been registered in ShowPedia.
+ * Exception - Character is in a relationship with itself
  */
 
 package exceptions;
