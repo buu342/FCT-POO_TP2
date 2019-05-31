@@ -13,11 +13,14 @@ public class CompanyClass implements Company {
     
     private String name;
     private Map<String, Character> characters;
+    private int revenue;
+    
 
 	public CompanyClass(String name) {
-        this.setName(name);
+        setName(name);
         characters = new HashMap<String, Character>();
-    }
+        setRevenue(0);
+	}
 
 	@Override
 	public void addCharacter(Character character) {
@@ -43,6 +46,22 @@ public class CompanyClass implements Company {
 	@Override
 	public Map<String, Character> getCharacters() {
 		return characters;
+	}
+
+	/**
+	 * @return the revenue
+	 */
+	@Override
+	public int getRevenue() {
+		return revenue;
+	}
+
+	/**
+	 * @param revenue the revenue to set
+	 */
+	@Override
+	public void setRevenue(int revenue) {
+		this.revenue = revenue;
 	}
 	
 }

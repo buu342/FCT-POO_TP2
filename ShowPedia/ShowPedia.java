@@ -55,8 +55,9 @@ public interface ShowPedia {
      * Returns a pointer to the company object that has spent the most on CGI.
      * @param name          A <code>String</code> with the name of the actor.
      * @return A <code>Company</code> object that has spent the most on CGI.
+     * @throws NoVirtualCharactersException 
      */
-    Company kingOfCGI();
+    Company kingOfCGI() throws NoVirtualCharactersException;
 
     /**
      * Returns a pointer to the actor object with name <code>name</code>.
@@ -79,7 +80,11 @@ public interface ShowPedia {
 
 	Company getCompany(String name);
 
+	Character getCharacter(String characterName);
+	
 	void addQuote(int season, int episode, String character, String quote) throws NoShowSelectedException, NoSeasonException, NoEpisodeException, NoCharacterException;
 
 	void famousQuote(String quote) throws UnexistingQuoteException;
+
+	void alsoAppearsOn(String character) throws NoShowSelectedException, NoCharacterException, VirtualActorException;
 }

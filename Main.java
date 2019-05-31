@@ -8,6 +8,7 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import ShowPedia.*;
 import exceptions.*;
@@ -48,9 +49,11 @@ public class Main {
     public static final String MESSAGE_NON_EXISTING_SHOW        = "Unknown show!";
     public static final String MESSAGE_INVALID_INTERVAL         = "Invalid seasons interval!";
     public static final String MESSAGE_EXISTING_CHARACTER       = "Duplicate character names are not allowed!";
+    public static final String MESSAGE_NO_VIRTUAL_CHARACTERS    = "This is the real thing, this is art!";
     public static final String MESSAGE_UNEXISTING_QUOTE       	= "First time I hear that!";
     public static final String MESSAGE_INVALID_TYPE             = "Unknown actor category!";
     public static final String MESSAGE_INVALID_FEE              = "Slavery is long gone and this is outrageous!";
+    public static final String MESSAGE_VIRTUAL_ACTOR            = "%s is played by a virtual actor!\n";
     public static final String MESSAGE_EXIT                     = "Bye!";
     public static final String MESSAGE_HELP                     = "currentShow - show the current show\r\n" + 
                                                                   "addShow - add a new show\r\n" + 
@@ -90,6 +93,9 @@ public class Main {
 				break;
 			case COMMAND_SHOW_SWITCHTO:
 				switchToShow(in, sPedia);
+				break;
+			case COMMAND_ACTOR_ALSOIN:
+				alsoApearsOn(in, sPedia);
 				break;
 			case COMMAND_SEASON_OUTLINE:
 				seasonOutline(in, sPedia);
@@ -135,6 +141,25 @@ public class Main {
      System.out.println(MESSAGE_EXIT);
      in.close();
 		in.close();
+	}
+
+	private static void alsoApearsOn(Scanner in, ShowPedia sPedia) {
+		String character = in.nextLine();
+		try {
+			sPedia.alsoAppearsOn(character); 
+			CharacterRealClass tmp = (CharacterRealClass) sPedia.getCharacter(character);
+			Iterator<String> it = tmp.getActor().getShows().keySet().iterator();
+		while(it.hasNext()) {
+			System.out.println(it.next());
+		}
+			
+		}catch (NoShowSelectedException e) {
+			System.out.println(MESSAGE_NO_SHOW_SELECTED);
+		} catch (NoCharacterException e) {
+			System.out.printf(MESSAGE_NO_CHARACTER, sPedia.hasCharacter(character));
+		}catch (VirtualActorException e) {
+			System.out.printf(MESSAGE_VIRTUAL_ACTOR, character);
+		}
 	}
 
 	private static void famousQuote(Scanner in, ShowPedia sPedia){
@@ -255,9 +280,12 @@ public class Main {
 	}
 
 	private static void kingOfCGI(ShowPedia sPedia) {
-		// try {
-		sPedia.kingOfCGI();
-		// }
+		try {
+		Company company = sPedia.kingOfCGI();
+		System.out.printf("%s %d\n",company.getName(), company.getRevenue());
+		}catch (NoVirtualCharactersException e) {
+			System.out.println(MESSAGE_NO_VIRTUAL_CHARACTERS);
+		}
 	}
 
 	// Standardize the input by forcing everything to upper case

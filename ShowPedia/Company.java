@@ -18,4 +18,8 @@ public interface Company {
 
 	Map<String, Character> getCharacters();
 
+	int getRevenue();
+
+	void setRevenue(int revenue);
+
 }
