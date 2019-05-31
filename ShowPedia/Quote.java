@@ -8,4 +8,10 @@ package ShowPedia;
 
 public interface Quote {
 
+	void addCharacter(Character character);
+
+	String getQuote();
+
+	void setQuote(String quote);
+
 }
