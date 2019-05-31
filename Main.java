@@ -71,6 +71,7 @@ public class Main
      public static void main(String[] args) 
      {   
          // Initialize the program
+         System.out.print("> ");
          Scanner in = new Scanner(System.in);
          ShowPedia sPedia = new ShowPediaClass();
          String comm = getCommand(in);
@@ -116,13 +117,12 @@ public class Main
              }
              
              // Get another command
-             System.out.println();
+             System.out.print("> ");
              comm = getCommand(in);
          }
          
          // Say goodbye and terminate the program  
          System.out.println(MESSAGE_EXIT);
-         System.out.println();
          in.close();
      }
     
@@ -176,17 +176,16 @@ public class Main
         String characterName = in.nextLine();
         String name = in.nextLine();
         int fee = in.nextInt();
-        
+        in.nextLine();
+
         try {
             sPedia.addCharacter(type, characterName, name, fee);
             
             if (type.equalsIgnoreCase("virtual")) {
-            	System.out.printf("%s is now part of %s. This is a virtual actor.", characterName, sPedia.getCurrent().getName()); 
+            	System.out.printf("%s is now part of %s. This is a virtual actor.\n", characterName, sPedia.getCurrent().getName()); 
             }else {
-            	System.out.printf("%s is now part of %s. This is %s role %d.", characterName, sPedia.getCurrent().getName(), name, sPedia.getActor(name).getNrShows()); 
+            	System.out.printf("%s is now part of %s. This is %s role %d.\n", characterName, sPedia.getCurrent().getName(), name, sPedia.getActor(name).getNrShows()); 
             }
-        
-            
         }catch (NoShowSelectedException e) {
             System.out.println(MESSAGE_NO_SHOW_SELECTED);
         }catch (InvalidTypeException e) {
@@ -194,7 +193,7 @@ public class Main
         }catch (ExistingCharacterException e) {
             System.out.println(MESSAGE_EXISTING_CHARACTER);
         }catch (InvalidFeeException e) {
-            System.out.println(MESSAGE_EXISTING_CHARACTER);
+            System.out.println(MESSAGE_INVALID_FEE);
         }
         
     }
@@ -237,7 +236,7 @@ public class Main
         String show = in.nextLine();
         try {
             sPedia.addShow(show);
-            System.out.printf("%s created.", show);
+            System.out.printf("%s created.\n", show);
         }catch(ExistingShowException e) {
             System.out.println(MESSAGE_EXISTING_SHOW);
         }
@@ -246,7 +245,7 @@ public class Main
     private static void currentShow(ShowPedia sPedia) {
         try {
             Show tmp = sPedia.getCurrent();
-            System.out.printf("%s. Seasons: %d Episodes: %d", tmp.getName(), tmp.getNrSeasons(), tmp.getNrEpisodes());
+            System.out.printf("%s. Seasons: %d Episodes: %d\n", tmp.getName(), tmp.getNrSeasons(), tmp.getNrEpisodes());
         }catch (NoShowSelectedException e) {
             System.out.println(MESSAGE_NO_SHOW_SELECTED);
         }

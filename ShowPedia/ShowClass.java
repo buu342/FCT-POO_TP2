@@ -56,6 +56,11 @@ public class ShowClass implements Show {
         SortedMap<Integer, List<Event>> eventsSeason = new TreeMap <Integer, List<Event>>();
         events.put(season, eventsSeason);
     }
+    
+    @Override
+    public void addCharacter(Character character) {
+        this.characters.put(character.getCharacterName(), character);
+    }
 
     @Override
     public Map<Integer, Episode> getSeason(int season) {

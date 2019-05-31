@@ -47,6 +47,7 @@ public class ShowPediaClass implements ShowPedia {
 
         Show tmp = new ShowClass(name);
         this.shows.put(name, tmp);
+        this.current = tmp;
     }
 
     @Override
@@ -90,26 +91,28 @@ public class ShowPediaClass implements ShowPedia {
         if(fee<0) 
             throw new InvalidFeeException();
    
+        Character tmp;
         if (type.equalsIgnoreCase("real")) {
-            Character tmp; 
-            if(!actors.containsKey(name)) {
+            if(!this.actors.containsKey(name)) {
                 Actor tmp2 = new ActorClass(name);
                 tmp =new CharacterRealClass(characterName, tmp2, fee);
+                this.actors.put(name, tmp2);
             }else {
-            	 tmp =new CharacterRealClass(characterName, actors.get(name), fee);
+            	 tmp =new CharacterRealClass(characterName, this.actors.get(name), fee);
             }
-            characters.put(characterName, tmp);
-        }else if (type.equalsIgnoreCase("virtual")) {
-            Character tmp;
-           
-            if(!companies.containsKey(name)) {
+            this.actors.get(name).addShow(this.current);
+        } else {
+            
+            if(!this.companies.containsKey(name)) {
                 Company tmp2 = new CompanyClass(name);
                 tmp =new CharacterVirtualClass(characterName, tmp2, fee);
             }else {
-            	 tmp =new CharacterVirtualClass(characterName, companies.get(name), fee);
+            	 tmp =new CharacterVirtualClass(characterName, this.companies.get(name), fee);
             } 
-            characters.put(characterName, tmp);
+            //TODO: this.companies.get(name).addCharacter(this.current);
         }
+        this.current.addCharacter(tmp);
+        this.characters.put(characterName, tmp);
     }
     
     @Override
