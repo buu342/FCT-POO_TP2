@@ -6,6 +6,16 @@
 
 package ShowPedia;
 
+import java.util.Map;
+
 public interface Company {
+
+	void addCharacter(Character tmp);
+
+	String getName();
+
+	void setName(String name);
+
+	Map<String, Character> getCharacters();
 
 }

@@ -32,6 +32,8 @@ public interface Show {
      * Adds a new season to this show.
      */
     void addSeason();
+    
+    void addCharacter(Character character);
 
     /**
      * Adds the character <code>character</code> to this show.

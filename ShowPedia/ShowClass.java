@@ -13,6 +13,8 @@ import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import exceptions.UnexistingQuoteException;
+
 public class ShowClass implements Show {
 
 	private int nrEpisodes;
@@ -91,7 +93,10 @@ public class ShowClass implements Show {
 	}
 
 	@Override
-	public Quote getQuote(String quote) {
+	public Quote getQuote(String quote)  {
+		if(!quotes.containsKey(quote)) {
+		//	throw new UnexistingQuoteException();
+		}
 		return quotes.get(quote);
 
 	}

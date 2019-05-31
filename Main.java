@@ -48,6 +48,7 @@ public class Main {
     public static final String MESSAGE_NON_EXISTING_SHOW        = "Unknown show!";
     public static final String MESSAGE_INVALID_INTERVAL         = "Invalid seasons interval!";
     public static final String MESSAGE_EXISTING_CHARACTER       = "Duplicate character names are not allowed!";
+    public static final String MESSAGE_UNEXISTING_QUOTE       	= "First time I hear that!";
     public static final String MESSAGE_INVALID_TYPE             = "Unknown actor category!";
     public static final String MESSAGE_INVALID_FEE              = "Slavery is long gone and this is outrageous!";
     public static final String MESSAGE_EXIT                     = "Bye!";
@@ -93,6 +94,9 @@ public class Main {
 			case COMMAND_SEASON_OUTLINE:
 				seasonOutline(in, sPedia);
 				break;
+			case COMMAND_QUOTE_QUOTER:
+				famousQuote(in, sPedia);
+				break;
 			case COMMAND_KINGCGI:
 				kingOfCGI(sPedia);
 				break;
@@ -131,6 +135,28 @@ public class Main {
      System.out.println(MESSAGE_EXIT);
      in.close();
 		in.close();
+	}
+
+	private static void famousQuote(Scanner in, ShowPedia sPedia){
+		String quote = in.nextLine();
+		try {
+			sPedia.famousQuote(quote);			
+			
+			Iterator<String> it =sPedia.getCurrent().getQuote(quote).getCharacters().keySet().iterator();
+			while(it.hasNext()) {
+			String name = it.next();
+			if(it.hasNext()) {
+				System.out.printf("%s,", name);
+			}else {
+				System.out.printf("%s\n", name);
+			}
+		}
+		
+		}catch (NoShowSelectedException e) {
+    	    System.out.println(MESSAGE_NO_SHOW_SELECTED);
+		}catch (UnexistingQuoteException e) {
+    	    System.out.println(MESSAGE_UNEXISTING_QUOTE);
+		}
 	}
 
 	private static void seasonOutline(Scanner in, ShowPedia sPedia) {

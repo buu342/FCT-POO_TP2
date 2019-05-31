@@ -20,7 +20,6 @@ public class ShowPediaClass implements ShowPedia {
     private Map <String, Character> characters;
     private Map <String, Company> companies;
     private Map <String, Show> shows;
-    private Map <String, Quote> quotes;
     private Show current;
     
     public ShowPediaClass() {
@@ -28,7 +27,6 @@ public class ShowPediaClass implements ShowPedia {
         this.characters = new HashMap<String, Character>();
         this.companies = new HashMap<String, Company>();
         this.shows = new HashMap<String, Show>();
-        this.quotes = new HashMap<String, Quote>();
         this.current = null;
     }
 
@@ -109,7 +107,7 @@ public class ShowPediaClass implements ShowPedia {
             }else {
             	 tmp =new CharacterVirtualClass(characterName, this.companies.get(name), fee);
             } 
-            //TODO: this.companies.get(name).addCharacter(this.current);
+           this.companies.get(name).addCharacter(tmp);
         }
         this.current.addCharacter(tmp);
         this.characters.put(characterName, tmp);
@@ -243,6 +241,13 @@ public class ShowPediaClass implements ShowPedia {
 			 current.addQuote(tmp);
 		  }
 		  
+	}
+
+	@Override
+	public void famousQuote(String quote) throws UnexistingQuoteException {
+		if(!current.hasQuote(quote)) {
+			throw new UnexistingQuoteException();
+		}
 	}
 
 }
