@@ -6,7 +6,6 @@
 
 package ShowPedia;
 
-import java.util.List;
 import java.util.Map;
 
 public interface Show {
@@ -33,7 +32,11 @@ public interface Show {
      * Adds a new season to this show.
      */
     void addSeason();
-    
+
+    /**
+     * Adds the character <code>character</code> to this show.
+     * @param character A <code>Character</code> object to add to this show.
+     */
     void addCharacter(Character character);
 
     /**

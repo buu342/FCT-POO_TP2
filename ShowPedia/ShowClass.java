@@ -1,5 +1,5 @@
 /**
- * @author André Enes 51099
+ * @author Andre Enes 51099
  * @author Lourenco Soares 54530
  * Show class implementation
  */
@@ -47,16 +47,16 @@ public class ShowClass implements Show {
 		return this.nrEpisodes;
 	}
 
-	@Override
-	public void addSeason() {
-		int season = this.seasons.size();
-
-		Map<Integer, Episode> episodes = new HashMap<Integer, Episode>();
-		this.seasons.put(season, episodes);
-
-		SortedMap<Integer, List<Event>> eventsSeason = new TreeMap<Integer, List<Event>>();
-		events.put(season, eventsSeason);
-	}
+    @Override
+    public void addSeason() {
+        int season = this.seasons.size()+1;
+       
+        Map<Integer, Episode> episodes = new HashMap<Integer, Episode>();
+        this.seasons.put(season, episodes);
+       
+        SortedMap<Integer, List<Event>> eventsSeason = new TreeMap <Integer, List<Event>>();
+        events.put(season, eventsSeason);
+    }
 
 	@Override
 	public Map<Integer, Episode> getSeason(int season) {
