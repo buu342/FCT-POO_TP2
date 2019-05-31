@@ -100,5 +100,10 @@ public class ShowClass implements Show {
 	public void addQuote(Quote tmp) {
 		quotes.put(tmp.getQuote(), tmp);
 	}
+	
+    @Override
+    public void addCharacter(Character character) {
+        this.characters.put(character.getCharacterName(), character);
+    }
 
 }

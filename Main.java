@@ -42,9 +42,11 @@ public class Main {
     public static final String MESSAGE_NO_EPISODE               = "%s S%d does not have episode %d!\n";
     public static final String MESSAGE_NO_CHARACTER             = "Who is %s?\n";
     public static final String MESSAGE_DUPLICATE_CHARACTER      = "Duplicate character names are not allowed!";
-    public static final String EVENT_ADDED                		= "Event added.";
+    public static final String MESSAGE_EVENT_ADDED              = "Event added.";
+    public static final String MESSAGE_QUOTE_ADDED              = "Quote added.";
     public static final String MESSAGE_EXISTING_SHOW            = "Show already exists!";
     public static final String MESSAGE_NON_EXISTING_SHOW        = "Unknown show!";
+    public static final String MESSAGE_INVALID_INTERVAL         = "Invalid seasons interval!";
     public static final String MESSAGE_EXISTING_CHARACTER       = "Duplicate character names are not allowed!";
     public static final String MESSAGE_INVALID_TYPE             = "Unknown actor category!";
     public static final String MESSAGE_INVALID_FEE              = "Slavery is long gone and this is outrageous!";
@@ -84,9 +86,6 @@ public class Main {
 			switch (comm) {
 			case COMMAND_HELP:
 				System.out.println(MESSAGE_HELP);
-				break;
-			case COMMAND_SHOW_SWITCHTO:
-				switchToShow(in, sPedia);
 				break;
 			case COMMAND_SHOW_SWITCHTO:
 				switchToShow(in, sPedia);
