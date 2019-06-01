@@ -1,5 +1,5 @@
 /**
- * @author André Enes 51099
+ * @author Andre Enes 51099
  * @author Lourenco Soares 54530
  * Event object interface
  */
@@ -21,5 +21,13 @@ public interface Event {
      * @return A <code>List&lt;Character&gt;</code> of characters relating to this event.
      */
     Map<String, Character> getCharacters();
+
+	void setEpisode(int episode);
+
+	int getEpisode();
+
+	void setSeason(int season);
+
+	int getSeason();
 
 }

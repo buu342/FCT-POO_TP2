@@ -1,5 +1,5 @@
 /**
- * @author André Enes 51099
+ * @author Andre Enes 51099
  * @author Lourenco Soares 54530
  * Virtual Character class implementation (extends CharacterClass)
  */
@@ -11,9 +11,10 @@ public class CharacterVirtualClass extends CharacterClass {
     private Company company;
     private int costPerSeason;
     
+    
 
-    public CharacterVirtualClass(String characterName, Company company, int costPerSeason) {
-        super(characterName);
+    public CharacterVirtualClass(Show current, String characterName, Company company, int costPerSeason) {
+        super(current, characterName);
         this.company = company;
         this.costPerSeason = costPerSeason;
     }
@@ -34,4 +35,8 @@ public class CharacterVirtualClass extends CharacterClass {
         return this.costPerSeason;
     }
 
+    public int totalRevenue() {	
+    	return this.getShow().getNrSeasons()*this.getCostPerSeason();
+    }
+    
 }

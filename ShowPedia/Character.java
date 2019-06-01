@@ -1,5 +1,5 @@
 /**
- * @author André Enes 51099
+ * @author Andre Enes 51099
  * @author Lourenco Soares 54530
  * Character object interface
  */
@@ -22,25 +22,32 @@ public interface Character {
      */
     List<Event> getEvents();
     
-    /**
-     * Retrieves a list of all relationships involving this character.
-     * @return A <code>List&lt;Relationship&gt;</code> of all relationships involving this character.
-     */
-    List<Relationship> getRelationships();
+    List<Character> getParents();
     
+    List<Character> getChildren();
+    
+    List<Character> getLovers();
+    
+    void addParent(Character character);
+    
+    void addChild(Character character);
+    
+    void addLover(Character character);
+    
+    Show getShow();
+    
+    void setShow(Show show);
     
     /**
      * Adds the event <code>event</code> to the list of events involving to this character.
      * @param event         An <code>Event</code> object pointer that involves this character.
      */
     void addEvent(Event event);
-    
-    /**
-     * Adds the relationship <code>relationship</code> to the list of relationships involving this character.
-     * @param relationship  A <code>Relationship</code> object pointer that involves this character.
-     */
-    void addRelationship(Relationship relationship);
 
-  
+    int getNumParents();
+    
+    int getNumChildren();
+    
+    int getNumLovers();
 }
 

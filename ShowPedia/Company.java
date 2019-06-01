@@ -1,5 +1,5 @@
 /**
- * @author André Enes 51099
+ * @author Andre Enes 51099
  * @author Lourenco Soares 54530
  * Company object interface
  */
@@ -17,5 +17,9 @@ public interface Company {
 	void setName(String name);
 
 	Map<String, Character> getCharacters();
+
+	int getRevenue();
+
+	void setRevenue(int revenue);
 
 }

@@ -1,5 +1,5 @@
 /**
- * @author André Enes 51099
+ * @author Andre Enes 51099
  * @author Lourenco Soares 54530
  * Real Character class implementation (extends CharacterClass)
  */
@@ -11,8 +11,8 @@ public class CharacterRealClass extends CharacterClass{
     private Actor actor;
     private int fee;
 
-    public CharacterRealClass(String characterName, Actor actor, int fee) {
-        super(characterName);
+    public CharacterRealClass(Show current, String characterName, Actor actor, int fee) {
+        super(current, characterName);
         this.actor = actor;
         this.fee = fee;
     }
@@ -34,5 +34,10 @@ public class CharacterRealClass extends CharacterClass{
         return this.fee;
     }
 
+    
+    public int totalRevenue() {
+        return this.getShow().getNrEpisodes()*this.getFee();
+    }
+    
 
 }

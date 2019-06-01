@@ -1,5 +1,5 @@
 /**
- * @author Andr� Enes 51099
+ * @author Andre Enes 51099
  * @author Lourenco Soares 54530
  * ShowPedia System implementation
  */
@@ -93,19 +93,20 @@ public class ShowPediaClass implements ShowPedia {
         if (type.equalsIgnoreCase("real")) {
             if(!this.actors.containsKey(name)) {
                 Actor tmp2 = new ActorClass(name);
-                tmp =new CharacterRealClass(characterName, tmp2, fee);
+                tmp =new CharacterRealClass(this.current, characterName, tmp2, fee);
                 this.actors.put(name, tmp2);
             }else {
-            	 tmp =new CharacterRealClass(characterName, this.actors.get(name), fee);
+            	 tmp =new CharacterRealClass(this.current, characterName, this.actors.get(name), fee);
             }
             this.actors.get(name).addShow(this.current);
+            this.actors.get(name).addCharacter(tmp);
         } else {
-            
             if(!this.companies.containsKey(name)) {
                 Company tmp2 = new CompanyClass(name);
-                tmp =new CharacterVirtualClass(characterName, tmp2, fee);
+                tmp =new CharacterVirtualClass(this.current, characterName, tmp2, fee);
+                this.companies.put(name, tmp2);
             }else {
-            	 tmp =new CharacterVirtualClass(characterName, this.companies.get(name), fee);
+            	 tmp =new CharacterVirtualClass(this. current, characterName, this.companies.get(name), fee);
             } 
            this.companies.get(name).addCharacter(tmp);
         }
@@ -114,17 +115,46 @@ public class ShowPediaClass implements ShowPedia {
     }
     
     @Override
-    public Company kingOfCGI() {
-         Iterator<Entry<String, Character>> tmp = characters.entrySet().iterator();
-             while(tmp.hasNext()) {
-                 if(tmp.next() instanceof CharacterRealClass) {
-                     
-                 }
+    public Company kingOfCGI() throws NoVirtualCharactersException {
+        if(!hasVirtualCharacters()) {
+        	throw new NoVirtualCharactersException();
+        }
+    	
+        Company company = null;
+    	int max =0;
+    	Iterator<Entry<String, Company>> itCompanies = companies.entrySet().iterator();
+           while(itCompanies.hasNext()) {
+               int current = 0;
+        	  Entry<String, Company> tmp =itCompanies.next();
+               Iterator<String> itCharacters =tmp.getValue().getCharacters().keySet().iterator();
+        	   while(itCharacters.hasNext()) {
+        		   current = current + ((CharacterVirtualClass) characters.get(itCharacters.next())).totalRevenue();
+        	   }
+        	   if(current> max) {
+        		   max=current;
+        		   company = tmp.getValue();
+        		   company.setRevenue(current);
+        	   }
+        	   
              }
-        return null;
+        return company;
     }
 
-    @Override
+    private boolean hasVirtualCharacters() {
+    	/*
+    	boolean ret = false;
+    	Iterator<Entry<String, Character>> tmp = characters.entrySet().iterator();
+        while(tmp.hasNext()) {
+            if(tmp.next() instanceof CharacterVirtualClass) {
+                ret = true;
+            }
+        }
+    	return ret;
+    	*/
+    	return companies.size()>0;
+	}
+
+	@Override
     public Actor getActor(String name) {
         return actors.get(name);
     }
@@ -250,4 +280,66 @@ public class ShowPediaClass implements ShowPedia {
 		}
 	}
 
+	@Override
+	public void alsoAppearsOn(String character) throws NoShowSelectedException, NoCharacterException, VirtualActorException {
+		if (this.current == null)
+            throw new NoShowSelectedException();
+		
+		if (!hasCharacter(character)) 
+			  throw new NoCharacterException();
+		
+		if(characters.get(character) instanceof CharacterVirtualClass) {
+            throw new VirtualActorException();
+        }
+		
+	}
+
+	@Override
+	public Character getCharacter(String characterName) {
+		return characters.get(characterName);
+	}
+
+	public void addRelationship(String parent, String child) throws NoShowSelectedException, SingleRelationshipException, NoCharacterException, NoChildException, ExistingRelationshipException {
+	    
+	    if (this.current == null)
+            throw new NoShowSelectedException();
+	    
+	    if (parent.equals(child)) {
+	        System.out.print("");
+	        throw new SingleRelationshipException();
+	    }
+	    
+	    if (!hasCharacter(parent)) 
+            throw new NoCharacterException();
+	    
+	    if (!hasCharacter(child)) 
+            throw new NoChildException();
+
+	    this.current.addFamily(this.characters.get(parent), this.characters.get(child));
+	}
+	
+	@Override
+    public void addLovers(String lover1, String lover2) throws NoShowSelectedException, SingleRelationshipException, NoCharacterException, NoChildException, ExistingRelationshipException {
+        
+        if (this.current == null)
+            throw new NoShowSelectedException();
+        
+        if (lover1.equals(lover2)) {
+            System.out.print("");
+            throw new SingleRelationshipException();
+        }
+        
+        if (!hasCharacter(lover1)) 
+            throw new NoCharacterException();
+        
+        if (!hasCharacter(lover2)) 
+            throw new NoChildException();
+
+        this.current.addLovers(this.characters.get(lover1), this.characters.get(lover2));
+    }
+
+	@Override
+	public boolean isListEmpty(List<Character> list) {
+		return list.size() == 0;
+	}
 }

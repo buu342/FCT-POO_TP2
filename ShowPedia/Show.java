@@ -1,12 +1,16 @@
 /**
- * @author André Enes 51099
+ * @author Andre Enes 51099
  * @author Lourenco Soares 54530
  * Show object interface
  */
 
 package ShowPedia;
 
+import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
+
+import exceptions.*;
 
 public interface Show {
     
@@ -33,8 +37,6 @@ public interface Show {
      */
     void addSeason();
     
-    void addCharacter(Character character);
-
     /**
      * Adds the character <code>character</code> to this show.
      * @param character A <code>Character</code> object to add to this show.
@@ -64,5 +66,18 @@ public interface Show {
 	Quote getQuote(String quote);
 
 	void addQuote(Quote tmp);
+	
+    List<Character> getParents();
     
+    List<Character> getChildren();
+    
+    List<Character> getLovers();
+    
+    void addFamily(Character parent, Character child) throws ExistingRelationshipException;
+    
+    void addLovers(Character lover1, Character lover2) throws ExistingRelationshipException;
+	
+	Character getCharacter(String name);
+
+	SortedMap<Integer, SortedMap<Integer, List<Event>>> getEvents();
 }

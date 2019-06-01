@@ -1,5 +1,5 @@
 /**
- * @author André Enes 51099
+ * @author Andre Enes 51099
  * @author Lourenco Soares 54530
  * Actor class implementation
  */
@@ -25,17 +25,32 @@ public class ActorClass implements Actor {
     
     @Override
     public String getName() {
-        return name;
+        return this.name;
     }
 
     @Override
     public int getNrShows() {
-        return shows.size();
+        return this.shows.size();
+    }
+    
+    @Override
+    public int getNrCharacters() {
+        return this.characters.size();
     }
 
     @Override
     public void addShow(Show show) {
         this.shows.put(show.getName(), show);
+    }
+    
+    @Override
+    public void addCharacter(Character character) {
+        this.characters.put(character.getCharacterName(), character);
+    }
+    
+    @Override
+    public Map<String, Show> getShows() {
+        return this.shows;
     }
     
 }
