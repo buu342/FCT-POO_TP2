@@ -6,7 +6,9 @@
 
 package ShowPedia;
 
+import java.util.List;
 import java.util.Map;
+import exceptions.*;
 
 public interface Show {
     
@@ -63,9 +65,15 @@ public interface Show {
 
 	void addQuote(Quote tmp);
 	
-	boolean hasRelationship(Relationship relationship);
+    List<Character> getParents();
     
-	void addRelationship(Relationship relationship);
+    List<Character> getChildren();
+    
+    List<Character> getLovers();
+    
+    void addFamily(Character parent, Character child) throws ExistingRelationshipException;
+    
+    void addLovers(Character lover1, Character lover2) throws ExistingRelationshipException;
 	
 	Character getCharacter(String name);
 }

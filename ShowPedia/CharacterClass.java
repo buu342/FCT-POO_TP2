@@ -6,7 +6,6 @@
 
 package ShowPedia;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,13 +13,17 @@ public abstract class CharacterClass implements Character {
 
     private String characterName;
     private List<Event> events;
-    private List<Relationship> relationships;
+    private List<Character> parents;
+    private List<Character> children;
+    private List<Character> lovers;
 	private Show show;
   
     public CharacterClass(Show current, String characterName) {
         this.characterName = characterName;
         this.events = new LinkedList<>();
-        this.relationships = new LinkedList<>();
+        this.parents = new LinkedList<>();
+        this.children = new LinkedList<>();
+        this.lovers = new LinkedList<>();
         setShow(current);
     }
 
@@ -35,58 +38,63 @@ public abstract class CharacterClass implements Character {
     }
     
     @Override
-    public List<Relationship> getRelationships() {
-        return this.relationships;
+    public List<Character> getParents() {
+        return this.parents;
+    }
+    
+    @Override
+    public List<Character> getChildren() {
+        return this.children;
+    }
+    
+    @Override
+    public List<Character> getLovers() {
+        return this.lovers;
+    }
+    
+    @Override
+    public void addParent(Character character) {
+        this.parents.add(character);
+    }
+    
+    @Override
+    public void addChild(Character character) {
+        this.children.add(character);
+    }
+    
+    @Override
+    public void addLover(Character character) {
+        this.lovers.add(character);
     }
     
     @Override
     public void addEvent(Event event) {
         this.events.add(event);
     }
-    
-    @Override
-    public void addRelationship(Relationship relationship) {
-        this.relationships.add(relationship);
-    }
 
-	/**
-	 * @return the show
-	 */
+    @Override
 	public Show getShow() {
 		return show;
 	}
 
-	/**
-	 * @param show the show to set
-	 */
+	@Override
 	public void setShow(Show show) {
 		this.show = show;
 	}
     
     @Override
     public int getNumParents() {
-        int num = 0;
-        Iterator<Relationship> it = this.relationships.iterator();
-        while (it.hasNext())
-        {
-            Relationship temp = it.next();
-            if (temp instanceof RelationshipFamilyClass && temp.getCharacter2() == this)
-                num++;
-        }
-        return num;
+        return this.parents.size();
     }    
     
     @Override
     public int getNumChildren() {
-        int num = 0;
-        Iterator<Relationship> it = this.relationships.iterator();
-        while (it.hasNext())
-        {
-            Relationship temp = it.next();
-            if (temp instanceof RelationshipFamilyClass && temp.getCharacter1() == this)
-                num++;
-        }
-        return num;
+        return this.children.size();
+    }
+    
+    @Override
+    public int getNumLovers() {
+        return this.lovers.size();
     }
     
 }

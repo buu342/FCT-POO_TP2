@@ -43,6 +43,7 @@ public class Main {
     public static final String MESSAGE_NO_SEASON_DETAILED       = "%s does not have season %d!\n";
     public static final String MESSAGE_NO_EPISODE               = "%s S%d does not have episode %d!\n";
     public static final String MESSAGE_NO_CHARACTER             = "Who is %s?\n";
+    public static final String MESSAGE_NO_LOVE                  = "Love is not in the air. :-(.";
     public static final String MESSAGE_DUPLICATE_CHARACTER      = "Duplicate character names are not allowed!";
     public static final String MESSAGE_DUPLICATE_PARENT         = "%s cannot be parent and child at the same time!\n";
     public static final String MESSAGE_DUPLICATE_ROMANCE        = "%s cannot be in a single person romantic relationship!\n";
@@ -133,6 +134,9 @@ public class Main {
 			    break;
 			case COMMAND_ROMANCE_ADD:
 			    addRomance(in, sPedia);
+			    break;
+			case COMMAND_ACTOR_ROMANCE:
+			    mostRomantic(in, sPedia);
 			    break;
 			case COMMAND_SHOW_CURRENT:
 				currentShow(sPedia);
@@ -423,6 +427,16 @@ public class Main {
         } catch (NoChildException e) {
             System.out.printf(MESSAGE_NO_CHARACTER, lover2);
         }
+    }
+    
+    private static void mostRomantic(Scanner in, ShowPedia sPedia) {
+        String actorname = in.nextLine();
+        
+        /*try {         
+            
+        } catch (NoCharacterException e) {
+            //System.out.printf(MESSAGE_NO_CHARACTER, lover1);
+        }*/
     }
     
 	private static void currentShow(ShowPedia sPedia) {

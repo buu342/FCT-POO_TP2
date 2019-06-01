@@ -315,12 +315,7 @@ public class ShowPediaClass implements ShowPedia {
 	    if (!hasCharacter(child)) 
             throw new NoChildException();
 
-	    Relationship relationship = new RelationshipFamilyClass(this.current.getCharacter(parent), this.current.getCharacter(child));
-	    
-	    if (this.current.hasRelationship(relationship))
-	        throw new ExistingRelationshipException();
-	    
-	    this.current.addRelationship(relationship);
+	    this.current.addFamily(this.characters.get(parent), this.characters.get(child));
 	}
 	
 	@Override
@@ -340,11 +335,6 @@ public class ShowPediaClass implements ShowPedia {
         if (!hasCharacter(lover2)) 
             throw new NoChildException();
 
-        Relationship relationship = new RelationshipLoversClass(this.current.getCharacter(lover1), this.current.getCharacter(lover2));
-        
-        if (this.current.hasRelationship(relationship))
-            throw new ExistingRelationshipException();
-        
-        this.current.addRelationship(relationship);
+        this.current.addLovers(this.characters.get(lover1), this.characters.get(lover2));
     }
 }

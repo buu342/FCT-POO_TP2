@@ -9,11 +9,11 @@ package ShowPedia;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import exceptions.*;
 
 public class ShowClass implements Show {
 
@@ -23,7 +23,9 @@ public class ShowClass implements Show {
 	private String name;
 	private SortedMap<Integer, SortedMap<Integer, List<Event>>> events;
 	private Map<String, Quote> quotes;
-	private List<Relationship> relationships;
+    private List<Character> parents;
+    private List<Character> children;
+    private List<Character> lovers;
 
 	public ShowClass(String name) {
 		this.nrEpisodes = 0;
@@ -32,7 +34,9 @@ public class ShowClass implements Show {
 		this.events = new TreeMap<Integer, SortedMap<Integer, List<Event>>>();
 		this.quotes = new HashMap<String, Quote>();
 		this.name = name;
-		this.relationships = new LinkedList<Relationship>();
+        this.parents = new LinkedList<>();
+        this.children = new LinkedList<>();
+        this.lovers = new LinkedList<>();
 		addSeason();
 	}
 
@@ -100,20 +104,6 @@ public class ShowClass implements Show {
 	}
 	
 	@Override
-    public boolean hasRelationship(Relationship relationship) {
-	    Iterator<Relationship> it = this.relationships.iterator();
-	    while (it.hasNext())
-	    {
-	        Relationship temp = it.next();
-	        if (relationship.getCharacter1() == temp.getCharacter1() && relationship.getCharacter2() == temp.getCharacter2())
-	            return true;
-	        if (relationship.getCharacter1() == temp.getCharacter2() && relationship.getCharacter2() == temp.getCharacter1())
-                return true;
-	    }
-	    return false;
-	}
-
-	@Override
 	public Quote getQuote(String quote)  {
 		if(!quotes.containsKey(quote)) {
 		//	throw new UnexistingQuoteException();
@@ -133,10 +123,47 @@ public class ShowClass implements Show {
 	}
 	
     @Override
-    public void addRelationship(Relationship relationship) {
-        this.relationships.add(relationship);
-        relationship.getCharacter1().addRelationship(relationship);
-        relationship.getCharacter2().addRelationship(relationship);
+    public List<Character> getParents() {
+        return this.parents;
+    }
+    
+    @Override
+    public List<Character> getChildren() {
+        return this.children;
+    }
+    
+    @Override
+    public List<Character> getLovers() {
+        return this.lovers;
+    }
+    
+    @Override
+    public void addFamily(Character parent, Character child) throws ExistingRelationshipException {
+        if (child.getParents().contains(parent))
+            throw new ExistingRelationshipException();
+        
+        if (parent.getChildren().contains(child))
+            throw new ExistingRelationshipException();
+        
+        parent.addChild(child);
+        child.addParent(parent);
+        this.parents.add(child);
+        this.children.add(parent);
+    }
+    
+    @Override
+    public void addLovers(Character lover1, Character lover2) throws ExistingRelationshipException {
+        if (lover1.getLovers().contains(lover2))
+            throw new ExistingRelationshipException();
+        
+        if (lover2.getLovers().contains(lover1))
+            throw new ExistingRelationshipException();
+        
+        lover2.addLover(lover1);
+        lover1.addLover(lover2);
+        
+        this.lovers.add(lover1);
+        this.lovers.add(lover2);
     }
 
 }
