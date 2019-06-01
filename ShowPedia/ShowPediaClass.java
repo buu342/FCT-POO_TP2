@@ -9,11 +9,12 @@ package ShowPedia;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import Exceptions.*;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.LinkedList;
-
-import exceptions.*;
 
 public class ShowPediaClass implements ShowPedia {
     

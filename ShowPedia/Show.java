@@ -8,7 +8,8 @@ package ShowPedia;
 
 import java.util.List;
 import java.util.Map;
-import exceptions.*;
+
+import Exceptions.*;
 
 public interface Show {
     

@@ -12,12 +12,12 @@ import java.util.Scanner;
 
 import Comparators.AlphabeticalComparatorClass;
 import Comparators.LoversComparatorClass;
+import Exceptions.*;
 
 import java.util.Arrays;
 import java.util.Collections;
 
 import ShowPedia.*;
-import exceptions.*;
 
 public class Main {
     

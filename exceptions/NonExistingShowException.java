@@ -4,7 +4,7 @@
  * Exception - The show has not been registered in ShowPedia.
  */
 
-package exceptions;
+package Exceptions;
 
 public class NonExistingShowException extends Exception {
 

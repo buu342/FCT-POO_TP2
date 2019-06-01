@@ -4,7 +4,7 @@
  * Exception - No show has been selected by the user.
  */
 
-package exceptions;
+package Exceptions;
 
 public class NoShowSelectedException extends Exception {
 

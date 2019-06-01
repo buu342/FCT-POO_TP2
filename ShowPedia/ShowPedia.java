@@ -8,7 +8,7 @@ package ShowPedia;
 
 import java.util.List;
 
-import exceptions.*;
+import Exceptions.*;
 
 public interface ShowPedia {
 

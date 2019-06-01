@@ -4,7 +4,7 @@
  * Exception - Character is in a relationship with itself
  */
 
-package exceptions;
+package Exceptions;
 
 public class SingleRelationshipException extends Exception {
 

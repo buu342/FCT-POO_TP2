@@ -4,7 +4,7 @@
  * Exception - There are no registered lovers
  */
 
-package exceptions;
+package Exceptions;
 
 public class NoLoveException extends Exception {
 

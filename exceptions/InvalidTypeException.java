@@ -4,7 +4,7 @@
  * Exception - The type of character requested is incorrect.
  */
 
-package exceptions;
+package Exceptions;
 
 public class InvalidTypeException extends Exception {
 

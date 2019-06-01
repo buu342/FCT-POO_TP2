@@ -4,7 +4,7 @@
  * Exception - Episode doesn't exist
  */
 
-package exceptions;
+package Exceptions;
 
 public class NoEpisodeException extends Exception {
 

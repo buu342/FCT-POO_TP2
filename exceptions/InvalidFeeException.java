@@ -4,7 +4,7 @@
  * Exception - The fee value provided by the user is smaller than 0.
  */
 
-package exceptions;
+package Exceptions;
 
 public class InvalidFeeException extends Exception {
 

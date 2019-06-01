@@ -4,7 +4,7 @@
  * Exception - Romance character 2 doesn't exist
  */
 
-package exceptions;
+package Exceptions;
 
 public class NoChildException extends Exception {
 

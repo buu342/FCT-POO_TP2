@@ -4,7 +4,7 @@
  * Exception - Character has already been registered in ShowPedia.
  */
 
-package exceptions;
+package Exceptions;
 
 public class ExistingRelationshipException extends Exception {
 
