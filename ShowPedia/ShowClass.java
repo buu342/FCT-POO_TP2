@@ -21,7 +21,7 @@ public class ShowClass implements Show {
 	private Map<Integer, Map<Integer, Episode>> seasons;
 	private Map<String, Character> characters;
 	private String name;
-	private SortedMap<Integer, SortedMap<Integer, List<Event>>> events;
+	private Map<Integer, SortedMap<Integer, List<Event>>> events;
 	private Map<String, Quote> quotes;
     private List<Character> parents;
     private List<Character> children;
@@ -78,7 +78,7 @@ public class ShowClass implements Show {
 
 	@Override
 	public void addEpisode(int season, String episode) {
-		int episodeNr = this.seasons.get(season).size();
+		int episodeNr = this.seasons.get(season).size()+1;
 		Episode tmp = new EpisodeClass(episode);
 		this.seasons.get(season).put(episodeNr, tmp);
 		this.nrEpisodes++;
@@ -164,6 +164,21 @@ public class ShowClass implements Show {
         
         this.lovers.add(lover1);
         this.lovers.add(lover2);
+    }
+    
+    @Override
+    public Map<Integer, List<Event>> getEventsPerSeason(){
+        Map<Integer, List<Event>> retValue = new HashMap<Integer, List<Event>>();
+        int numseasons = this.seasons.size();
+        for (int i=1; i<=numseasons; i++) {
+            int numepisodes = seasons.get(i).size();
+            List<Event> episodeeventlist = new LinkedList<>();
+            for (int j=1; j<=numepisodes; j++) {
+                episodeeventlist.addAll(seasons.get(i).get(j).getEvents());
+            }
+            retValue.put(i, episodeeventlist);
+        }
+        return retValue;
     }
 
 }

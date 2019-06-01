@@ -6,6 +6,9 @@
 
 package ShowPedia;
 
+import java.util.Map;
+import java.util.List;
+
 public class CharacterVirtualClass extends CharacterClass {
 
     private Company company;
@@ -35,8 +38,23 @@ public class CharacterVirtualClass extends CharacterClass {
         return this.costPerSeason;
     }
 
-    public int totalRevenue() {	
-    	return this.getShow().getNrSeasons()*this.getCostPerSeason();
+    public int totalRevenue() {
+        int revenue = 0;
+        Map<Integer, List<Event>> events = this.getShow().getEventsPerSeason();
+        int numseasons = events.size();
+        for (int i=1; i<=numseasons; i++) {
+            List<Event> seasoneventlist = events.get(i);
+            if (seasoneventlist.size() == 0)
+                continue;
+            for (int j=0; j<seasoneventlist.size(); j++) {
+                if (seasoneventlist.get(j).getCharacters().containsKey(this.getCharacterName())) {
+                    revenue += this.costPerSeason;
+                    break;
+                }
+            }
+        }
+            
+    	return revenue;
     }
     
 }

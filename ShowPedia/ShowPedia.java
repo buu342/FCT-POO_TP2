@@ -91,4 +91,6 @@ public interface ShowPedia {
 	void addRelationship(String parent, String child) throws NoShowSelectedException, SingleRelationshipException, NoCharacterException, NoChildException, ExistingRelationshipException;
 
 	void addLovers(String lover1, String lover2) throws NoShowSelectedException, SingleRelationshipException, NoCharacterException, NoChildException, ExistingRelationshipException;
+
+	List<Actor> mostRomantic(String name) throws NoCharacterException, NoLoveException;
 }

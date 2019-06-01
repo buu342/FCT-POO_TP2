@@ -12,8 +12,6 @@ import java.util.LinkedList;
 public class EpisodeClass implements Episode {
 
     private String name;
-    private Show show;
-    private int season;
     private List<Event> events;
     
     public EpisodeClass(String name) {

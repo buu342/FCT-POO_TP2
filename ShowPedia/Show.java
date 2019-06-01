@@ -71,9 +71,11 @@ public interface Show {
     
     List<Character> getLovers();
     
+    Map<Integer, List<Event>> getEventsPerSeason();
+    
     void addFamily(Character parent, Character child) throws ExistingRelationshipException;
     
     void addLovers(Character lover1, Character lover2) throws ExistingRelationshipException;
 	
-	Character getCharacter(String name);
+	Character getCharacter(String name) throws NoCharacterException;
 }
