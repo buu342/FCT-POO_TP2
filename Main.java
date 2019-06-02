@@ -4,7 +4,9 @@
  * Project 2 for POO
  */
 
+import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -13,10 +15,6 @@ import java.util.SortedMap;
 
 import Comparators.*;
 import Exceptions.*;
-
-import java.util.Arrays;
-import java.util.Collections;
-
 import ShowPedia.*;
 
 public class Main {
@@ -114,7 +112,7 @@ public class Main {
                     addCharacter(in, sPedia);
                     break;
                 case COMMAND_SEASON_ADD:
-                    addSeason(in, sPedia);
+                    addSeason(sPedia);
                     break;
                 case COMMAND_EPISODE_ADD:
                     addEpisode(in, sPedia);
@@ -167,12 +165,21 @@ public class Main {
         in.close();
     }
 
+    /**
+     * Standardizes the input of <code>in</code> by making everything upper case.
+     * @param in    A <code>Scanner</code> object to standardize the input of.
+     */
     private static String getCommand(Scanner in) {
         String input;
         input = in.nextLine().toUpperCase();
         return input;
     }
 
+    /**
+     * Adds a show to ShowPedia <code>sPedia</code>.
+     * @param sPedia    A <code>ShowPedia</code> object to add the show to.
+     * @param in        A <code>Scanner</code> object with the information to add.
+     */
     private static void addShow(Scanner in, ShowPedia sPedia) {
         String show = in.nextLine();
         try {
@@ -183,6 +190,10 @@ public class Main {
         }
     }
 
+    /**
+     * Prints the current show in ShowPedia <code>sPedia</code>.
+     * @param sPedia    A <code>ShowPedia</code> object to print the current show of.
+     */
     private static void printCurrentShow(ShowPedia sPedia) {
         try {
             Show tmp = sPedia.getCurrent();
@@ -192,6 +203,11 @@ public class Main {
         }
     }
 
+    /**
+     * Switches the current show in <code>sPedia</code>.
+     * @param sPedia    A <code>ShowPedia</code> object to swith the current show of.
+     * @param in        A <code>Scanner</code> object with the name of the show to switch to.
+     */
     private static void switchToShow(Scanner in, ShowPedia sPedia) {
         String show = in.nextLine();
         try {
@@ -202,6 +218,11 @@ public class Main {
         }
     }
 
+    /**
+     * Adds a character to ShowPedia <code>sPedia</code>.
+     * @param sPedia    A <code>ShowPedia</code> object to add the character to.
+     * @param in        A <code>Scanner</code> object with the information to add.
+     */
     private static void addCharacter(Scanner in, ShowPedia sPedia) {
         String type = in.nextLine();
         String characterName = in.nextLine();
@@ -232,7 +253,11 @@ public class Main {
 
     }
 
-    private static void addSeason(Scanner in, ShowPedia sPedia) {
+    /**
+     * Adds a season to ShowPedia <code>sPedia</code>.
+     * @param sPedia    A <code>ShowPedia</code> object to add the season to.
+     */
+    private static void addSeason(ShowPedia sPedia) {
         try {
             sPedia.addSeason();
             printCurrentShow(sPedia);
@@ -241,6 +266,11 @@ public class Main {
         }
     }
 
+    /**
+     * Adds an episode to ShowPedia <code>sPedia</code>.
+     * @param sPedia    A <code>ShowPedia</code> object to add the episode to.
+     * @param in        A <code>Scanner</code> object with the information to add.
+     */
     private static void addEpisode(Scanner in, ShowPedia sPedia) {
         int season = in.nextInt();
         String episode = in.nextLine().trim();
@@ -256,6 +286,11 @@ public class Main {
         }
     }
 
+    /**
+     * Adds a relationship to ShowPedia <code>sPedia</code>.
+     * @param sPedia    A <code>ShowPedia</code> object to add the relationship to.
+     * @param in        A <code>Scanner</code> object with the information to add.
+     */
     private static void addRelationship(Scanner in, ShowPedia sPedia) {
         String parent = in.nextLine();
         String child = in.nextLine();
@@ -278,6 +313,11 @@ public class Main {
         }
     }
 
+    /**
+     * Adds a romance to ShowPedia <code>sPedia</code>.
+     * @param sPedia    A <code>ShowPedia</code> object to add the romance to.
+     * @param in        A <code>Scanner</code> object with the information to add.
+     */
     private static void addRomance(Scanner in, ShowPedia sPedia) {
         String lover1 = in.nextLine();
         String lover2 = in.nextLine();
@@ -298,6 +338,11 @@ public class Main {
         }
     }
 
+    /**
+     * Adds a quote to ShowPedia <code>sPedia</code>.
+     * @param sPedia    A <code>ShowPedia</code> object to add the quote to.
+     * @param in        A <code>Scanner</code> object with the information to add.
+     */
     private static void addQuote(Scanner in, ShowPedia sPedia) {
         int season = in.nextInt();
         int episode = in.nextInt();
@@ -321,6 +366,11 @@ public class Main {
         }
     }
 
+    /**
+     * Adds an event to ShowPedia <code>sPedia</code>.
+     * @param sPedia    A <code>ShowPedia</code> object to add the event to.
+     * @param in        A <code>Scanner</code> object with the information to add.
+     */
     private static void addEvent(Scanner in, ShowPedia sPedia) {
         String description = in.nextLine();
         int season = in.nextInt();
@@ -351,14 +401,19 @@ public class Main {
 
     }
 
+    /**
+     * Lists the resume of a character in the current show of ShowPedia <code>sPedia</code>.
+     * @param sPedia    A <code>ShowPedia</code> object to retrieve information from.
+     * @param in        A <code>Scanner</code> object with the name of the character to get information of.
+     */
     private static void characterResume(Scanner in, ShowPedia sPedia) {
 
         String name = in.nextLine();
 
         try {
-            // Print Parents
             Show current = sPedia.getCurrent();
 
+            // Print Parents
             System.out.print("Parents: ");
             if (current.getCharacter(name).getParents().size() == 0) {
                 System.out.println("None.");
@@ -443,6 +498,11 @@ public class Main {
         }
     }
 
+    /**
+     * Prints the family connections between two characters in the current show of ShowPedia <code>sPedia</code>.
+     * @param sPedia    A <code>ShowPedia</code> object to retrieve information from.
+     * @param in        A <code>Scanner</code> object with the name of the characters to compare.
+     */
     private static void compareRelations(Scanner in, ShowPedia sPedia) {
         String character1 = in.nextLine();
         String character2 = in.nextLine();
@@ -468,6 +528,11 @@ public class Main {
         }
     }
 
+    /**
+     * Prints which actors are more romantic than a requested one in ShowPedia <code>sPedia</code>.
+     * @param sPedia    A <code>ShowPedia</code> object to retrieve information from.
+     * @param in        A <code>Scanner</code> object with the name of the characters to compare.
+     */
     private static void mostRomantic(Scanner in, ShowPedia sPedia) {
         String actorname = in.nextLine();
 
@@ -491,6 +556,11 @@ public class Main {
         }
     }
 
+    /**
+     * Prints which other shows an actor from the current show in ShowPedia <code>sPedia</code> is in.
+     * @param sPedia    A <code>ShowPedia</code> object to retrieve information from.
+     * @param in        A <code>Scanner</code> object with the name of the actor to get information of.
+     */
     private static void alsoApearsOn(Scanner in, ShowPedia sPedia) {
         String character = in.nextLine();
         try {
@@ -516,12 +586,24 @@ public class Main {
 
     }
 
+    /**
+     * Checks whether the user inputted a valid interval.
+     * @param startSeason   An <code>int</code> with the starting season.
+     * @param endSeason     An <code>int</code> with the ending season.
+     * @param show          A <code>Show</code> object to get the seasons of.
+     * @return A <code>boolean</code> stating whether it is a valid interval or not.
+     */
     private static boolean isValidInterval(int startSeason, int endSeason, Show show) {
         if (endSeason >= startSeason && startSeason > 0 && show.getNrSeasons() >= endSeason)
             return true;
         return false;
     }
 
+    /**
+     * Prints an outline of the season interval from the current show in ShowPedia <code>sPedia</code>.
+     * @param sPedia    A <code>ShowPedia</code> object to retrieve information from.
+     * @param in        A <code>Scanner</code> object with the name show to get information of.
+     */
     private static void seasonOutline(Scanner in, ShowPedia sPedia) {
         int startSeason = in.nextInt();
         int endSeason = in.nextInt();
@@ -555,6 +637,11 @@ public class Main {
         }
     }
 
+    /**
+     * Prints all characters that have said a specific quote from the current show in ShowPedia <code>sPedia</code>.
+     * @param sPedia    A <code>ShowPedia</code> object to retrieve information from.
+     * @param in        A <code>Scanner</code> object with the quote to get information of.
+     */
     private static void famousQuote(Scanner in, ShowPedia sPedia) {
         String quote = in.nextLine();
         try {
@@ -584,6 +671,10 @@ public class Main {
         }
     }
 
+    /**
+     * Prints which company made the most money off of CGI in ShowPedia <code>sPedia</code>.
+     * @param sPedia    A <code>ShowPedia</code> object to retrieve information from.
+     */
     private static void kingOfCGI(ShowPedia sPedia) {
         try {
             Company company = sPedia.kingOfCGI();
