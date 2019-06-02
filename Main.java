@@ -8,6 +8,7 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.SortedMap;
 
@@ -99,60 +100,60 @@ public class Main {
              
              // Decide what to do depending on the command
 			switch (comm) {
-			case COMMAND_HELP:
-				System.out.println(MESSAGE_HELP);
-				break;
-			case COMMAND_SHOW_SWITCHTO:
-				switchToShow(in, sPedia);
-				break;
-			case COMMAND_CHARACTER_RESUME:
-				characterResume(in, sPedia);
-				break;
-			case COMMAND_ACTOR_ALSOIN:
-				alsoApearsOn(in, sPedia);
-				break;
-			case COMMAND_SEASON_OUTLINE:
-				seasonOutline(in, sPedia);
-				break;
-			case COMMAND_QUOTE_QUOTER:
-				famousQuote(in, sPedia);
-				break;
-			case COMMAND_KINGCGI:
-				kingOfCGI(sPedia);
-				break;
-			case COMMAND_CHARACTER_ADD:
-				addCharacter(in, sPedia);
-				break;
-			case COMMAND_SHOW_ADD:
-				addShow(in, sPedia);
-				break;
-			case COMMAND_QUOTE_ADD:
-				addQuote(in, sPedia);
-				break;
-			case COMMAND_EPISODE_ADD:
-				addEpisode(in, sPedia);
-				break;
-			case COMMAND_SEASON_ADD:
-				addSeason(in, sPedia);
-				break;
-			case COMMAND_EVENT_ADD:
-				addEvent(in, sPedia);
-				break;
-			case COMMAND_RELATIONSHIP_ADD:
-			    addRelationship(in, sPedia);
-			    break;
-			case COMMAND_ROMANCE_ADD:
-			    addRomance(in, sPedia);
-			    break;
-			case COMMAND_ACTOR_ROMANCE:
-			    mostRomantic(in, sPedia);
-			    break;
-			case COMMAND_SHOW_CURRENT:
-				currentShow(sPedia);
-				break;
-			default:
-				System.out.println(MESSAGE_UNKNOWN_COMMAND);
-				break;
+    			case COMMAND_HELP:
+    				System.out.println(MESSAGE_HELP);
+    				break;
+    			case COMMAND_SHOW_SWITCHTO:
+    				switchToShow(in, sPedia);
+    				break;
+    			case COMMAND_CHARACTER_RESUME:
+    				characterResume(in, sPedia);
+    				break;
+    			case COMMAND_ACTOR_ALSOIN:
+    				alsoApearsOn(in, sPedia);
+    				break;
+    			case COMMAND_SEASON_OUTLINE:
+    				seasonOutline(in, sPedia);
+    				break;
+    			case COMMAND_QUOTE_QUOTER:
+    				famousQuote(in, sPedia);
+    				break;
+    			case COMMAND_KINGCGI:
+    				kingOfCGI(sPedia);
+    				break;
+    			case COMMAND_CHARACTER_ADD:
+    				addCharacter(in, sPedia);
+    				break;
+    			case COMMAND_SHOW_ADD:
+    				addShow(in, sPedia);
+    				break;
+    			case COMMAND_QUOTE_ADD:
+    				addQuote(in, sPedia);
+    				break;
+    			case COMMAND_EPISODE_ADD:
+    				addEpisode(in, sPedia);
+    				break;
+    			case COMMAND_SEASON_ADD:
+    				addSeason(in, sPedia);
+    				break;
+    			case COMMAND_EVENT_ADD:
+    				addEvent(in, sPedia);
+    				break;
+    			case COMMAND_RELATIONSHIP_ADD:
+    			    addRelationship(in, sPedia);
+    			    break;
+    			case COMMAND_ROMANCE_ADD:
+    			    addRomance(in, sPedia);
+    			    break;
+    			case COMMAND_ACTOR_ROMANCE:
+    			    mostRomantic(in, sPedia);
+    			    break;
+    			case COMMAND_SHOW_CURRENT:
+    				currentShow(sPedia);
+    				break;
+    			default:
+    				System.out.println(MESSAGE_UNKNOWN_COMMAND);
+    				break;
 			}
 
      // Get another command
@@ -167,94 +168,94 @@ public class Main {
 	}
 
      private static void characterResume(Scanner in, ShowPedia sPedia) {
-         String character = in.nextLine();
-         try {
-     
-     System.out.print("Parents:");
-    if(sPedia.isListEmpty(sPedia.getCharacter(character).getParents())) {
-    	System.out.println("None.");
-    }else {
-    	  Iterator<Character> it = sPedia.getCharacter(character).getParents().iterator();
-     while(it.hasNext()) {
-         Character tmp = it.next(); 
-              if(it.hasNext()) {
-                  System.out.printf("%s, ", tmp.getCharacterName());
-              }else {
-                  System.out.printf("%s\n", tmp.getCharacterName());
-              }
-          }
-    }
-        
-    System.out.print("Kids:");
-    if(sPedia.isListEmpty(sPedia.getCharacter(character).getChildren())) {
-    	System.out.println("None.");
-    }else {
-     Iterator<Character> itKids = sPedia.getCharacter(character).getChildren().iterator();
-     while(itKids.hasNext()) {
-         Character tmp = itKids.next(); 
-              if(itKids.hasNext()) {
-                  System.out.printf("%s, ", tmp.getCharacterName());
-              }else {
-                  System.out.printf("%s\n", tmp.getCharacterName());
-              }
-          }
-    }
-    
-    System.out.print("Siblings:");
-    List<String> kidsList = new ArrayList<String>();
-     Iterator<Character> itParents = sPedia.getCharacter(character).getParents().iterator();
-     while(itParents.hasNext()) {
-         Character tmp = itParents.next(); 
-         Iterator<Character> itKids = tmp.getChildren().iterator();
-         while(itKids.hasNext()) {
-             String tmpKid = itKids.next().getCharacterName(); 
-             if(!kidsList.contains(tmpKid) && !tmpKid.equals(character)) {
-            	 kidsList.add(tmpKid);
-             }
-                 
-        Iterator<String> itFinal = kidsList.iterator();
-        while(itFinal.hasNext()) {
-        String tmpFinal = itFinal.next();
-        if(itFinal.hasNext()) {
-              
-        		 System.out.printf("%s, ", tmpFinal);
-              }else {
-                  System.out.printf("%s\n", tmpFinal);
-              }
-          }
-        }
-        
-    }
-    
-     SortedMap<Integer, SortedMap<Integer, List<Event>>> events = sPedia.getCharacter(character).getShow().getEvents();
-     Iterator<SortedMap<Integer, List<Event>>>  itEpisodes = events.values().iterator();
-     while(itEpisodes.hasNext()) {
-    	Iterator<List<Event>> tmpEvents = itEpisodes.next().values().iterator();
-    while(tmpEvents.hasNext()) {
-    	Event tmpEvent = tmpEvents.next();
-    }
-     }
-     
-     
-     int j = 0;
-      while(it.hasNext()) {
-         Episode tmp = it.next();
-         j++;
-         System.out.printf("S%d Ep%d: Episode %d\n", i,j,j);
-     Iterator<Event> itEvent = tmp.getEvents().iterator();
-         while(itEvent.hasNext()) {
-             System.out.println(itEvent.next().getDescription());
-         }
-      
-      }
-     
-     
- }catch (NoShowSelectedException e) {
-     System.out.println(MESSAGE_NO_SHOW_SELECTED);
- } catch (NoCharacterException e) {
-     System.out.printf(MESSAGE_NO_CHARACTER, sPedia.hasCharacter(character));
- }
          
+         String name = in.nextLine();
+         
+         try {
+             // Print Parents
+             Show current = sPedia.getCurrent();
+             
+             System.out.print("Parents: ");
+             if(current.getCharacter(name).getParents().size() == 0) {
+                 System.out.println("None.");
+             } else {
+                 Iterator<String> it = current.getCharacter(name).getParentsNames().iterator();
+                 while(it.hasNext()) {
+                     System.out.printf("%s", it.next());
+                     if(it.hasNext())
+                         System.out.print(", ");
+                 }
+                 System.out.println();
+             }
+             
+             // Print Kids
+             System.out.print("Kids: ");
+             if(current.getCharacter(name).getChildren().size() == 0) {
+                 System.out.println("None.");
+             } else {
+                 Iterator<String> it = current.getCharacter(name).getChildrenNames().iterator();
+                 while(it.hasNext()) {
+                     System.out.printf("%s", it.next());
+                     if(it.hasNext())
+                         System.out.print(", ");
+                 }
+                 System.out.println();
+             }
+             
+             // Print Siblings
+             System.out.print("Siblings: ");
+             if(current.getCharacter(name).getSiblings().size() == 0) {
+                 System.out.println("None.");
+             } else {
+                 Iterator<String> it = current.getCharacter(name).getSiblingsNames().iterator();
+                 while(it.hasNext()) {
+                     System.out.printf("%s", it.next());
+                     if(it.hasNext())
+                         System.out.print(", ");
+                 }
+                 System.out.println();
+             }
+             
+             // Print Lovers
+             System.out.print("Romantic relationships: ");
+             if(current.getCharacter(name).getLovers().size() == 0) {
+                 System.out.println("None.");
+             } else {
+                 Iterator<String> it = current.getCharacter(name).getLoversNames().iterator();
+                 while(it.hasNext()) {
+                     System.out.printf("%s", it.next());
+                     if(it.hasNext())
+                         System.out.print(", ");
+                 }
+                 System.out.println();
+             }
+             
+             // Print events
+             Map<Integer, SortedMap<Integer, List<Event>>> events = current.getEvents();
+             int numseasons = events.size();
+             for (int i=0; i<numseasons; i++) {
+                 SortedMap<Integer, List<Event>> seasoneventlist = events.get(i+1);
+                 for (int j=0; j<seasoneventlist.size(); j++) {
+                     Boolean printedEpisode = false;
+                     List<Event> listevents = seasoneventlist.get(j+1);
+                     for (int k=0; k<listevents.size(); k++) {
+                         if (listevents.get(k).getCharacters().containsKey(current.getCharacter(name).getCharacterName())) {
+                             if (printedEpisode == false) {
+                                 System.out.printf("S%d EP%d: %s\n",i+1,j+1,current.getEpisodeName(i+1,j+1));
+                                 printedEpisode = true;
+                             }
+                             System.out.println(listevents.get(k).getDescription());
+                         }
+                     }
+                 }
+                 
+             }
+             
+         }catch (NoShowSelectedException e) {
+             System.out.println(MESSAGE_NO_SHOW_SELECTED);
+         } catch (NoCharacterException e) {
+             System.out.printf(MESSAGE_NO_CHARACTER, name);
+         }
      }
      
      
@@ -280,6 +281,7 @@ public class Main {
 		}catch (VirtualActorException e) {
 			System.out.printf(MESSAGE_VIRTUAL_ACTOR, character);
 		}
+		
 	}
 
 	private static void famousQuote(Scanner in, ShowPedia sPedia){

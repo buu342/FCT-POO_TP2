@@ -8,7 +8,6 @@ package ShowPedia;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Map;
@@ -183,23 +182,12 @@ public class ShowClass implements Show {
     }
     
     @Override
-    public void addLovers(Character lover1, Character lover2) throws ExistingRelationshipException {
-        if (lover1.getLovers().contains(lover2))
-            throw new ExistingRelationshipException();
-        
-        if (lover2.getLovers().contains(lover1))
-            throw new ExistingRelationshipException();
-        
-        lover2.addLover(lover1);
-        lover1.addLover(lover2);
-        
-        this.lovers.add(lover1);
-        this.lovers.add(lover2);
+    public String getEpisodeName(int season, int episode){
+        return this.seasons.get(season).get(episode).getName();
     }
-
-	@Override
-	public SortedMap<Integer, SortedMap<Integer, List<Event>>> getEvents() {
-		return events;
-	}
-
+    
+    @Override
+    public Map<Integer, SortedMap<Integer, List<Event>>> getEvents() {
+        return this.events;
+    }
 }

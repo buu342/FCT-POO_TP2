@@ -198,37 +198,37 @@ public class ShowPediaClass implements ShowPedia {
         return current.hasCharacter(name);
     }
 
-	@Override
-	public void addEvent(String description, int season, int episode, List<String> characters) throws NoShowSelectedException, NoSeasonException, NoEpisodeException, NoCharacterException, DuplicateCharacterException {
-		if (this.current == null)
+    @Override
+    public void addEvent(String description, int season, int episode, List<String> characters) throws NoShowSelectedException, NoSeasonException, NoEpisodeException, NoCharacterException, DuplicateCharacterException {
+        if (this.current == null)
             throw new NoShowSelectedException();
         
-		  if (!hasSeason(season))
-	            throw new NoSeasonException();
-		  
-		  if (!hasEpisode(season, episode))
-	            throw new NoEpisodeException();
-		
-		  if (hasCharacters(characters) != null) 
-			  throw new NoCharacterException();
-			 
-		  if (hasDuplicateCharacter(characters)) 
-			  throw new DuplicateCharacterException();
-		  
-		Map<String, Character> tmpCharacters = new HashMap<String, Character>();
-		Iterator<String> it = characters.iterator();
-		while(it.hasNext()) {
-			String name= it.next();
-			Character character = this.characters.get(name);
-			tmpCharacters.put(name, character);
-		}
-		Event tmp = new EventClass(description, tmpCharacters);
-		Iterator<Character> itCharacter = tmpCharacters.values().iterator();
-		while(itCharacter.hasNext()) {
-			itCharacter.next().addEvent(tmp);
-		}
-		current.addEvent(season, episode, tmp);
-	}
+          if (!hasSeason(season))
+                throw new NoSeasonException();
+          
+          if (!hasEpisode(season, episode))
+                throw new NoEpisodeException();
+        
+          if (hasCharacters(characters) != null) 
+              throw new NoCharacterException();
+             
+          if (hasDuplicateCharacter(characters)) 
+              throw new DuplicateCharacterException();
+          
+        Map<String, Character> tmpCharacters = new HashMap<String, Character>();
+        Iterator<String> it = characters.iterator();
+        while(it.hasNext()) {
+            String name= it.next();
+            Character character = this.characters.get(name);
+            tmpCharacters.put(name, character);
+        }
+        Event tmp = new EventClass(description, tmpCharacters);
+        Iterator<Character> itCharacter = tmpCharacters.values().iterator();
+        while(itCharacter.hasNext()) {
+            itCharacter.next().addEvent(tmp);
+        }
+        current.addEvent(season, episode, tmp);
+    }
 
 	private boolean hasDuplicateCharacter(List<String> characters) {
 		boolean ret = false;
@@ -283,8 +283,9 @@ public class ShowPediaClass implements ShowPedia {
 		  if(current.hasQuote(quote)) {
 			  current.getQuote(quote).addCharacter(character); 
 		  }else {
-			 Quote tmp = new QuoteClass(quote);
+			 Quote tmp = new QuoteClass(quote, season, episode);
 			 tmp.addCharacter(character);
+			 character.addQuote(tmp);
 			 current.addQuote(tmp);
 		  }
 		  
@@ -358,6 +359,7 @@ public class ShowPediaClass implements ShowPedia {
 	@Override
 	public boolean isListEmpty(List<Character> list) {
 		return list.size() == 0;
+	}
 	
     @Override
 	public List<Actor> mostRomantic(String name) throws NoCharacterException, NoLoveException {
@@ -410,6 +412,6 @@ public class ShowPediaClass implements ShowPedia {
     	        }
     	        moresexy.add(actor);
     	    } while (itActor.hasNext());
-	    return moresexy
+	    return moresexy;
 	}
 }

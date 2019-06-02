@@ -30,20 +30,24 @@ public class CharacterVirtualClass extends CharacterClass {
         return this.company;
     }
 
-    /**
-     * Retrieves the cost of rendering this character per season.
-     * @return An <code>int</code> with the cost of rendering this character per season.
-     */
-    public int getCostPerSeason() {
-        return this.costPerSeason;
-    }
-
     public int totalRevenue() {
         int revenue = 0;
         Map<Integer, List<Event>> events = this.getShow().getEventsPerSeason();
         int numseasons = events.size();
         for (int i=1; i<=numseasons; i++) {
             List<Event> seasoneventlist = events.get(i);
+            
+            // Check if the character said something this season
+            if (this.getQuotes().size() > 0)
+            {
+                for (int j=0; j<this.getQuotes().size(); j++)
+                    if (this.getQuotes().get(j).getSeason() == i) {
+                        revenue += this.costPerSeason;
+                        break;
+                    }
+            }
+            
+            // Check if the character is in an event this season
             if (seasoneventlist.size() == 0)
                 continue;
             for (int j=0; j<seasoneventlist.size(); j++) {
@@ -52,6 +56,7 @@ public class CharacterVirtualClass extends CharacterClass {
                     break;
                 }
             }
+            
         }
             
     	return revenue;

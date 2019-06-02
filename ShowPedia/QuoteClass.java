@@ -14,11 +14,14 @@ public class QuoteClass implements Quote {
    
 	private Map<String, Character> characters;
 	private String quote;
+	private int season;
+	private int episode;
 
-	public QuoteClass(String quote) {
-       setQuote(quote);
-       characters = new HashMap<String,Character>();
-   
+	public QuoteClass(String quote, int season, int episode) {
+       this.quote = quote;
+       this.characters = new HashMap<String,Character>();
+       this.season = season;
+       this.episode = episode;
 	}
 
 	@Override
@@ -28,22 +31,26 @@ public class QuoteClass implements Quote {
 		}
 	}
 
-	/**
-	 * @return the quote
-	 */
 	@Override
 	public String getQuote() {
 		return quote;
 	}
 	
 	@Override
+    public int getSeason() {
+        return this.season;
+    }
+	
+	@Override
+    public int getEpisode() {
+        return this.episode;
+    }
+	
+	@Override
 	public Map<String, Character> getCharacters() {
 		return characters;
 	}
 
-	/**
-	 * @param quote the quote to set
-	 */
 	@Override
 	public void setQuote(String quote) {
 		this.quote = quote;

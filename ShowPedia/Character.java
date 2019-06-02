@@ -26,7 +26,17 @@ public interface Character {
     
     List<Character> getChildren();
     
+    List<Character> getSiblings();
+    
     List<Character> getLovers();
+    
+    List<String> getParentsNames();
+    
+    List<String> getChildrenNames();
+    
+    List<String> getSiblingsNames();
+    
+    List<String> getLoversNames();
     
     void addParent(Character character);
     
@@ -49,5 +59,9 @@ public interface Character {
     int getNumChildren();
     
     int getNumLovers();
+    
+    List<Quote> getQuotes();
+    
+    void addQuote(Quote quote);
 }
 

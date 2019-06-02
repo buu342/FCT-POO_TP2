@@ -71,9 +71,9 @@ public interface Show {
     
     List<Character> getChildren();
 
-	SortedMap<Integer, SortedMap<Integer, List<Event>>> getEvents();
-
     List<Character> getLovers();
+    
+    Map<Integer, SortedMap<Integer, List<Event>>> getEvents();
     
     Map<Integer, List<Event>> getEventsPerSeason();
     
@@ -81,5 +81,7 @@ public interface Show {
     
     void addLovers(Character lover1, Character lover2) throws ExistingRelationshipException;
 	
-	Character getCharacter(String name) throws NoCharacterException
+	Character getCharacter(String name) throws NoCharacterException;
+	
+	String getEpisodeName(int season, int episode);
 }

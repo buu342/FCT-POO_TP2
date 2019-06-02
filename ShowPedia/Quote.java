@@ -18,4 +18,7 @@ public interface Quote {
 
 	Map<String, Character> getCharacters();
 
+	int getSeason();
+	
+	int getEpisode();
 }
