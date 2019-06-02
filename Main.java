@@ -1,4 +1,3 @@
-
 /**
  * @author Andre Enes 51099
  * @author Lourenco Soares 54530
@@ -63,6 +62,8 @@ public class Main {
     public static final String MESSAGE_EXISTING_CHARACTER       = "Duplicate character names are not allowed!";
     public static final String MESSAGE_NO_VIRTUAL_CHARACTERS    = "This is the real thing, this is art!";
     public static final String MESSAGE_UNEXISTING_QUOTE       	= "First time I hear that!";
+    public static final String MESSAGE_NO_RELATIONSHIP          = "These characters are not related!";
+    public static final String MESSAGE_SAME_RELATIONSHIP        = "Like... you know, they are THE SAME character! duuuuh...";
     public static final String MESSAGE_INVALID_TYPE             = "Unknown actor category!";
     public static final String MESSAGE_INVALID_FEE              = "Slavery is long gone and this is outrageous!";
     public static final String MESSAGE_VIRTUAL_ACTOR            = "%s is played by a virtual actor!\n";
@@ -145,6 +146,9 @@ public class Main {
     			case COMMAND_ROMANCE_ADD:
     			    addRomance(in, sPedia);
     			    break;
+    			case COMMAND_CHARACTER_COMPARE:
+    			    compareRelations(in, sPedia);
+    			    break;
     			case COMMAND_ACTOR_ROMANCE:
     			    mostRomantic(in, sPedia);
     			    break;
@@ -166,6 +170,16 @@ public class Main {
      in.close();
 		in.close();
 	}
+     
+     private static void currentShow(ShowPedia sPedia) {
+         try {
+             Show tmp = sPedia.getCurrent();
+             System.out.printf("%s. Seasons: %d Episodes: %d\n", tmp.getName(), tmp.getNrSeasons(), tmp.getNrEpisodes());
+         } catch (NoShowSelectedException e) {
+             System.out.println(MESSAGE_NO_SHOW_SELECTED);
+         }
+     }
+     
 
      private static void characterResume(Scanner in, ShowPedia sPedia) {
          
@@ -557,13 +571,29 @@ public class Main {
         }
     }
     
-	private static void currentShow(ShowPedia sPedia) {
+	private static void compareRelations(Scanner in, ShowPedia sPedia) {
+        String character1 = in.nextLine();
+        String character2 = in.nextLine();
+
 		try {
-			Show tmp = sPedia.getCurrent();
-			System.out.printf("%s. Seasons: %d Episodes: %d\n", tmp.getName(), tmp.getNrSeasons(), tmp.getNrEpisodes());
+			List<String> result = sPedia.getRelation(character1, character2);
+	        for (int i=0; i<result.size(); i++)
+	            if (i == 0)
+	                System.out.print(result.get(i)+"; ");
+	            else if (!result.get(i-1).equals(result.get(i)))
+	                System.out.print(result.get(i)+"; ");
+	        System.out.println();
 		} catch (NoShowSelectedException e) {
 			System.out.println(MESSAGE_NO_SHOW_SELECTED);
-		}
+		} catch (NoCharacterException e) {
+            System.out.printf(MESSAGE_NO_CHARACTER, character1);
+		} catch (NoChildException e) {
+		    System.out.printf(MESSAGE_NO_CHARACTER, character2);
+		} catch (SingleRelationshipException e) {
+		    System.out.println(MESSAGE_SAME_RELATIONSHIP);
+        } catch (NoRelationshipException e) {
+            System.out.println(MESSAGE_NO_RELATIONSHIP);
+        }
 	}
 
 }

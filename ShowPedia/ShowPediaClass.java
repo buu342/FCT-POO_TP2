@@ -414,4 +414,58 @@ public class ShowPediaClass implements ShowPedia {
     	    } while (itActor.hasNext());
 	    return moresexy;
 	}
+    
+    private List<Character> recursiveCheckRelation(Character character1, Character character2) {
+        List<Character> relations = new LinkedList<>();
+        List<Character> children = character1.getChildren();
+        if (children.size() == 0) {
+            if (character1.equals(character2)) {
+                relations.add(character2);
+                return relations;
+            } else
+                return null;
+        }
+        
+        for (int i=0; i<children.size(); i++)
+        {
+            List<Character> result = recursiveCheckRelation(children.get(i), character2);
+            if (result != null) {
+                relations.add(character1);
+                relations.addAll(result);
+            }
+        }
+        return relations;
+    }
+    
+    @Override 
+    public List<String> getRelation(String character1, String character2) throws NoShowSelectedException, NoCharacterException, NoChildException, SingleRelationshipException, NoRelationshipException {
+        List<String> result = new LinkedList<>();
+        
+        if (this.current == null)
+            throw new NoShowSelectedException();
+        
+        if (!hasCharacter(character1)) 
+            throw new NoCharacterException();
+        
+        if (!hasCharacter(character2)) 
+            throw new NoChildException();
+        
+        if (character1.equals(character2)) {
+            System.out.print("");
+            throw new SingleRelationshipException();
+        }
+        
+        List<Character> relations = recursiveCheckRelation(characters.get(character1), characters.get(character2));
+        if (relations == null || relations.size() < 2) {
+            relations = recursiveCheckRelation(characters.get(character2), characters.get(character1));
+            if (relations == null || relations.size() < 2)
+                throw new NoRelationshipException();
+        }
+        
+        for (int i=0; i<relations.size(); i++) {
+            result.add(relations.get(i).getCharacterName());
+        }
+        
+        return result;
+    }
 }
