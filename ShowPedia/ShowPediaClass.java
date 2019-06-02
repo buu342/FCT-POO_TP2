@@ -432,10 +432,10 @@ public class ShowPediaClass implements ShowPedia {
             if (result != null) {
                 relations.add(character1);
                 relations.addAll(result);
-                break;
+                return relations;
             }
         }
-        return relations;
+        return null;
     }
     
     @Override 
