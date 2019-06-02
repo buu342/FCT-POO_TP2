@@ -4,7 +4,7 @@
  * Exception - Virtual character doesn't exist
  */
 
-package exceptions;
+package Exceptions;
 
 public class NoVirtualCharactersException extends Exception {
 

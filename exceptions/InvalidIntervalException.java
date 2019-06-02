@@ -4,7 +4,7 @@
  * Exception - The season interval is incorrect
  */
 
-package exceptions;
+package Exceptions;
 
 public class InvalidIntervalException extends Exception {
 

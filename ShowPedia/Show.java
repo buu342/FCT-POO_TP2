@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
 
-import exceptions.*;
+import Exceptions.*;
 
 public interface Show {
     
@@ -70,14 +70,16 @@ public interface Show {
     List<Character> getParents();
     
     List<Character> getChildren();
-    
+
+	SortedMap<Integer, SortedMap<Integer, List<Event>>> getEvents();
+
     List<Character> getLovers();
+    
+    Map<Integer, List<Event>> getEventsPerSeason();
     
     void addFamily(Character parent, Character child) throws ExistingRelationshipException;
     
     void addLovers(Character lover1, Character lover2) throws ExistingRelationshipException;
 	
-	Character getCharacter(String name);
-
-	SortedMap<Integer, SortedMap<Integer, List<Event>>> getEvents();
+	Character getCharacter(String name) throws NoCharacterException
 }

@@ -10,10 +10,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.SortedMap;
+
+import Comparators.*;
+import Exceptions.*;
+
 import java.util.Arrays;
+import java.util.Collections;
+
 import ShowPedia.*;
-import ShowPedia.Character;
-import exceptions.*;
 
 public class Main {
     
@@ -45,7 +49,7 @@ public class Main {
     public static final String MESSAGE_NO_SEASON_DETAILED       = "%s does not have season %d!\n";
     public static final String MESSAGE_NO_EPISODE               = "%s S%d does not have episode %d!\n";
     public static final String MESSAGE_NO_CHARACTER             = "Who is %s?\n";
-    public static final String MESSAGE_NO_LOVE                  = "Love is not in the air. :-(.";
+    public static final String MESSAGE_NO_LOVE                  = "Love is not in the air. :-(";
     public static final String MESSAGE_DUPLICATE_CHARACTER      = "Duplicate character names are not allowed!";
     public static final String MESSAGE_DUPLICATE_PARENT         = "%s cannot be parent and child at the same time!\n";
     public static final String MESSAGE_DUPLICATE_ROMANCE        = "%s cannot be in a single person romantic relationship!\n";
@@ -162,10 +166,6 @@ public class Main {
 		in.close();
 	}
 
-	
-     
-     
-     
      private static void characterResume(Scanner in, ShowPedia sPedia) {
          String character = in.nextLine();
          try {
@@ -288,14 +288,21 @@ public class Main {
 			sPedia.famousQuote(quote);			
 			
 			Iterator<String> it =sPedia.getCurrent().getQuote(quote).getCharacters().keySet().iterator();
+			List<String> names = new ArrayList<>();
 			while(it.hasNext()) {
-			String name = it.next();
-			if(it.hasNext()) {
-				System.out.printf("%s,", name);
-			}else {
-				System.out.printf("%s\n", name);
+			    names.add(it.next());
+            }
+			Collections.sort(names, new AlphabeticalComparatorClass());
+            
+			it = names.iterator();
+			while(it.hasNext()) {
+    			String name = it.next();
+    			if(it.hasNext()) {
+    				System.out.printf("%s, ", name);
+    			}else {
+    				System.out.printf("%s\n", name);
+    			}
 			}
-		}
 		
 		}catch (NoShowSelectedException e) {
     	    System.out.println(MESSAGE_NO_SHOW_SELECTED);
@@ -316,18 +323,17 @@ public class Main {
 		
 		System.out.println(sPedia.getCurrent().getName());
 		for(int i=startSeason; i<=endSeason;i++) {
-    	 Iterator<Episode> it = sPedia.getCurrent().getSeason(i).values().iterator();
-		int j = 0;
-    	 while(it.hasNext()) {
-			Episode tmp = it.next();
-			j++;
-			System.out.printf("S%d Ep%d: Episode %d\n", i,j,j);
-		Iterator<Event> itEvent = tmp.getEvents().iterator();
-			while(itEvent.hasNext()) {
-				System.out.println(itEvent.next().getDescription());
-			}
-    	 
-    	 }
+		    Iterator<Episode> it = sPedia.getCurrent().getSeason(i).values().iterator();
+    		int j = 0;
+            while(it.hasNext()) {
+            	Episode tmp = it.next();
+            	j++;
+            	System.out.printf("S%d EP%d: %s\n", i,j,tmp.getName());
+            	Iterator<Event> itEvent = tmp.getEvents().iterator();
+            	while(itEvent.hasNext()) {
+            	    System.out.println(itEvent.next().getDescription());
+            	}
+            }
 		}
 		
 	
@@ -339,11 +345,9 @@ public class Main {
 	}
 
 	private static boolean isValidInterval(int startSeason, int endSeason, Show show) {
-		boolean ret = false;
-		if(endSeason>startSeason && startSeason > 0 && show.getNrSeasons()>=endSeason) {
-			ret = true;
-		}
-		return ret;
+		if(endSeason>=startSeason && startSeason > 0 && show.getNrSeasons() >= endSeason)
+			return true;
+		return false;
 	}
 
 	private static void addQuote(Scanner in, ShowPedia sPedia) {
@@ -365,7 +369,7 @@ public class Main {
 		} catch (NoEpisodeException e) {
 			System.out.printf(MESSAGE_NO_EPISODE, showName, season, episode);
 		} catch (NoCharacterException e) {
-			System.out.printf(MESSAGE_NO_CHARACTER, sPedia.hasCharacter(character));
+			System.out.printf(MESSAGE_NO_CHARACTER, character);
 		}
 	}
 
@@ -392,7 +396,7 @@ public class Main {
 		} catch (NoEpisodeException e) {
 			System.out.printf(MESSAGE_NO_EPISODE, showName, season, episode);
 		} catch (NoCharacterException e) {
-			System.out.printf(MESSAGE_NO_CHARACTER, sPedia.hasCharacters(characters));
+			System.out.printf(MESSAGE_NO_CHARACTER, characters);
 		} catch (DuplicateCharacterException e) {
 			System.out.println(MESSAGE_DUPLICATE_CHARACTER);
 		}
@@ -513,8 +517,6 @@ public class Main {
         String lover2 = in.nextLine();
         
         try {
-            if (lover1.equals("Jay Pritchett") && lover2.equals("Gloria Pritchett"))
-                System.out.print("");
             sPedia.addLovers(lover1, lover2);
             System.out.printf("%s and %s are now a couple.\n", lover1, lover2);
         } catch (NoShowSelectedException e) {
@@ -533,11 +535,24 @@ public class Main {
     private static void mostRomantic(Scanner in, ShowPedia sPedia) {
         String actorname = in.nextLine();
         
-        /*try {         
+        try {         
+            List<Actor> moresexy = sPedia.mostRomantic(actorname);
+                        
+            // Print everyone in order
+            Iterator<Actor> it = moresexy.iterator();
+            Collections.sort(moresexy, new LoversComparatorClass());
+            while (it.hasNext()) {
+                Actor actor = it.next();
+                System.out.println(actor.getName()+" "+actor.getNrRomances());
+            }
             
+            // Print self
+            System.out.println(actorname+" "+sPedia.getActor(actorname).getNrRomances());
         } catch (NoCharacterException e) {
-            //System.out.printf(MESSAGE_NO_CHARACTER, lover1);
-        }*/
+            System.out.printf(MESSAGE_NO_CHARACTER, actorname);
+        } catch (NoLoveException e) {
+            System.out.println(MESSAGE_NO_LOVE);
+        }
     }
     
 	private static void currentShow(ShowPedia sPedia) {

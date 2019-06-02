@@ -4,7 +4,7 @@
  * Exception - Quote doesn't exist
  */
 
-package exceptions;
+package Exceptions;
 
 public class UnexistingQuoteException extends Exception {
 

@@ -9,10 +9,12 @@ package ShowPedia;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import Exceptions.*;
+
 import java.util.Iterator;
 import java.util.List;
-
-import exceptions.*;
+import java.util.LinkedList;
 
 public class ShowPediaClass implements ShowPedia {
     
@@ -117,26 +119,39 @@ public class ShowPediaClass implements ShowPedia {
     @Override
     public Company kingOfCGI() throws NoVirtualCharactersException {
         if(!hasVirtualCharacters()) {
-        	throw new NoVirtualCharactersException();
+            throw new NoVirtualCharactersException();
         }
-    	
+
         Company company = null;
-    	int max =0;
-    	Iterator<Entry<String, Company>> itCompanies = companies.entrySet().iterator();
-           while(itCompanies.hasNext()) {
-               int current = 0;
-        	  Entry<String, Company> tmp =itCompanies.next();
-               Iterator<String> itCharacters =tmp.getValue().getCharacters().keySet().iterator();
-        	   while(itCharacters.hasNext()) {
-        		   current = current + ((CharacterVirtualClass) characters.get(itCharacters.next())).totalRevenue();
-        	   }
-        	   if(current> max) {
-        		   max=current;
-        		   company = tmp.getValue();
-        		   company.setRevenue(current);
-        	   }
-        	   
-             }
+        int max =0;
+        Iterator<Entry<String, Company>> itCompanies = companies.entrySet().iterator();
+        while(itCompanies.hasNext()) {
+            int current = 0;
+            Entry<String, Company> tmp = itCompanies.next();
+            Iterator<String> itCharacters = tmp.getValue().getCharacters().keySet().iterator();
+            while(itCharacters.hasNext()) {
+                current += ((CharacterVirtualClass) characters.get(itCharacters.next())).totalRevenue();
+            }
+            
+            if (company == null) {
+                max=current;
+                company = tmp.getValue();
+                company.setRevenue(current);
+                continue;
+            }
+            
+            if (current < max) {
+                continue;
+            } else if (current == max && company.getCharacters().size() < tmp.getValue().getCharacters().size()) {
+                continue;
+            } else if (company.getCharacters().size() == tmp.getValue().getCharacters().size() && tmp.getValue().getName().compareTo(company.getName()) > 0) {
+                continue;
+            } else {
+                max=current;
+                company = tmp.getValue();
+                company.setRevenue(current);   
+            }
+        }
         return company;
     }
 
@@ -174,7 +189,7 @@ public class ShowPediaClass implements ShowPedia {
     // Check whether a season exists for a show
     @Override
     public boolean hasEpisode(int season, int episode) {
-        return this.current.getSeason(season).size()< episode;
+        return this.current.getSeason(season).size() >= episode;
     }
     
     // Check whether a character has already been registered
@@ -219,13 +234,15 @@ public class ShowPediaClass implements ShowPedia {
 		boolean ret = false;
 		int i = 0;
 		while(i<characters.size() && ret == false) {
-			String name= characters.get(i);
+			String name = characters.get(i);
 			for(int j = i+1;j<characters.size();j++ ) {
 				if(characters.get(j).equals(name)) {
 					ret = true;
-			}
+					break;
+    			}
+    		}
+			i++;
 		}
-	}
 		return ret;
 	}
 
@@ -341,5 +358,58 @@ public class ShowPediaClass implements ShowPedia {
 	@Override
 	public boolean isListEmpty(List<Character> list) {
 		return list.size() == 0;
+	
+    @Override
+	public List<Actor> mostRomantic(String name) throws NoCharacterException, NoLoveException {
+	    int numromances = 0;
+	    
+	    // Check the actor exists
+	    if (!this.actors.containsKey(name)) 
+            throw new NoCharacterException();
+	    
+	    Actor myself = this.actors.get(name);
+	    int myromances = myself.getNrRomances();
+	    
+	    // Check if there are romances registered
+	    Iterator<Entry<String, Character>> itCharacter = this.characters.entrySet().iterator();
+	    if (this.characters.size() > 0)
+	        numromances += itCharacter.next().getValue().getNumLovers();
+	    while (itCharacter.hasNext()) {
+	        numromances += itCharacter.next().getValue().getNumLovers();
+	    }
+	    if (numromances == 0)
+	        throw new NoLoveException();
+	    
+	    // Populate a list
+	    Iterator<Entry<String, Actor>> itActor = this.actors.entrySet().iterator();
+	    List<Actor> moresexy = new LinkedList<>();
+	    if (this.actors.size() > 0)
+    	    do {
+    	        Actor actor = itActor.next().getValue();
+    	        
+    	        // Skip the own actor
+    	        if (actor.getName().equals(name))
+    	            continue;
+    	        
+    	        // Check who is better
+    	        if (actor.getNrRomances() < myromances) {
+    	            //System.out.println(actor.getName()+" failed getnrRomances");
+    	            continue;
+    	        }
+    	        else if (actor.getNrRomances() == myromances && actor.getShows().size() > myself.getShows().size()) {
+    	            //System.out.println(actor.getName()+" failed showsize");
+    	            continue;
+    	        }
+    	        else if (actor.getShows().size() == myself.getShows().size() && actor.getNrRomanticShows() < myself.getNrRomanticShows()) {
+    	            //System.out.println(actor.getName()+" failed showromancesize");
+    	            continue;
+    	        }
+    	        else if (actor.getNrRomanticShows() == myself.getNrRomanticShows() && actor.getName().compareTo(myself.getName()) > 0) {
+    	            //System.out.println(actor.getName()+" failed name");
+                    continue;
+    	        }
+    	        moresexy.add(actor);
+    	    } while (itActor.hasNext());
+	    return moresexy
 	}
 }

@@ -4,7 +4,7 @@
  * Exception - A character is virtual
  */
 
-package exceptions;
+package Exceptions;
 
 public class VirtualActorException extends Exception {
 	private static final long serialVersionUID = 1L;

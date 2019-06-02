@@ -4,7 +4,7 @@
  * Exception - The show has already been registered in ShowPedia.
  */
 
-package exceptions;
+package Exceptions;
 
 public class ExistingShowException extends Exception {
 

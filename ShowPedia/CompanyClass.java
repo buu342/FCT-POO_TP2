@@ -27,17 +27,11 @@ public class CompanyClass implements Company {
 		characters.put(character.getCharacterName(), character);	
 	}
 
-	/**
-	 * @return the name
-	 */
 	@Override
 	public String getName() {
 		return name;
 	}
 
-	/**
-	 * @param name the name to set
-	 */
 	@Override
 	public void setName(String name) {
 		this.name = name;
@@ -48,17 +42,11 @@ public class CompanyClass implements Company {
 		return characters;
 	}
 
-	/**
-	 * @return the revenue
-	 */
 	@Override
 	public int getRevenue() {
 		return revenue;
 	}
 
-	/**
-	 * @param revenue the revenue to set
-	 */
 	@Override
 	public void setRevenue(int revenue) {
 		this.revenue = revenue;

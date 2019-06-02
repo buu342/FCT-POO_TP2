@@ -1,12 +1,12 @@
 /**
  * @author Andre Enes 51099
  * @author Lourenco Soares 54530
- * Exception - The show has not been registered in ShowPedia.
+ * Exception - There are no registered lovers
  */
 
 package Exceptions;
 
-public class NonExistingShowException extends Exception {
+public class NoLoveException extends Exception {
 
     private static final long serialVersionUID = 1L;
 

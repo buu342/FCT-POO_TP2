@@ -7,13 +7,13 @@
 package ShowPedia;
 
 import java.util.HashMap;
-import java.util.List;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class ActorClass implements Actor {
 
     private String name;
-    private List<Quote> quotes;
     private Map<String, Character> characters;
     private Map<String, Show> shows;
 
@@ -51,6 +51,31 @@ public class ActorClass implements Actor {
     @Override
     public Map<String, Show> getShows() {
         return this.shows;
+    }
+
+    @Override
+    public int getNrRomanticShows() {
+        int numromances = 0;
+
+        Iterator<Entry<String, Show>> itShows = this.shows.entrySet().iterator();
+        if (this.shows.size() > 0)
+            do {
+                if (itShows.next().getValue().getLovers().size() != 0)
+                    numromances++;
+            } while (itShows.hasNext());
+        return numromances;
+    }
+    
+    @Override
+    public int getNrRomances() {
+        int numromances = 0;
+
+        Iterator<Entry<String, Character>> itCharacter = this.characters.entrySet().iterator();
+        if (this.characters.size() > 0)
+            do {
+                numromances += itCharacter.next().getValue().getNumLovers();
+            } while (itCharacter.hasNext());
+        return numromances;
     }
     
 }

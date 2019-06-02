@@ -4,7 +4,7 @@
  * Exception - The requested season does not exist.
  */
 
-package exceptions;
+package Exceptions;
 
 public class NoSeasonException extends Exception {
 

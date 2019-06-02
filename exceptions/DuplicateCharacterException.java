@@ -4,7 +4,7 @@
  * Exception - Character is inputted twice
  */
 
-package exceptions;
+package Exceptions;
 
 public class DuplicateCharacterException extends Exception {
 

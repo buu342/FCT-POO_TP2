@@ -8,7 +8,7 @@ package ShowPedia;
 
 import java.util.List;
 
-import exceptions.*;
+import Exceptions.*;
 
 public interface ShowPedia {
 
@@ -93,4 +93,6 @@ public interface ShowPedia {
 	void addLovers(String lover1, String lover2) throws NoShowSelectedException, SingleRelationshipException, NoCharacterException, NoChildException, ExistingRelationshipException;
 
 	boolean isListEmpty(List<Character> parents);
+
+	List<Actor> mostRomantic(String name) throws NoCharacterException, NoLoveException;
 }
