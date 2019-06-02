@@ -6,7 +6,7 @@
 
 package ShowPedia;
 
-public class CharacterRealClass extends CharacterClass{
+public class CharacterRealClass extends CharacterClass {
 
     private Actor actor;
     private int fee;
@@ -19,25 +19,22 @@ public class CharacterRealClass extends CharacterClass{
 
     /**
      * Retrieves the name of this actor who portrays this character.
-     * @return A <code>String</code> with the name of actor who portrays this character.
+     * 
+     * @return A <code>String</code> with the name of actor who portrays this
+     *         character.
      */
     public Actor getActor() {
         return this.actor;
     }
-    
-    
-    /**
-     * Retrieves the cost of paying this actor per episode.
-     * @return An <code>int</code> with the cost of paying this actor per episode.
-     */
-    public int getFee() {
-        return this.fee;
-    }
 
-    
+    /**
+     * Retrieves the total revenue this character has made for the actor.
+     * 
+     * @return An <code>int</code> with the total revenue this character has made
+     *         for the actor.
+     */
     public int totalRevenue() {
-        return this.getShow().getNrEpisodes()*this.getFee();
+        return this.getShow().getNrEpisodes() * this.fee;
     }
-    
 
 }

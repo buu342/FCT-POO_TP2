@@ -10,50 +10,44 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class QuoteClass implements Quote {
-    
-   
-	private Map<String, Character> characters;
-	private String quote;
-	private int season;
-	private int episode;
 
-	public QuoteClass(String quote, int season, int episode) {
-       this.quote = quote;
-       this.characters = new HashMap<String,Character>();
-       this.season = season;
-       this.episode = episode;
-	}
+    private Map<String, Character> characters;
+    private String quote;
+    private int season;
+    private int episode;
 
-	@Override
-	public void addCharacter(Character character) {
-		if(!characters.containsKey(character.getCharacterName())) {
-			characters.put(character.getCharacterName(), character);
-		}
-	}
+    public QuoteClass(String quote, int season, int episode) {
+        this.quote = quote;
+        this.characters = new HashMap<String, Character>();
+        this.season = season;
+        this.episode = episode;
+    }
 
-	@Override
-	public String getQuote() {
-		return quote;
-	}
-	
-	@Override
+    @Override
+    public void addCharacter(Character character) {
+        if (!characters.containsKey(character.getName())) {
+            characters.put(character.getName(), character);
+        }
+    }
+
+    @Override
+    public String getQuote() {
+        return quote;
+    }
+
+    @Override
     public int getSeason() {
         return this.season;
     }
-	
-	@Override
+
+    @Override
     public int getEpisode() {
         return this.episode;
     }
-	
-	@Override
-	public Map<String, Character> getCharacters() {
-		return characters;
-	}
 
-	@Override
-	public void setQuote(String quote) {
-		this.quote = quote;
-	}
+    @Override
+    public Map<String, Character> getCharacters() {
+        return characters;
+    }
 
 }

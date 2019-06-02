@@ -10,15 +10,42 @@ import java.util.Map;
 
 public interface Quote {
 
-	void addCharacter(Character character);
+    /**
+     * Adds the character <code>character</code> to the list of characters that have
+     * said this quote.
+     * 
+     * @param show A <code>Character</code> object pointer to add to the the list of
+     *             characters that have said this quote.
+     */
+    void addCharacter(Character character);
 
-	String getQuote();
+    /**
+     * Retrieves this quote's quote.
+     * 
+     * @return A <code>String</code> with the quote.
+     */
+    String getQuote();
 
-	void setQuote(String quote);
+    /**
+     * Retrieves the season which this quote was said.
+     * 
+     * @return An <code>int</code> with the season which this quote was said.
+     */
+    int getSeason();
 
-	Map<String, Character> getCharacters();
+    /**
+     * Retrieves the episode which this quote was said.
+     * 
+     * @return An <code>int</code> with the episode which this quote was said.
+     */
+    int getEpisode();
 
-	int getSeason();
-	
-	int getEpisode();
+    /**
+     * Retrieves a list of characters that have said this quote.
+     * 
+     * @return A <code>Map&lt;String, Character&gt;</code> with a list of characters
+     *         that have said this quote.
+     */
+    Map<String, Character> getCharacters();
+
 }
