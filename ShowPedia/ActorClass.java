@@ -52,7 +52,7 @@ public class ActorClass implements Actor {
     public Map<String, Show> getShows() {
         return this.shows;
     }
-    
+
     @Override
     public int getNrRomanticShows() {
         int numromances = 0;

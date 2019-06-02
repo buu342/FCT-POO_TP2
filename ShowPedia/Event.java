@@ -22,4 +22,12 @@ public interface Event {
      */
     Map<String, Character> getCharacters();
 
+	void setEpisode(int episode);
+
+	int getEpisode();
+
+	void setSeason(int season);
+
+	int getSeason();
+
 }

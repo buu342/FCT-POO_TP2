@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.SortedMap;
 
-import Comparators.AlphabeticalComparatorClass;
-import Comparators.LoversComparatorClass;
+import Comparators.*;
 import Exceptions.*;
 
 import java.util.Arrays;
@@ -105,6 +105,9 @@ public class Main {
 			case COMMAND_SHOW_SWITCHTO:
 				switchToShow(in, sPedia);
 				break;
+			case COMMAND_CHARACTER_RESUME:
+				characterResume(in, sPedia);
+				break;
 			case COMMAND_ACTOR_ALSOIN:
 				alsoApearsOn(in, sPedia);
 				break;
@@ -163,7 +166,99 @@ public class Main {
 		in.close();
 	}
 
-	private static void alsoApearsOn(Scanner in, ShowPedia sPedia) {
+     private static void characterResume(Scanner in, ShowPedia sPedia) {
+         String character = in.nextLine();
+         try {
+     
+     System.out.print("Parents:");
+    if(sPedia.isListEmpty(sPedia.getCharacter(character).getParents())) {
+    	System.out.println("None.");
+    }else {
+    	  Iterator<Character> it = sPedia.getCharacter(character).getParents().iterator();
+     while(it.hasNext()) {
+         Character tmp = it.next(); 
+              if(it.hasNext()) {
+                  System.out.printf("%s, ", tmp.getCharacterName());
+              }else {
+                  System.out.printf("%s\n", tmp.getCharacterName());
+              }
+          }
+    }
+        
+    System.out.print("Kids:");
+    if(sPedia.isListEmpty(sPedia.getCharacter(character).getChildren())) {
+    	System.out.println("None.");
+    }else {
+     Iterator<Character> itKids = sPedia.getCharacter(character).getChildren().iterator();
+     while(itKids.hasNext()) {
+         Character tmp = itKids.next(); 
+              if(itKids.hasNext()) {
+                  System.out.printf("%s, ", tmp.getCharacterName());
+              }else {
+                  System.out.printf("%s\n", tmp.getCharacterName());
+              }
+          }
+    }
+    
+    System.out.print("Siblings:");
+    List<String> kidsList = new ArrayList<String>();
+     Iterator<Character> itParents = sPedia.getCharacter(character).getParents().iterator();
+     while(itParents.hasNext()) {
+         Character tmp = itParents.next(); 
+         Iterator<Character> itKids = tmp.getChildren().iterator();
+         while(itKids.hasNext()) {
+             String tmpKid = itKids.next().getCharacterName(); 
+             if(!kidsList.contains(tmpKid) && !tmpKid.equals(character)) {
+            	 kidsList.add(tmpKid);
+             }
+                 
+        Iterator<String> itFinal = kidsList.iterator();
+        while(itFinal.hasNext()) {
+        String tmpFinal = itFinal.next();
+        if(itFinal.hasNext()) {
+              
+        		 System.out.printf("%s, ", tmpFinal);
+              }else {
+                  System.out.printf("%s\n", tmpFinal);
+              }
+          }
+        }
+        
+    }
+    
+     SortedMap<Integer, SortedMap<Integer, List<Event>>> events = sPedia.getCharacter(character).getShow().getEvents();
+     Iterator<SortedMap<Integer, List<Event>>>  itEpisodes = events.values().iterator();
+     while(itEpisodes.hasNext()) {
+    	Iterator<List<Event>> tmpEvents = itEpisodes.next().values().iterator();
+    while(tmpEvents.hasNext()) {
+    	Event tmpEvent = tmpEvents.next();
+    }
+     }
+     
+     
+     int j = 0;
+      while(it.hasNext()) {
+         Episode tmp = it.next();
+         j++;
+         System.out.printf("S%d Ep%d: Episode %d\n", i,j,j);
+     Iterator<Event> itEvent = tmp.getEvents().iterator();
+         while(itEvent.hasNext()) {
+             System.out.println(itEvent.next().getDescription());
+         }
+      
+      }
+     
+     
+ }catch (NoShowSelectedException e) {
+     System.out.println(MESSAGE_NO_SHOW_SELECTED);
+ } catch (NoCharacterException e) {
+     System.out.printf(MESSAGE_NO_CHARACTER, sPedia.hasCharacter(character));
+ }
+         
+     }
+     
+     
+     private static void alsoApearsOn(Scanner in, ShowPedia sPedia) {
 		String character = in.nextLine();
 		try {
 			sPedia.alsoAppearsOn(character); 

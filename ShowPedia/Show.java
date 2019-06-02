@@ -8,6 +8,7 @@ package ShowPedia;
 
 import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
 
 import Exceptions.*;
 
@@ -69,7 +70,9 @@ public interface Show {
     List<Character> getParents();
     
     List<Character> getChildren();
-    
+
+	SortedMap<Integer, SortedMap<Integer, List<Event>>> getEvents();
+
     List<Character> getLovers();
     
     Map<Integer, List<Event>> getEventsPerSeason();
@@ -78,5 +81,5 @@ public interface Show {
     
     void addLovers(Character lover1, Character lover2) throws ExistingRelationshipException;
 	
-	Character getCharacter(String name) throws NoCharacterException;
+	Character getCharacter(String name) throws NoCharacterException
 }

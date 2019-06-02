@@ -29,12 +29,13 @@ public interface Actor {
     void addShow(Show show);
 
 	Map<String, Show> getShows();
-	
+
 	int getNrRomanticShows();
     
 	void addCharacter(Character character);
 	
 	int getNrCharacters();
-	
+
 	int getNrRomances();
+
 }

@@ -8,12 +8,12 @@ package ShowPedia;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
-
 import Exceptions.*;
 
 public class ShowClass implements Show {
@@ -181,5 +181,25 @@ public class ShowClass implements Show {
         }
         return retValue;
     }
+    
+    @Override
+    public void addLovers(Character lover1, Character lover2) throws ExistingRelationshipException {
+        if (lover1.getLovers().contains(lover2))
+            throw new ExistingRelationshipException();
+        
+        if (lover2.getLovers().contains(lover1))
+            throw new ExistingRelationshipException();
+        
+        lover2.addLover(lover1);
+        lover1.addLover(lover2);
+        
+        this.lovers.add(lover1);
+        this.lovers.add(lover2);
+    }
+
+	@Override
+	public SortedMap<Integer, SortedMap<Integer, List<Event>>> getEvents() {
+		return events;
+	}
 
 }

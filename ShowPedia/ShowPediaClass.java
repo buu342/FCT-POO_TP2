@@ -354,7 +354,12 @@ public class ShowPediaClass implements ShowPedia {
 
         this.current.addLovers(this.characters.get(lover1), this.characters.get(lover2));
     }
+
+	@Override
+	public boolean isListEmpty(List<Character> list) {
+		return list.size() == 0;
 	
+    @Override
 	public List<Actor> mostRomantic(String name) throws NoCharacterException, NoLoveException {
 	    int numromances = 0;
 	    
@@ -405,6 +410,6 @@ public class ShowPediaClass implements ShowPedia {
     	        }
     	        moresexy.add(actor);
     	    } while (itActor.hasNext());
-	    return moresexy;
+	    return moresexy
 	}
 }
