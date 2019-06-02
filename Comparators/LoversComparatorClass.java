@@ -14,7 +14,28 @@ public class LoversComparatorClass implements Comparator<Actor> {
     
     @Override
     public int compare(Actor actor1, Actor actor2) {
-        return actor2.getNrRomances() - actor1.getNrRomances();
+        if (actor1.getNrRomances() < actor2.getNrRomances()) {
+            return 1;
+        }
+        else if (actor1.getNrRomances() > actor2.getNrRomances()) {
+            return -1;
+        }
+        else if (actor1.getNrRomances() == actor2.getNrRomances() && actor1.getShows().size() > actor2.getShows().size()) {
+            return 1;
+        } else if (actor1.getNrRomances() == actor2.getNrRomances() && actor1.getShows().size() < actor2.getShows().size()) {
+            return -1;
+        }
+        else if (actor1.getShows().size() == actor2.getShows().size() && actor1.getNrRomanticShows() < actor2.getNrRomanticShows()) {
+            return 1;
+        }
+        else if (actor1.getShows().size() == actor2.getShows().size() && actor1.getNrRomanticShows() > actor2.getNrRomanticShows()) {
+            return -1;
+        }
+        else if (actor1.getNrRomanticShows() == actor2.getNrRomanticShows() && actor1.getName().compareTo(actor2.getName()) > 0) {
+            return 1;
+        }
+        else
+            return -1;
     }
     
 }

@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import Comparators.LoversComparatorClass;
 import Exceptions.*;
 
 import java.util.Iterator;
@@ -156,16 +157,6 @@ public class ShowPediaClass implements ShowPedia {
     }
 
     private boolean hasVirtualCharacters() {
-    	/*
-    	boolean ret = false;
-    	Iterator<Entry<String, Character>> tmp = characters.entrySet().iterator();
-        while(tmp.hasNext()) {
-            if(tmp.next() instanceof CharacterVirtualClass) {
-                ret = true;
-            }
-        }
-    	return ret;
-    	*/
     	return companies.size()>0;
 	}
 
@@ -370,7 +361,6 @@ public class ShowPediaClass implements ShowPedia {
             throw new NoCharacterException();
 	    
 	    Actor myself = this.actors.get(name);
-	    int myromances = myself.getNrRomances();
 	    
 	    // Check if there are romances registered
 	    Iterator<Entry<String, Character>> itCharacter = this.characters.entrySet().iterator();
@@ -384,6 +374,7 @@ public class ShowPediaClass implements ShowPedia {
 	    
 	    // Populate a list
 	    Iterator<Entry<String, Actor>> itActor = this.actors.entrySet().iterator();
+	    LoversComparatorClass comparator = new LoversComparatorClass();
 	    List<Actor> moresexy = new LinkedList<>();
 	    if (this.actors.size() > 0)
     	    do {
@@ -394,23 +385,9 @@ public class ShowPediaClass implements ShowPedia {
     	            continue;
     	        
     	        // Check who is better
-    	        if (actor.getNrRomances() < myromances) {
-    	            //System.out.println(actor.getName()+" failed getnrRomances");
-    	            continue;
-    	        }
-    	        else if (actor.getNrRomances() == myromances && actor.getShows().size() > myself.getShows().size()) {
-    	            //System.out.println(actor.getName()+" failed showsize");
-    	            continue;
-    	        }
-    	        else if (actor.getShows().size() == myself.getShows().size() && actor.getNrRomanticShows() < myself.getNrRomanticShows()) {
-    	            //System.out.println(actor.getName()+" failed showromancesize");
-    	            continue;
-    	        }
-    	        else if (actor.getNrRomanticShows() == myself.getNrRomanticShows() && actor.getName().compareTo(myself.getName()) > 0) {
-    	            //System.out.println(actor.getName()+" failed name");
-                    continue;
-    	        }
-    	        moresexy.add(actor);
+    	        if (comparator.compare(actor, myself) == -1)
+	                moresexy.add(actor);
+    	        
     	    } while (itActor.hasNext());
 	    return moresexy;
 	}
