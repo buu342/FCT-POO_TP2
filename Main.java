@@ -578,10 +578,7 @@ public class Main {
 		try {
 			List<String> result = sPedia.getRelation(character1, character2);
 	        for (int i=0; i<result.size(); i++)
-	            if (i == 0)
-	                System.out.print(result.get(i)+"; ");
-	            else if (!result.get(i-1).equals(result.get(i)))
-	                System.out.print(result.get(i)+"; ");
+                System.out.print(result.get(i)+"; ");
 	        System.out.println();
 		} catch (NoShowSelectedException e) {
 			System.out.println(MESSAGE_NO_SHOW_SELECTED);
