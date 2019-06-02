@@ -182,7 +182,7 @@ public class ShowPediaClass implements ShowPedia {
         if (!hasEpisode(season, episode))
             throw new NoEpisodeException();
 
-        if (!validCharacters(characters))
+        if (validCharacters(characters) != null)
             throw new NoCharacterException();
 
         if (hasDuplicateCharacter(characters))
@@ -399,16 +399,15 @@ public class ShowPediaClass implements ShowPedia {
      * 
      * @param characters A <code>List&lt;String&gt;</code> of characters to search
      *                   for duplicates of
-     * @return <code>true</code> if the list has valid characters or
-     *         <code>false</code> if it does not.
+     * @return A <code>String</code> with the name of the valid character, or null
      */
-    private boolean validCharacters(List<String> characters) {
-        boolean ret = false;
+    private String validCharacters(List<String> characters) {
+        String ret = null;
         Iterator<String> it = characters.iterator();
-        while (it.hasNext() && ret == false) {
+        while (it.hasNext() && ret == null) {
             String name = it.next();
             if (!this.characters.containsKey(name)) {
-                ret = true;
+                ret = name;
             }
         }
         return ret;
@@ -465,7 +464,7 @@ public class ShowPediaClass implements ShowPedia {
      * <code>character1</code> and <code>character2</code>.
      * 
      * @param character1 A <code>Character<code> object pointer of the father
-     * @param character2    A <code>Character<code> object pointer of the child
+     * &#64;param character2    A <code>Character<code> object pointer of the child
      * @return A <code>List&lt;Character&gt;</code> of character relations, or null
      *         if there are none.
      */
